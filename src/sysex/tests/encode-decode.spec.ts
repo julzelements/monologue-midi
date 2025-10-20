@@ -113,6 +113,22 @@ describe("SysEx Encode/Decode", () => {
 
   describe("Encode SysEx", () => {
     dumpFiles.forEach((dumpFile) => {
+      it(`should encode ${dumpFile}.json patchName to SysEx`, () => {
+        // Load the JSON data
+        const filePath = join(__dirname, "data", "parsed", `${dumpFile}.json`);
+        const params = JSON.parse(readFileSync(filePath, "utf8"));
+
+        // Encode to SysEx
+        const sysex = encodeMonologueParameters(params);
+
+        // Decode back
+        const decoded = decodeMonologueParameters(sysex);
+
+        // Check that patchName matches
+        const expected = expectedProgramNames[dumpFile as keyof typeof expectedProgramNames];
+        expect(decoded.patchName).toBe(expected);
+      });
+
       it(`should encode ${dumpFile}.json filter.cutoff to SysEx`, () => {
         // Load the JSON data
         const filePath = join(__dirname, "data", "parsed", `${dumpFile}.json`);
