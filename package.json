@@ -1,0 +1,39 @@
+{
+  "name": "@julzelements/monologue-midi",
+  "version": "0.1.0",
+  "description": "SysEx and MIDI CC encoder/decoder for the Korg Monologue",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --watch --format esm,cjs --dts",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
+  },
+  "keywords": [
+    "korg",
+    "monologue",
+    "midi",
+    "sysex",
+    "typescript",
+    "synthesizer"
+  ],
+  "author": "Julian Scharf",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "tsup": "^8.2.0",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  }
+}

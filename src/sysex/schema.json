@@ -1,0 +1,484 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MonologueParameters",
+  "description": "Complete parameter schema for Korg Monologue synthesizer patches",
+  "type": "object",
+  "required": [
+    "patchName",
+    "drive",
+    "oscilators",
+    "filter",
+    "envelope",
+    "lfo",
+    "misc",
+    "sequencer"
+  ],
+  "properties": {
+    "patchName": {
+      "type": "string",
+      "maxLength": 12,
+      "description": "Patch name, max 12 characters"
+    },
+    "drive": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1023,
+      "description": "Drive amount (10-bit value)"
+    },
+    "oscilators": {
+      "type": "object",
+      "required": ["vco1", "vco2"],
+      "properties": {
+        "vco1": {
+          "$ref": "#/definitions/vco1"
+        },
+        "vco2": {
+          "$ref": "#/definitions/vco2"
+        }
+      },
+      "additionalProperties": false
+    },
+    "filter": {
+      "type": "object",
+      "required": ["cutoff", "resonance"],
+      "properties": {
+        "cutoff": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Filter cutoff frequency (10-bit value)"
+        },
+        "resonance": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Filter resonance (10-bit value)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "envelope": {
+      "type": "object",
+      "required": ["type", "attack", "decay", "intensity", "target"],
+      "properties": {
+        "type": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Envelope type: 0=GATE, 1=A/G/D, 2=A/D"
+        },
+        "attack": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Attack time (10-bit value)"
+        },
+        "decay": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Decay time (10-bit value)"
+        },
+        "intensity": {
+          "type": "integer",
+          "minimum": -512,
+          "maximum": 511,
+          "description": "Envelope intensity (bipolar)"
+        },
+        "target": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "EG Target: 0=CUTOFF, 1=PITCH 2, 2=PITCH"
+        }
+      },
+      "additionalProperties": false
+    },
+    "lfo": {
+      "type": "object",
+      "required": ["wave", "mode", "rate", "intensity", "target"],
+      "properties": {
+        "wave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "LFO wave: 0=SQR, 1=TRI, 2=SAW"
+        },
+        "mode": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "LFO mode: 0=1-SHOT, 1=SLOW, 2=FAST"
+        },
+        "rate": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "LFO rate (10-bit value)"
+        },
+        "intensity": {
+          "type": "integer",
+          "minimum": -512,
+          "maximum": 511,
+          "description": "LFO intensity (bipolar)"
+        },
+        "target": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "LFO Target: 0=CUTOFF, 1=SHAPE, 2=PITCH"
+        }
+      },
+      "additionalProperties": false
+    },
+    "misc": {
+      "type": "object",
+      "required": [
+        "bpmSync",
+        "portamentMode",
+        "portamentTime",
+        "cutoffVelocity",
+        "cutoffKeyTrack",
+        "sliderAssign"
+      ],
+      "properties": {
+        "bpmSync": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "BPM sync on/off"
+        },
+        "portamentMode": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Portamento mode on/off"
+        },
+        "portamentTime": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 127,
+          "description": "Portamento time (7-bit value)"
+        },
+        "cutoffVelocity": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Cutoff velocity sensitivity: 0=0%, 1=33%, 2=66%, 3=100%"
+        },
+        "cutoffKeyTrack": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Cutoff key tracking: 0=0%, 1=33%, 2=66%, 3=100%"
+        },
+        "sliderAssign": {
+          "type": "string",
+          "description": "Parameter assigned to slider"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sequencer": {
+      "type": "object",
+      "required": [
+        "bpm",
+        "stepLength",
+        "stepResolution",
+        "swing",
+        "defaultGateTime",
+        "motionSlotParams",
+        "steps"
+      ],
+      "properties": {
+        "bpm": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 300,
+          "description": "Tempo in BPM (can be fractional)"
+        },
+        "stepLength": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Number of active steps"
+        },
+        "stepResolution": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Step resolution: 0=1/16, 1=1/8, 2=1/4, 3=1/2, 4=1/1"
+        },
+        "swing": {
+          "type": "integer",
+          "minimum": -75,
+          "maximum": 75,
+          "description": "Timing swing"
+        },
+        "defaultGateTime": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Default gate time as percentage"
+        },
+        "motionSlotParams": {
+          "type": "object",
+          "required": ["parameter1", "parameter2", "parameter3", "parameter4"],
+          "properties": {
+            "parameter1": { "$ref": "#/definitions/motionSlotParam" },
+            "parameter2": { "$ref": "#/definitions/motionSlotParam" },
+            "parameter3": { "$ref": "#/definitions/motionSlotParam" },
+            "parameter4": { "$ref": "#/definitions/motionSlotParam" }
+          },
+          "additionalProperties": false
+        },
+        "steps": {
+          "type": "object",
+          "required": [
+            "step1", "step2", "step3", "step4",
+            "step5", "step6", "step7", "step8",
+            "step9", "step10", "step11", "step12",
+            "step13", "step14", "step15", "step16"
+          ],
+          "properties": {
+            "step1": { "$ref": "#/definitions/step" },
+            "step2": { "$ref": "#/definitions/step" },
+            "step3": { "$ref": "#/definitions/step" },
+            "step4": { "$ref": "#/definitions/step" },
+            "step5": { "$ref": "#/definitions/step" },
+            "step6": { "$ref": "#/definitions/step" },
+            "step7": { "$ref": "#/definitions/step" },
+            "step8": { "$ref": "#/definitions/step" },
+            "step9": { "$ref": "#/definitions/step" },
+            "step10": { "$ref": "#/definitions/step" },
+            "step11": { "$ref": "#/definitions/step" },
+            "step12": { "$ref": "#/definitions/step" },
+            "step13": { "$ref": "#/definitions/step" },
+            "step14": { "$ref": "#/definitions/step" },
+            "step15": { "$ref": "#/definitions/step" },
+            "step16": { "$ref": "#/definitions/step" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "vco1": {
+      "type": "object",
+      "required": ["wave", "shape", "level", "pitch", "duty", "octave"],
+      "properties": {
+        "wave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "VCO1 Waveform: 0=SQR, 1=TRI, 2=SAW"
+        },
+        "shape": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Wave shape (10-bit value)"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Oscillator level (10-bit value)"
+        },
+        "pitch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Pitch offset (10-bit value)"
+        },
+        "duty": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "SYNC/RING: 0=RING, 1=OFF, 2=SYNC"
+        },
+        "octave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Octave: 0=16', 1=8', 2=4', 3=2'"
+        }
+      },
+      "additionalProperties": false
+    },
+    "vco2": {
+      "type": "object",
+      "required": ["wave", "shape", "level", "pitch", "duty", "octave"],
+      "properties": {
+        "wave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "VCO2 Waveform: 0=NOISE, 1=TRI, 2=SAW"
+        },
+        "shape": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Wave shape (10-bit value)"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Oscillator level (10-bit value)"
+        },
+        "pitch": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1023,
+          "description": "Pitch offset (10-bit value)"
+        },
+        "duty": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "SYNC/RING: 0=RING, 1=OFF, 2=SYNC"
+        },
+        "octave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "description": "Octave: 0=16', 1=8', 2=4', 3=2'"
+        }
+      },
+      "additionalProperties": false
+    },
+    "motionSlotParam": {
+      "type": "object",
+      "required": ["active", "smooth", "parameter"],
+      "properties": {
+        "active": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Motion slot on/off"
+        },
+        "smooth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Smooth interpolation on/off"
+        },
+        "parameter": {
+          "type": "string",
+          "description": "Parameter name being automated"
+        }
+      },
+      "additionalProperties": false
+    },
+    "step": {
+      "type": "object",
+      "required": ["active", "motionActive", "slideActive", "event"],
+      "properties": {
+        "active": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Step on/off"
+        },
+        "motionActive": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Motion sequencing active for this step"
+        },
+        "slideActive": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Slide/glide active for this step"
+        },
+        "event": {
+          "type": "object",
+          "required": ["note", "motionSequencing"],
+          "properties": {
+            "note": {
+              "type": "object",
+              "required": ["key", "velocity", "gateTime", "trigger"],
+              "properties": {
+                "key": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127,
+                  "description": "MIDI note number (0=no note)"
+                },
+                "velocity": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127,
+                  "description": "Note velocity (0=no note)"
+                },
+                "gateTime": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 127,
+                  "description": "Gate time (0-72=0-100%, 73-127=TIE)"
+                },
+                "trigger": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "description": "Trigger switch on/off"
+                }
+              },
+              "additionalProperties": false
+            },
+            "motionSequencing": {
+              "type": "object",
+              "required": ["parameter1", "parameter2", "parameter3", "parameter4"],
+              "properties": {
+                "parameter1": { "$ref": "#/definitions/motionData" },
+                "parameter2": { "$ref": "#/definitions/motionData" },
+                "parameter3": { "$ref": "#/definitions/motionData" },
+                "parameter4": { "$ref": "#/definitions/motionData" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "motionData": {
+      "type": "object",
+      "required": ["data1", "data2", "data3", "data4"],
+      "properties": {
+        "data1": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255,
+          "description": "Motion data byte 1"
+        },
+        "data2": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255,
+          "description": "Motion data byte 2"
+        },
+        "data3": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255,
+          "description": "Motion data byte 3"
+        },
+        "data4": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 255,
+          "description": "Motion data byte 4"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

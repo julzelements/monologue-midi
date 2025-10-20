@@ -1,0 +1,703 @@
+{
+  "patchName": "<wavetable>\u0000",
+  "drive": 0,
+  "oscilators": {
+    "vco1": {
+      "wave": 0,
+      "shape": 0,
+      "level": 1023,
+      "pitch": 0,
+      "duty": 1,
+      "octave": 0
+    },
+    "vco2": {
+      "wave": 1,
+      "shape": 584,
+      "level": 1023,
+      "pitch": 563,
+      "duty": 1,
+      "octave": 0
+    }
+  },
+  "filter": {
+    "cutoff": 756,
+    "resonance": 0
+  },
+  "envelope": {
+    "type": 0,
+    "attack": 95,
+    "decay": 1023,
+    "intensity": 215,
+    "target": 0
+  },
+  "lfo": {
+    "wave": 1,
+    "mode": 2,
+    "rate": 0,
+    "intensity": 511,
+    "target": 1
+  },
+  "misc": {
+    "bpmSync": 0,
+    "portamentMode": 0,
+    "portamentTime": 0,
+    "cutoffVelocity": 0,
+    "cutoffKeyTrack": 0,
+    "sliderAssign": "GATE TIME"
+  },
+  "sequencer": {
+    "bpm": 120.5,
+    "stepLength": 9,
+    "stepResolution": 0,
+    "swing": 0,
+    "defaultGateTime": 0.75,
+    "motionSlotParams": {
+      "parameter1": {
+        "active": 1,
+        "smooth": 1,
+        "parameter": "VCO 1 WAVE"
+      },
+      "parameter2": {
+        "active": 1,
+        "smooth": 1,
+        "parameter": "VCO 2 WAVE"
+      },
+      "parameter3": {
+        "active": 1,
+        "smooth": 1,
+        "parameter": "VCO 1 SHAPE"
+      },
+      "parameter4": {
+        "active": 1,
+        "smooth": 1,
+        "parameter": "VCO 2 SHAPE"
+      }
+    },
+    "steps": {
+      "step1": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 99,
+              "data2": 99,
+              "data3": 99,
+              "data4": 99
+            }
+          }
+        }
+      },
+      "step2": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 53,
+              "data2": 53,
+              "data3": 53,
+              "data4": 53
+            }
+          }
+        }
+      },
+      "step3": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 237,
+              "data2": 237,
+              "data3": 237,
+              "data4": 237
+            },
+            "parameter4": {
+              "data1": 100,
+              "data2": 100,
+              "data3": 100,
+              "data4": 100
+            }
+          }
+        }
+      },
+      "step4": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 88,
+              "data2": 88,
+              "data3": 88,
+              "data4": 88
+            },
+            "parameter4": {
+              "data1": 234,
+              "data2": 234,
+              "data3": 234,
+              "data4": 234
+            }
+          }
+        }
+      },
+      "step5": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 73,
+              "data2": 73,
+              "data3": 73,
+              "data4": 73
+            },
+            "parameter4": {
+              "data1": 37,
+              "data2": 37,
+              "data3": 37,
+              "data4": 37
+            }
+          }
+        }
+      },
+      "step6": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 255,
+              "data2": 255,
+              "data3": 255,
+              "data4": 255
+            }
+          }
+        }
+      },
+      "step7": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 172,
+              "data2": 172,
+              "data3": 172,
+              "data4": 172
+            },
+            "parameter4": {
+              "data1": 9,
+              "data2": 9,
+              "data3": 9,
+              "data4": 9
+            }
+          }
+        }
+      },
+      "step8": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter4": {
+              "data1": 146,
+              "data2": 146,
+              "data3": 146,
+              "data4": 146
+            }
+          }
+        }
+      },
+      "step9": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 199,
+              "data2": 199,
+              "data3": 199,
+              "data4": 199
+            },
+            "parameter4": {
+              "data1": 55,
+              "data2": 55,
+              "data3": 55,
+              "data4": 55
+            }
+          }
+        }
+      },
+      "step10": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 156,
+              "data2": 156,
+              "data3": 156,
+              "data4": 156
+            },
+            "parameter4": {
+              "data1": 67,
+              "data2": 67,
+              "data3": 67,
+              "data4": 67
+            }
+          }
+        }
+      },
+      "step11": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 51,
+              "data2": 51,
+              "data3": 51,
+              "data4": 51
+            },
+            "parameter4": {
+              "data1": 124,
+              "data2": 124,
+              "data3": 124,
+              "data4": 124
+            }
+          }
+        }
+      },
+      "step12": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 223,
+              "data2": 223,
+              "data3": 223,
+              "data4": 223
+            }
+          }
+        }
+      },
+      "step13": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 113,
+              "data2": 113,
+              "data3": 113,
+              "data4": 113
+            }
+          }
+        }
+      },
+      "step14": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 141,
+              "data2": 141,
+              "data3": 141,
+              "data4": 141
+            },
+            "parameter4": {
+              "data1": 3,
+              "data2": 3,
+              "data3": 3,
+              "data4": 3
+            }
+          }
+        }
+      },
+      "step15": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 2,
+              "data2": 2,
+              "data3": 2,
+              "data4": 2
+            },
+            "parameter3": {
+              "data1": 53,
+              "data2": 53,
+              "data3": 53,
+              "data4": 53
+            },
+            "parameter4": {
+              "data1": 79,
+              "data2": 79,
+              "data3": 79,
+              "data4": 79
+            }
+          }
+        }
+      },
+      "step16": {
+        "active": 1,
+        "motionActive": 1,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 60,
+            "velocity": 24,
+            "gateTime": 127,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter2": {
+              "data1": 1,
+              "data2": 1,
+              "data3": 1,
+              "data4": 1
+            },
+            "parameter3": {
+              "data1": 185,
+              "data2": 185,
+              "data3": 185,
+              "data4": 185
+            },
+            "parameter4": {
+              "data1": 148,
+              "data2": 148,
+              "data3": 148,
+              "data4": 148
+            }
+          }
+        }
+      }
+    }
+  }
+}

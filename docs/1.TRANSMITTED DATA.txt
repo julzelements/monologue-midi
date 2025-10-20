@@ -1,0 +1,50 @@
+1.TRANSMITTED DATA
+
+1-1 CHANNEL MESSAGES            [H]:Hex,  [D]:Decimal
+
++--------+---------+-------------+-----------------------------------------+
+| Status | Second  |   Third     |           Description                   |
+| [Hex]  | [H] [D] | [H]   [D]   |                                         |
++--------+---------+-------------+-----------------------------------------+
+|   8n   | kk (kk) | 40    (64)  | Note Off                              *1|
+|   9n   | kk (kk) | vv    (vv)  | Note On  vv=1~127                     *1|
+|   Bn   | 10 (16) | vv    (vv)  | AMP EG ATTACK (vv=0~127)              *1|
+|   Bn   | 11 (17) | vv    (vv)  | AMP EG DECAY (vv=0~127)               *1|
+|   Bn   | 18 (24) | vv    (vv)  | LFO RATE (vv=0~127)                   *1|
+|   Bn   | 19 (25) | vv    (vv)  | EG INT (vv=0~127)                     *1|
+|   Bn   | 1a (26) | vv    (vv)  | LFO INT (vv=0~127)                    *1|
+|   Bn   | 1c (28) | vv    (vv)  | DRIVE (vv=0~127)                      *1|
+|   Bn   | 23 (35) | vv    (vv)  | VCO 2 PITCH (vv=0~127)                *1|
+|   Bn   | 24 (36) | vv    (vv)  | VCO 1 SHAPE (vv=0~127)                *1|
+|   Bn   | 25 (37) | vv    (vv)  | VCO 2 SHAPE (vv=0~127)                *1|
+|   Bn   | 27 (39) | vv    (vv)  | VCO 1 LEVEL (vv=0~127)                *1|
+|   Bn   | 28 (40) | vv    (vv)  | VCO 2 LEVEL (vv=0~127)                *1|
+|   Bn   | 2b (43) | vv    (vv)  | CUTOFF (vv=0~127)                     *1|
+|   Bn   | 2c (44) | vv    (vv)  | RESONANCE (vv=0~127)                  *1|
+|   Bn   | 31 (49) | vv    (vv)  | VCO 2 OCTAVE (vv=0,42,84,127)     *2-1*1|
+|   Bn   | 32 (50) | vv    (vv)  | VCO 1 WAVE (vv=0,64,127)          *2-2*1|
+|   Bn   | 33 (51) | vv    (vv)  | VCO 2 WAVE (vv=0,64,127)          *2-3*1|
+|   Bn   | 38 (56) | vv    (vv)  | LFO TARGET (vv=0,64,127)          *2-4*1|
+|   Bn   | 3A (58) | vv    (vv)  | LFO WAVE (vv=0,64,127)            *2-5*1|
+|   Bn   | 3B (59) | vv    (vv)  | LFO MODE (vv=0,64,127)            *2-6*1|
+|   Bn   | 3C (60) | vv    (vv)  | SYNC/RING (vv=0,64,127)           *2-7*1|
+|   Bn   | 3D (61) | vv    (vv)  | EG TYPE (vv=0,64,127)             *2-8*1|
+|   Bn   | 3E (62) | vv    (vv)  | EG TARGET (vv=0,64,127)           *2-9*1|
+|   Cn   | pp (pp) | --    (--)  | Program Change (pp=0~99)              *1|
+|   En   | bb (bb) | bb    (bb)  | Pitch Bender Change                   *1|
++--------+---------+-------------+-----------------------------------------+
+
+ *1 : This message is transmitted when the "Enable Tx MIDI" is set to "On".
+ *2-1  : VCO OCTAVE:16',8',4',2' = vv:0,42,84,127
+ *2-2  : VCO 1 WAVE:SQR,TRI,SAW = vv:0,64,127
+ *2-3  : VCO 2 WAVE:NOISE,TRI,SAW = vv:0,64,127
+ *2-4  : LFO TARGET:CUTOFF,SHAPE,PITCH = vv:0,64,127
+ *2-5  : LFO WAVE:SQR,TRI,SAW = vv:0,64,127
+ *2-6  : LFO MODE:1-SHOT,SLOW,FAST = vv:0,64,127
+ *2-7  : SYNC/RING:RING,OFF,SYNC = vv:0,64,127
+ *2-8  : EG TYPE:GATE,A/G/D,A/D = vv:0,64,127
+ *2-9  : EG TARGET:CUTOFF,PITCH 2,PITCH = vv:0,64,127
+
+
+
+ 

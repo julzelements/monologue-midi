@@ -1,0 +1,52 @@
+2.RECOGNIZED RECEIVE DATA
+
+
+2-1 CHANNEL MESSAGES
+
++--------+---------+-------------+-----------------------------------------+
+| Status | Second  |   Third     |           Description                   |
+| [Hex]  | [H] [D] | [H]   [D]   |                                         |
++--------+---------+-------------+-----------------------------------------+
+|   8n   | kk (kk) | vv    (vv)  | Note Off  vv=0~127                    *4|
+|   9n   | kk (kk) | 00    (00)  | Note Off                              *4|
+|   9n   | kk (kk) | vv    (vv)  | Note On  vv=1~127                     *4|
+|   Bn   | 10 (16) | vv    (vv)  | AMP EG ATTACK (vv=0~127)              *4|
+|   Bn   | 11 (17) | vv    (vv)  | AMP EG DECAY (vv=0~127)               *4|
+|   Bn   | 18 (24) | vv    (vv)  | LFO RATE (vv=0~127)                   *4|
+|   Bn   | 19 (25) | vv    (vv)  | EG INT (vv=0~127)                     *4|
+|   Bn   | 1a (26) | vv    (vv)  | LFO INT (vv=0~127)                    *4|
+|   Bn   | 1c (28) | vv    (vv)  | DRIVE (vv=0~127)                      *4|
+|   Bn   | 22 (34) | vv    (vv)  | VCO 1 PITCH (vv=0~127)                *4|
+|   Bn   | 23 (35) | vv    (vv)  | VCO 2 PITCH (vv=0~127)                *4|
+|   Bn   | 24 (36) | vv    (vv)  | VCO 1 SHAPE (vv=0~127)                *4|
+|   Bn   | 25 (37) | vv    (vv)  | VCO 2 SHAPE (vv=0~127)                *4|
+|   Bn   | 27 (39) | vv    (vv)  | VCO 1 LEVEL (vv=0~127)                *4|
+|   Bn   | 28 (40) | vv    (vv)  | VCO 2 LEVEL (vv=0~127)                *4|
+|   Bn   | 2b (43) | vv    (vv)  | CUTOFF (vv=0~127)                     *4|
+|   Bn   | 2c (44) | vv    (vv)  | RESONANCE (vv=0~127)                  *4|
+|   Bn   | 30 (48) | vv    (vv)  | VCO 1 OCTAVE (vv=0~127)           *5-1*4|
+|   Bn   | 31 (49) | vv    (vv)  | VCO 2 OCTAVE (vv=0~127)           *5-1*4|
+|   Bn   | 32 (50) | vv    (vv)  | VCO 1 WAVE (vv=0~127)             *5-2*4|
+|   Bn   | 33 (51) | vv    (vv)  | VCO 2 WAVE (vv=0~127)             *5-3*4|
+|   Bn   | 38 (56) | vv    (vv)  | LFO TARGET (vv=0~127)             *5-4*4|
+|   Bn   | 3A (58) | vv    (vv)  | LFO WAVE (vv=0~127)               *5-5*4|
+|   Bn   | 3B (59) | vv    (vv)  | LFO MODE (vv=0~127)               *5-6*4|
+|   Bn   | 3C (60) | vv    (vv)  | SYNC/RING (vv=0~127)              *5-7*4|
+|   Bn   | 3D (61) | vv    (vv)  | EG TYPE (vv=0~127)                *5-8*4|
+|   Bn   | 3E (62) | vv    (vv)  | EG TARGET (vv=0~127)              *5-9*4|
+|   Bn   | 78 (120)| 00    (00)  | All Sound Off                         *4|
+|   Bn   | 7a (122)| vv    (vv)  | Local Sw (v=0~127)                    *4|
+|   Bn   | 7b (123)| 00    (00)  | All Note Off                          *4|
+|   Cn   | pp (pp) | --    (--)  | Program Change (pp=0~99)              *4|
+|   En   | bb (bb) | bb    (bb)  | Pitch Bender Change                   *4|
++--------+---------+-------------+-----------------------------------------+
+
+ *4 : This message is recognized when the "Enable Rx MIDI" is set to "On".
+ *5-1  : vv:0~31,32~63,64~95,96~127 = VCO OCTAVE:16',8',4',2'
+ *5-2  : vv:0~42,43~85,86~127 = VCO 1 WAVE:SQR,TRI,SAW
+ *5-3  : vv:0~42,43~85,86~127 = VCO 2 WAVE:NOISE,TRI,SAW
+ *5-4  : vv:0~42,43~85,86~127 = LFO TARGET:CUTOFF,SHAPE,PITCH
+ *5-5  : vv:0~42,43~85,86~127 = LFO WAVE:SQR,TRI,SAW
+ *5-7  : vv:0~42,43~85,86~127 = SYNC/RING:RING,OFF,SYNC
+ *5-8  : vv:0~42,43~85,86~127 = EG TYPE:GATE,A/G/D,A/D
+ *5-9  : vv:0~42,43~85,86~127 = EG TARGET:CUTOFF,PITCH 2,PITCH
