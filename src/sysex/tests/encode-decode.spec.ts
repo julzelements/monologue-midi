@@ -20,6 +20,36 @@ describe("SysEx Encode/Decode", () => {
     dump5: { cutoff: 176, resonance: 736 },
   };
 
+  describe("PROG marker validation", () => {
+    it("should validate PROG marker in dump1.json", () => {
+      // Load the raw SysEx dump data
+      const dumpPath = join(__dirname, "data", "dumps", "dump1.json");
+      const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
+
+      // Get the raw SysEx data
+      const sysex = new Uint8Array(dumpData.rawData);
+
+      // This should not throw - PROG marker should be valid
+      expect(() => decodeMonologueParameters(sysex)).not.toThrow();
+    });
+
+    it("should throw error for invalid PROG marker", () => {
+      // Load a valid dump first
+      const dumpPath = join(__dirname, "data", "dumps", "dump1.json");
+      const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
+      const sysex = new Uint8Array(dumpData.rawData);
+
+      // Corrupt the PROG marker by changing 'P' (80) to 'X' (88)
+      // In the 7-bit encoding, the first data byte group starts at offset 7
+      // Byte 8 contains 'P' (0x50), so we change it to 'X' (0x58)
+      const corruptedSysex = new Uint8Array(sysex);
+      corruptedSysex[8] = 0x58; // Change 'P' (0x50) to 'X' (0x58)
+
+      // This should throw an error about invalid PROG marker
+      expect(() => decodeMonologueParameters(corruptedSysex)).toThrow(/Invalid program data.*PROG/);
+    });
+  });
+
   describe("Decode SysEx", () => {
     dumpFiles.forEach((dumpFile) => {
       it(`should decode ${dumpFile}.json and extract filter.cutoff`, () => {

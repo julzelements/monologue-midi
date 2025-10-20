@@ -2,6 +2,8 @@
  * Decode Korg Monologue SysEx data to parameter object
  */
 
+import { parseSysex } from "./utils/sysex-parser";
+
 export interface MonologueParameters {
   patchName: string;
   drive: number;
@@ -58,7 +60,17 @@ export interface MonologueParameters {
  * @returns Decoded parameter object
  */
 export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameters {
-  // TODO: Implement decoding logic
+  // Parse and validate SysEx structure, decode 7-bit to 8-bit
+  const parsed = parseSysex(sysex);
+  const body = parsed.body;
+
+  // Validate PROG marker (offset 0-3)
+  const progMarker = String.fromCharCode(body[0], body[1], body[2], body[3]);
+  if (progMarker !== "PROG") {
+    throw new Error(`Invalid program data: expected 'PROG' marker at offset 0-3, got '${progMarker}'`);
+  }
+
+  // TODO: Implement full decoding logic
   // For now, return a stub with placeholder values
   return {
     patchName: "",
