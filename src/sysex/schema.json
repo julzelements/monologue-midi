@@ -3,16 +3,7 @@
   "title": "MonologueParameters",
   "description": "Complete parameter schema for Korg Monologue synthesizer patches",
   "type": "object",
-  "required": [
-    "patchName",
-    "drive",
-    "oscilators",
-    "filter",
-    "envelope",
-    "lfo",
-    "misc",
-    "sequencer"
-  ],
+  "required": ["patchName", "drive", "oscilators", "filter", "envelope", "lfo", "misc", "sequencer"],
   "properties": {
     "patchName": {
       "type": "string",
@@ -133,14 +124,7 @@
     },
     "misc": {
       "type": "object",
-      "required": [
-        "bpmSync",
-        "portamentMode",
-        "portamentTime",
-        "cutoffVelocity",
-        "cutoffKeyTrack",
-        "sliderAssign"
-      ],
+      "required": ["bpmSync", "portamentMode", "portamentTime", "cutoffVelocity", "cutoffKeyTrack", "sliderAssign"],
       "properties": {
         "bpmSync": {
           "type": "integer",
@@ -181,15 +165,7 @@
     },
     "sequencer": {
       "type": "object",
-      "required": [
-        "bpm",
-        "stepLength",
-        "stepResolution",
-        "swing",
-        "defaultGateTime",
-        "motionSlotParams",
-        "steps"
-      ],
+      "required": ["bpm", "stepLength", "stepResolution", "swing", "defaultGateTime", "motionSlotParams", "steps"],
       "properties": {
         "bpm": {
           "type": "number",
@@ -235,10 +211,22 @@
         "steps": {
           "type": "object",
           "required": [
-            "step1", "step2", "step3", "step4",
-            "step5", "step6", "step7", "step8",
-            "step9", "step10", "step11", "step12",
-            "step13", "step14", "step15", "step16"
+            "step1",
+            "step2",
+            "step3",
+            "step4",
+            "step5",
+            "step6",
+            "step7",
+            "step8",
+            "step9",
+            "step10",
+            "step11",
+            "step12",
+            "step13",
+            "step14",
+            "step15",
+            "step16"
           ],
           "properties": {
             "step1": { "$ref": "#/definitions/step" },

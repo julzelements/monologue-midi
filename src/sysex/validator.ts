@@ -16,15 +16,15 @@ export interface ValidationResult {
  */
 export function validateMonologueParametersWithSchema(data: unknown): ValidationResult {
   const valid = validate(data);
-  
+
   if (!valid && validate.errors) {
-    const errors = validate.errors.map(err => {
-      const path = err.instancePath || 'root';
+    const errors = validate.errors.map((err) => {
+      const path = err.instancePath || "root";
       return `${path}: ${err.message}`;
     });
     return { valid: false, errors };
   }
-  
+
   return { valid: true };
 }
 
@@ -36,6 +36,6 @@ export function validateMonologueParametersWithSchema(data: unknown): Validation
 export function validateOrThrow(data: unknown): void {
   const result = validateMonologueParametersWithSchema(data);
   if (!result.valid) {
-    throw new Error(`Validation failed:\n${result.errors?.join('\n')}`);
+    throw new Error(`Validation failed:\n${result.errors?.join("\n")}`);
   }
 }
