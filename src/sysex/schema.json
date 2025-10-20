@@ -157,8 +157,9 @@
           "description": "Cutoff key tracking: 0=0%, 1=33%, 2=66%, 3=100%"
         },
         "sliderAssign": {
-          "type": "string",
-          "description": "Parameter assigned to slider"
+          "type": "integer",
+          "enum": [13, 14, 17, 18, 21, 22, 23, 24, 26, 27, 28, 31, 32, 40, 56, 57],
+          "description": "Parameter ID assigned to slider: 13=VCO 1 PITCH, 14=VCO 1 SHAPE, 17=VCO 2 PITCH, 18=VCO 2 SHAPE, 21=VCO 1 LEVEL, 22=VCO 2 LEVEL, 23=CUTOFF, 24=RESONANCE, 26=ATTACK, 27=DECAY, 28=EG INT, 31=LFO RATE, 32=LFO INT, 40=PORTAMENT, 56=PITCH BEND, 57=GATE TIME"
         }
       },
       "additionalProperties": false

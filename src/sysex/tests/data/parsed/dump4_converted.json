@@ -43,7 +43,7 @@
     "portamentTime": 0,
     "cutoffVelocity": 0,
     "cutoffKeyTrack": 0,
-    "sliderAssign": "GATE TIME"
+    "sliderAssign": 57
   },
   "sequencer": {
     "bpm": 120.5,

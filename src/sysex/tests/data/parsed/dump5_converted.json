@@ -43,7 +43,7 @@
     "portamentTime": 1,
     "cutoffVelocity": 0,
     "cutoffKeyTrack": 0,
-    "sliderAssign": "PITCH BEND"
+    "sliderAssign": 56
   },
   "sequencer": {
     "bpm": 100,
