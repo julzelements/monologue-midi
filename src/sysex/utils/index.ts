@@ -10,3 +10,7 @@ export { decode7BitData, encode7BitData } from "./seven-bit-encoding.js";
 
 // Bit manipulation - export all functions (these are all top-level utilities)
 export { read10BitValue, write10BitValue, readBits, writeBits } from "./bit-manipulation.js";
+
+// SysEx parser - high-level parsing and validation
+export type { ParsedSysex, ValidationResult } from "./sysex-parser.js";
+export { parseSysex, validateSysex, tryParseSysex } from "./sysex-parser.js";
