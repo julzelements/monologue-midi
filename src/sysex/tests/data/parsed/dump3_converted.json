@@ -43,7 +43,7 @@
     "portamentTime": 0,
     "cutoffVelocity": 2,
     "cutoffKeyTrack": 0,
-    "sliderAssign": 23
+    "sliderAssign": "CUTOFF"
   },
   "sequencer": {
     "bpm": 122,
@@ -55,22 +55,22 @@
       "parameter1": {
         "active": 0,
         "smooth": 0,
-        "parameter": "None"
+        "parameter": 0
       },
       "parameter2": {
         "active": 0,
         "smooth": 0,
-        "parameter": "None"
+        "parameter": 0
       },
       "parameter3": {
         "active": 0,
         "smooth": 0,
-        "parameter": "None"
+        "parameter": 0
       },
       "parameter4": {
         "active": 0,
         "smooth": 0,
-        "parameter": "None"
+        "parameter": 0
       }
     },
     "steps": {

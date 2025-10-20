@@ -43,7 +43,7 @@
     "portamentTime": 0,
     "cutoffVelocity": 2,
     "cutoffKeyTrack": 0,
-    "sliderAssign": 56
+    "sliderAssign": "PITCH BEND"
   },
   "sequencer": {
     "bpm": 120,
@@ -55,22 +55,22 @@
       "parameter1": {
         "active": 0,
         "smooth": 0,
-        "parameter": "CUTOFF"
+        "parameter": 23
       },
       "parameter2": {
         "active": 0,
         "smooth": 0,
-        "parameter": "RESONANCE"
+        "parameter": 24
       },
       "parameter3": {
         "active": 1,
         "smooth": 1,
-        "parameter": "DECAY"
+        "parameter": 27
       },
       "parameter4": {
         "active": 1,
         "smooth": 1,
-        "parameter": "EG INT"
+        "parameter": 28
       }
     },
     "steps": {

@@ -157,9 +157,8 @@
           "description": "Cutoff key tracking: 0=0%, 1=33%, 2=66%, 3=100%"
         },
         "sliderAssign": {
-          "type": "integer",
-          "enum": [13, 14, 17, 18, 21, 22, 23, 24, 26, 27, 28, 31, 32, 40, 56, 57],
-          "description": "Parameter ID assigned to slider: 13=VCO 1 PITCH, 14=VCO 1 SHAPE, 17=VCO 2 PITCH, 18=VCO 2 SHAPE, 21=VCO 1 LEVEL, 22=VCO 2 LEVEL, 23=CUTOFF, 24=RESONANCE, 26=ATTACK, 27=DECAY, 28=EG INT, 31=LFO RATE, 32=LFO INT, 40=PORTAMENT, 56=PITCH BEND, 57=GATE TIME"
+          "type": "string",
+          "description": "Parameter assigned to slider"
         }
       },
       "additionalProperties": false
@@ -358,8 +357,12 @@
           "description": "Smooth interpolation on/off"
         },
         "parameter": {
-          "type": "string",
-          "description": "Parameter name being automated"
+          "type": "integer",
+          "enum": [
+            0, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 40, 56,
+            57
+          ],
+          "description": "Motion Parameter ID: 0=None, 13=VCO 1 PITCH, 14=VCO 1 SHAPE, 15=VCO 1 OCTAVE, 16=VCO 1 WAVE, 17=VCO 2 PITCH, 18=VCO 2 SHAPE, 19=VCO 2 OCTAVE, 20=VCO 2 WAVE, 21=VCO 1 LEVEL, 22=VCO 2 LEVEL, 23=CUTOFF, 24=RESONANCE, 25=SYNC/RING, 26=ATTACK, 27=DECAY, 28=EG INT, 29=EG TYPE, 30=EG TARGET, 31=LFO RATE, 32=LFO INT, 33=LFO TARGET, 34=LFO TYPE, 35=LFO MODE, 37=DRIVE, 40=PORTAMENT, 56=PITCH BEND, 57=GATE TIME"
         }
       },
       "additionalProperties": false

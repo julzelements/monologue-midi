@@ -43,7 +43,7 @@
     "portamentTime": 0,
     "cutoffVelocity": 0,
     "cutoffKeyTrack": 0,
-    "sliderAssign": 57
+    "sliderAssign": "GATE TIME"
   },
   "sequencer": {
     "bpm": 120.5,
@@ -55,22 +55,22 @@
       "parameter1": {
         "active": 1,
         "smooth": 1,
-        "parameter": "VCO 1 WAVE"
+        "parameter": 16
       },
       "parameter2": {
         "active": 1,
         "smooth": 1,
-        "parameter": "VCO 2 WAVE"
+        "parameter": 20
       },
       "parameter3": {
         "active": 1,
         "smooth": 1,
-        "parameter": "VCO 1 SHAPE"
+        "parameter": 14
       },
       "parameter4": {
         "active": 1,
         "smooth": 1,
-        "parameter": "VCO 2 SHAPE"
+        "parameter": 18
       }
     },
     "steps": {
