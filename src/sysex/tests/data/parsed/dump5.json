@@ -41,9 +41,9 @@
     "bpmSync": 0,
     "portamentMode": 0,
     "portamentTime": 1,
-    "cutoffVelocity": 0,
+    "cutoffVelocity": 2,
     "cutoffKeyTrack": 0,
-    "sliderAssign": "PITCH BEND"
+    "sliderAssign": 56
   },
   "sequencer": {
     "bpm": 100,
