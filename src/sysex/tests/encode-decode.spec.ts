@@ -11,6 +11,15 @@ import { encodeMonologueParameters } from "../encode";
 describe("SysEx Encode/Decode", () => {
   const dumpFiles = ["dump1", "dump2", "dump3", "dump4", "dump5"];
 
+  // Expected program names for each dump file
+  const expectedProgramNames = {
+    dump1: "<afx acid3>",
+    dump2: "Injection",
+    dump3: "Anfem",
+    dump4: "<wavetable>",
+    dump5: "Lu-Fuki",
+  };
+
   // Expected filter values for each dump file
   const expectedFilterValues = {
     dump1: { cutoff: 488, resonance: 909 },
@@ -52,6 +61,22 @@ describe("SysEx Encode/Decode", () => {
 
   describe("Decode SysEx", () => {
     dumpFiles.forEach((dumpFile) => {
+      it(`should decode ${dumpFile}.json and extract patchName`, () => {
+        // Load the raw SysEx dump data
+        const dumpPath = join(__dirname, "data", "dumps", `${dumpFile}.json`);
+        const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
+
+        // Get the raw SysEx data
+        const sysex = new Uint8Array(dumpData.rawData);
+
+        // Decode the SysEx
+        const decoded = decodeMonologueParameters(sysex);
+
+        // Check that patchName matches expected value
+        const expected = expectedProgramNames[dumpFile as keyof typeof expectedProgramNames];
+        expect(decoded.patchName).toBe(expected);
+      });
+
       it(`should decode ${dumpFile}.json and extract filter.cutoff`, () => {
         // Load the raw SysEx dump data
         const dumpPath = join(__dirname, "data", "dumps", `${dumpFile}.json`);
@@ -124,7 +149,7 @@ describe("SysEx Encode/Decode", () => {
 
   describe("Round-trip encoding/decoding", () => {
     dumpFiles.forEach((dumpFile) => {
-      it(`should preserve filter values in round-trip for ${dumpFile}`, () => {
+      it(`should preserve patchName and filter values in round-trip for ${dumpFile}`, () => {
         // Load the JSON data
         const filePath = join(__dirname, "data", "parsed", `${dumpFile}.json`);
         const originalParams = JSON.parse(readFileSync(filePath, "utf8"));
@@ -134,6 +159,10 @@ describe("SysEx Encode/Decode", () => {
 
         // Decode back
         const decodedParams = decodeMonologueParameters(sysex);
+
+        // Check patchName is preserved
+        const expectedName = expectedProgramNames[dumpFile as keyof typeof expectedProgramNames];
+        expect(decodedParams.patchName).toBe(expectedName);
 
         // Check both cutoff and resonance are preserved
         const expected = expectedFilterValues[dumpFile as keyof typeof expectedFilterValues];

@@ -70,10 +70,29 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     throw new Error(`Invalid program data: expected 'PROG' marker at offset 0-3, got '${progMarker}'`);
   }
 
-  // TODO: Implement full decoding logic
+  // Decode PROGRAM NAME (offset 4-15, 12 ASCII characters)
+  const patchNameBytes = body.slice(4, 16);
+  let patchName = "";
+  for (let i = 0; i < patchNameBytes.length; i++) {
+    const byte = patchNameBytes[i];
+    // Stop at null terminator
+    if (byte === 0) {
+      break;
+    }
+    // Mask to 7-bit ASCII (some bytes may have high bit set due to 7-bit encoding)
+    const asciiChar = byte & 0x7f;
+    // Only include printable ASCII characters (32-126)
+    if (asciiChar >= 32 && asciiChar <= 126) {
+      patchName += String.fromCharCode(asciiChar);
+    }
+  }
+  // Trim trailing spaces
+  patchName = patchName.trimEnd();
+
+  // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
-    patchName: "",
+    patchName,
     drive: 0,
     oscilators: {
       vco1: {
