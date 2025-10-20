@@ -1,1 +1,703 @@
-{"patchName":"Lu-Fuki\u0000\u0000\u0000\u0000\u0000","drive":{"name":"Drive","value":88},"oscilators":[{"wave":{"name":"Wave","value":1,"oscilator":0},"shape":{"name":"Shape","value":0},"level":{"name":"Level","value":1023},"pitch":{"name":"Pitch","value":0},"duty":{"name":"Duty","value":1},"octave":{"name":"Octave","value":0}},{"wave":{"name":"Wave","value":2,"oscilator":1},"shape":{"name":"Shape","value":0},"level":{"name":"Level","value":777},"pitch":{"name":"Pitch","value":523},"duty":{"name":"Duty","value":2},"octave":{"name":"Octave","value":1}}],"filter":{"cutoff":{"name":"Cutoff","value":176},"resonance":{"name":"Resonance","value":736}},"envelope":{"type":{"name":"Envelope Type","value":0},"attack":{"name":"Attack","value":0},"decay":{"name":"Decay","value":244},"intensity":{"name":"Intensity","value":267},"target":{"name":"Target","value":0,"type":0}},"lfo":{"wave":{"name":"Wave","value":2,"oscilator":2},"mode":{"name":"LFO Mode","value":0},"rate":{"name":"Rate","value":224},"intensity":{"name":"Intensity","value":346},"target":{"name":"Target","value":0,"type":1}},"misc":{"bpmSync":{"name":"BPM Sync","value":0},"portamentMode":{"name":"Portament Mode","value":0},"portamentTime":{"name":"Potament Time","value":1},"cutoffVelocity":{"name":"Cutoff Velocity","value":0},"cutoffKeyTrack":{"name":"Cutoff Key Track","value":0},"sliderAssign":{"name":"Slider Assign","value":"PITCH BEND"}},"sequencer":{"bpm":{"name":"BPM","value":100},"stepLength":{"name":"Step Length","value":16},"stepResolution":{"name":"Step Resolution","value":0},"swing":{"name":"Swing","value":0},"defaultGateTime":{"name":"Default Gate Time","value":0.3055555555555556},"motionSlotParams":[{"slotNumber":1,"active":{"name":"On/Off","value":0},"smooth":{"name":"Smooth On/Off","value":0},"parameter":{"name":"Parameter","value":"None"}},{"slotNumber":2,"active":{"name":"On/Off","value":0},"smooth":{"name":"Smooth On/Off","value":0},"parameter":{"name":"Parameter","value":"None"}},{"slotNumber":3,"active":{"name":"On/Off","value":0},"smooth":{"name":"Smooth On/Off","value":0},"parameter":{"name":"Parameter","value":"None"}},{"slotNumber":4,"active":{"name":"On/Off","value":0},"smooth":{"name":"Smooth On/Off","value":0},"parameter":{"name":"Parameter","value":"None"}}],"steps":[{"stepNumber":1,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":51},"velocity":{"name":"Velocity","value":44},"gateTime":{"name":"GateTime","value":22},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":2,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":1},"event":{"note":{"key":{"name":"Key","value":46},"velocity":{"name":"Velocity","value":44},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":3,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":49},"velocity":{"name":"Velocity","value":43},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":4,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":42},"velocity":{"name":"Velocity","value":40},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":1}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":5,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":51},"velocity":{"name":"Velocity","value":45},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":6,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":42},"velocity":{"name":"Velocity","value":40},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":1}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":7,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":49},"velocity":{"name":"Velocity","value":40},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":1}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":8,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":42},"velocity":{"name":"Velocity","value":46},"gateTime":{"name":"GateTime","value":22},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":9,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":44},"velocity":{"name":"Velocity","value":42},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":10,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":1},"event":{"note":{"key":{"name":"Key","value":46},"velocity":{"name":"Velocity","value":33},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":11,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":56},"velocity":{"name":"Velocity","value":39},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":1}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":12,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":49},"velocity":{"name":"Velocity","value":45},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":13,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":61},"velocity":{"name":"Velocity","value":46},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":1}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":14,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":54},"velocity":{"name":"Velocity","value":42},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":15,"active":{"name":"On/Off","value":0},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":56},"velocity":{"name":"Velocity","value":29},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}},{"stepNumber":16,"active":{"name":"On/Off","value":1},"motionActive":{"name":"Motion On/Off","value":0},"slideActive":{"name":"Slide On/Off","value":0},"event":{"note":{"key":{"name":"Key","value":54},"velocity":{"name":"Velocity","value":45},"gateTime":{"name":"GateTime","value":54},"trigger":{"name":"Trigger","value":0}},"motionSlotsData":[[{"name":"Motion Slot 1 Data 1","value":0},{"name":"Motion Slot 1 Data 2","value":0},{"name":"Motion Slot 1 Data 3","value":0},{"name":"Motion Slot 1 Data 4","value":0}],[{"name":"Motion Slot 2 Data 1","value":0},{"name":"Motion Slot 2 Data 2","value":0},{"name":"Motion Slot 2 Data 3","value":0},{"name":"Motion Slot 2 Data 4","value":0}],[{"name":"Motion Slot 3 Data 1","value":0},{"name":"Motion Slot 3 Data 2","value":0},{"name":"Motion Slot 3 Data 3","value":0},{"name":"Motion Slot 3 Data 4","value":0}],[{"name":"Motion Slot 4 Data 1","value":0},{"name":"Motion Slot 4 Data 2","value":0},{"name":"Motion Slot 4 Data 3","value":0},{"name":"Motion Slot 4 Data 4","value":0}]]}}]}}
+{
+  "patchName": "Lu-Fuki\u0000\u0000\u0000\u0000\u0000",
+  "drive": 88,
+  "oscilators": {
+    "vco1": {
+      "wave": 1,
+      "shape": 0,
+      "level": 1023,
+      "pitch": 0,
+      "duty": 1,
+      "octave": 0
+    },
+    "vco2": {
+      "wave": 2,
+      "shape": 0,
+      "level": 777,
+      "pitch": 523,
+      "duty": 2,
+      "octave": 1
+    }
+  },
+  "filter": {
+    "cutoff": 176,
+    "resonance": 736
+  },
+  "envelope": {
+    "type": 0,
+    "attack": 0,
+    "decay": 244,
+    "intensity": 267,
+    "target": 0
+  },
+  "lfo": {
+    "wave": 2,
+    "mode": 0,
+    "rate": 224,
+    "intensity": 346,
+    "target": 0
+  },
+  "misc": {
+    "bpmSync": 0,
+    "portamentMode": 0,
+    "portamentTime": 1,
+    "cutoffVelocity": 0,
+    "cutoffKeyTrack": 0,
+    "sliderAssign": "PITCH BEND"
+  },
+  "sequencer": {
+    "bpm": 100,
+    "stepLength": 16,
+    "stepResolution": 0,
+    "swing": 0,
+    "defaultGateTime": 0.3055555555555556,
+    "motionSlotParams": {
+      "parameter1": {
+        "active": 0,
+        "smooth": 0,
+        "parameter": 0
+      },
+      "parameter2": {
+        "active": 0,
+        "smooth": 0,
+        "parameter": 0
+      },
+      "parameter3": {
+        "active": 0,
+        "smooth": 0,
+        "parameter": 0
+      },
+      "parameter4": {
+        "active": 0,
+        "smooth": 0,
+        "parameter": 0
+      }
+    },
+    "steps": {
+      "step1": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 51,
+            "velocity": 44,
+            "gateTime": 22,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step2": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 1,
+        "event": {
+          "note": {
+            "key": 46,
+            "velocity": 44,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step3": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 49,
+            "velocity": 43,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step4": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 42,
+            "velocity": 40,
+            "gateTime": 54,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step5": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 51,
+            "velocity": 45,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step6": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 42,
+            "velocity": 40,
+            "gateTime": 54,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step7": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 49,
+            "velocity": 40,
+            "gateTime": 54,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step8": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 42,
+            "velocity": 46,
+            "gateTime": 22,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step9": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 44,
+            "velocity": 42,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step10": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 1,
+        "event": {
+          "note": {
+            "key": 46,
+            "velocity": 33,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step11": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 56,
+            "velocity": 39,
+            "gateTime": 54,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step12": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 49,
+            "velocity": 45,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step13": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 61,
+            "velocity": 46,
+            "gateTime": 54,
+            "trigger": 1
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step14": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 54,
+            "velocity": 42,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step15": {
+        "active": 0,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 56,
+            "velocity": 29,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      },
+      "step16": {
+        "active": 1,
+        "motionActive": 0,
+        "slideActive": 0,
+        "event": {
+          "note": {
+            "key": 54,
+            "velocity": 45,
+            "gateTime": 54,
+            "trigger": 0
+          },
+          "motionSequencing": {
+            "parameter1": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter2": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter3": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            },
+            "parameter4": {
+              "data1": 0,
+              "data2": 0,
+              "data3": 0,
+              "data4": 0
+            }
+          }
+        }
+      }
+    }
+  }
+}
