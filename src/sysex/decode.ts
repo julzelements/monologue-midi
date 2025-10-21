@@ -114,15 +114,21 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
   const egAttack = read10BitValue(body[24], body[34], 2);
   const egDecay = read10BitValue(body[25], body[34], 4);
-  // TODO: EG INT decoding - offset 28 upper bits, offset 35 bits 0-1 lower bits
+  // TODO: EG INT decoding - needs investigation, offsets unclear
   // const egInt = read10BitValue(body[28], body[35], 0);
 
   // EG parameters (offset 34)
   const egType = readBits(body[34], 0, 2);
   const egTarget = readBits(body[34], 6, 2);
 
-  const lfoRate = read10BitValue(body[26], body[35], 2);
-  const lfoInt = read10BitValue(body[27], body[35], 4);
+  const lfoRate = read10BitValue(body[27], body[35], 2);
+  // TODO: LFO INT decoding - needs investigation, offsets unclear
+  // const lfoInt = read10BitValue(body[??], body[35], ?);
+
+  // LFO parameters (offset 36)
+  const lfoType = readBits(body[36], 0, 2);
+  const lfoMode = readBits(body[36], 2, 2);
+  const lfoTarget = readBits(body[36], 4, 2);
 
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
@@ -155,15 +161,15 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       type: egType,
       attack: egAttack,
       decay: egDecay,
-      intensity: 5000, // TODO: Implement EG INT decoding
+      intensity: 5000, // TODO: Implement EG INT decoding - needs investigation
       target: egTarget,
     },
     lfo: {
-      wave: 5000,
-      mode: 5000,
-      rate: 5000,
-      intensity: 5000,
-      target: 5000,
+      wave: lfoType,
+      mode: lfoMode,
+      rate: lfoRate,
+      intensity: 5000, // TODO: Implement LFO INT decoding - needs investigation
+      target: lfoTarget,
     },
     misc: {
       bpmSync: 5000,

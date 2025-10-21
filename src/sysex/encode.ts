@@ -118,7 +118,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[25] = egDecayEncoded.upperByte;
     body[34] = (body[34] & egDecayEncoded.mask) | egDecayEncoded.lowerBits;
 
-    // TODO: EG INT encoding - offset 28 upper bits, offset 35 bits 0-1 lower bits
+    // TODO: EG INT encoding - needs investigation, offsets unclear
     // const egIntEncoded = write10BitValue(envelope.intensity || 0, 0);
     // body[28] = egIntEncoded.upperByte;
     // body[35] = (body[35] & egIntEncoded.mask) | egIntEncoded.lowerBits;
@@ -132,7 +132,33 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[34] = (body[34] & ~(0x03 << 6)) | (egTarget << 6);
   }
 
-  // TODO: Encode other parameters (filter, LFO, etc.)
+  // Encode LFO parameters
+  const lfo = params.lfo;
+  if (lfo) {
+    // LFO RATE (offset 27 for upper 8 bits, offset 35 bits 2-3 for lower 2 bits)
+    const lfoRateEncoded = write10BitValue(lfo.rate || 0, 2);
+    body[27] = lfoRateEncoded.upperByte;
+    body[35] = (body[35] & lfoRateEncoded.mask) | lfoRateEncoded.lowerBits;
+
+    // TODO: LFO INT encoding - needs investigation, offsets unclear
+    // const lfoIntEncoded = write10BitValue(lfo.intensity || 0, ?);
+    // body[??] = lfoIntEncoded.upperByte;
+    // body[35] = (body[35] & lfoIntEncoded.mask) | lfoIntEncoded.lowerBits;
+
+    // LFO TYPE (offset 36 bits 0-1, range 0-2)
+    const lfoType = (lfo.wave || 0) & 0x03;
+    body[36] = (body[36] & ~0x03) | lfoType;
+
+    // LFO MODE (offset 36 bits 2-3, range 0-2)
+    const lfoMode = (lfo.mode || 0) & 0x03;
+    body[36] = (body[36] & ~(0x03 << 2)) | (lfoMode << 2);
+
+    // LFO TARGET (offset 36 bits 4-5, range 0-2)
+    const lfoTarget = (lfo.target || 0) & 0x03;
+    body[36] = (body[36] & ~(0x03 << 4)) | (lfoTarget << 4);
+  }
+
+  // TODO: Encode other parameters (filter, misc, etc.)
   // For now, leave rest as zeros
 
   // Encode body to 7-bit MIDI format (448 bytes -> 512 bytes)

@@ -269,9 +269,9 @@ Below is a table for each parameter.
 | RESONANCE            |     23      |     33    |    6~7     |
 | EG ATTACK            |     24      |     34    |    2~3     |
 | EG DECAY             |     25      |     34    |    4~5     |
-| LFO RATE             |     26      |     35    |    2~3     |
-| LFO INT              |     27      |     35    |    4~5     |
-| EG INT               |     28      |     35    |    0~1     |
+| EG INT               |     26      |     35    |    0~1     |
+| LFO RATE             |     27      |     35    |    2~3     |
+| LFO INT              |     28      |     35    |    4~5     |
 | DRIVE                |     29      |     35    |    6~7     |
 +----------------------+-------------+-----------+------------+
 
