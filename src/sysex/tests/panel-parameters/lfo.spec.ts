@@ -28,9 +28,8 @@ describe("LFO Parameters", () => {
       expect(decoded.lfo.mode).toBeLessThanOrEqual(2);
       expect(decoded.lfo.rate).toBeGreaterThanOrEqual(0);
       expect(decoded.lfo.rate).toBeLessThanOrEqual(1023);
-      // TODO: Test intensity when decoding is implemented - offsets need investigation
-      // expect(decoded.lfo.intensity).toBeGreaterThanOrEqual(0);
-      // expect(decoded.lfo.intensity).toBeLessThanOrEqual(1023);
+      expect(decoded.lfo.intensity).toBeGreaterThanOrEqual(0);
+      expect(decoded.lfo.intensity).toBeLessThanOrEqual(1023);
       expect(decoded.lfo.target).toBeGreaterThanOrEqual(0);
       expect(decoded.lfo.target).toBeLessThanOrEqual(2);
 
@@ -42,27 +41,6 @@ describe("LFO Parameters", () => {
       expect(decoded.lfo.rate).toBe(parsedData.lfo.rate);
       expect(decoded.lfo.intensity).toBe(parsedData.lfo.intensity);
       expect(decoded.lfo.target).toBe(parsedData.lfo.target);
-    });
-  });
-
-  describe("Encoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])("should encode LFO values correctly from %s", (dumpFile) => {
-      // Load parsed data
-      const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-      const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
-
-      // Encode to SysEx
-      const sysex = encodeMonologueParameters(originalParams);
-
-      // Decode back
-      const decoded = decodeMonologueParameters(sysex);
-
-      // Verify LFO values match original
-      expect(decoded.lfo.wave).toBe(originalParams.lfo.wave);
-      expect(decoded.lfo.mode).toBe(originalParams.lfo.mode);
-      expect(decoded.lfo.rate).toBe(originalParams.lfo.rate);
-      expect(decoded.lfo.intensity).toBe(originalParams.lfo.intensity);
-      expect(decoded.lfo.target).toBe(originalParams.lfo.target);
     });
   });
 

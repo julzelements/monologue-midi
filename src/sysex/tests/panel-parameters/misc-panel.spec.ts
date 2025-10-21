@@ -50,29 +50,6 @@ describe("Miscellaneous Panel Parameters", () => {
     );
   });
 
-  describe("Encoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
-      "should encode drive, keyboardOctave, syncRing & seqTrig correctly from %s",
-      (dumpFile) => {
-        // Load parsed data
-        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
-
-        // Encode to SysEx
-        const encoded = encodeMonologueParameters(originalParams);
-
-        // Decode the encoded data
-        const decoded = decodeMonologueParameters(encoded);
-
-        // Verify encoding produces correct values
-        expect(decoded.drive).toBe(originalParams.drive);
-        expect(decoded.keyboardOctave).toBe(originalParams.keyboardOctave);
-        expect(decoded.syncRing).toBe(originalParams.syncRing);
-        expect(decoded.seqTrig).toBe(originalParams.seqTrig);
-      }
-    );
-  });
-
   describe("Round-trip", () => {
     it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
       "should preserve drive, keyboardOctave, syncRing & seqTrig through encode->decode cycle for %s",

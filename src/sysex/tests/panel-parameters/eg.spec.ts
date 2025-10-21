@@ -44,27 +44,6 @@ describe("EG (Envelope Generator) Parameters", () => {
     });
   });
 
-  describe("Encoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])("should encode EG values correctly from %s", (dumpFile) => {
-      // Load parsed data
-      const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-      const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
-
-      // Encode to SysEx
-      const sysex = encodeMonologueParameters(originalParams);
-
-      // Decode back
-      const decoded = decodeMonologueParameters(sysex);
-
-      // Verify EG values match original
-      expect(decoded.envelope.type).toBe(originalParams.envelope.type);
-      expect(decoded.envelope.attack).toBe(originalParams.envelope.attack);
-      expect(decoded.envelope.decay).toBe(originalParams.envelope.decay);
-      // expect(decoded.envelope.intensity).toBe(originalParams.envelope.intensity);
-      expect(decoded.envelope.target).toBe(originalParams.envelope.target);
-    });
-  });
-
   describe("Round-trip", () => {
     it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
       "should preserve EG through encode->decode cycle for %s",

@@ -44,30 +44,6 @@ describe("VCO2 Parameters", () => {
     });
   });
 
-  describe("Encoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
-      "should encode VCO2 values correctly from %s",
-      (dumpFile) => {
-        // Load parsed data
-        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
-
-        // Encode to SysEx
-        const sysex = encodeMonologueParameters(originalParams);
-
-        // Decode back
-        const decoded = decodeMonologueParameters(sysex);
-
-        // Verify VCO2 values match original
-        expect(decoded.oscilators.vco2.pitch).toBe(originalParams.oscilators.vco2.pitch);
-        expect(decoded.oscilators.vco2.shape).toBe(originalParams.oscilators.vco2.shape);
-        expect(decoded.oscilators.vco2.level).toBe(originalParams.oscilators.vco2.level);
-        expect(decoded.oscilators.vco2.octave).toBe(originalParams.oscilators.vco2.octave);
-        expect(decoded.oscilators.vco2.wave).toBe(originalParams.oscilators.vco2.wave);
-      }
-    );
-  });
-
   describe("Round-trip", () => {
     it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
       "should preserve VCO2 through encode->decode cycle for %s",
