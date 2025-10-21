@@ -5,6 +5,7 @@
 import { MonologueParameters } from "./decode";
 import { encode7BitData } from "./utils/seven-bit-encoding";
 import { SYSEX_CONSTANTS } from "./utils/sysex-format";
+import { write10BitValue } from "./utils/bit-manipulation";
 
 /**
  * Encode Monologue parameters to SysEx byte array
@@ -32,6 +33,14 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
       body[4 + i] = 0x00;
     }
   }
+
+  // Encode DRIVE (offset 29 for upper 8 bits, offset 35 bits 6-7 for lower 2 bits)
+  // Range: 0-1023 (10-bit value)
+  const drive = params.drive || 0;
+  const driveEncoded = write10BitValue(drive, 6);
+  body[29] = driveEncoded.upperByte;
+  // Merge lower bits into byte 35 (preserving other bits)
+  body[35] = (body[35] & driveEncoded.mask) | driveEncoded.lowerBits;
 
   // TODO: Encode other parameters (VCO, filter, envelope, etc.)
   // For now, leave rest as zeros

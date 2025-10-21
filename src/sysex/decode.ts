@@ -3,6 +3,7 @@
  */
 
 import { parseSysex } from "./utils/sysex-parser";
+import { read10BitValue } from "./utils/bit-manipulation";
 
 export interface MonologueParameters {
   patchName: string;
@@ -91,15 +92,17 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
   // Decode CUTOFF (offset 22 for upper 8 bits, offset 33 bits 4-5 for lower 2 bits)
   // Range: 0-1023 (10-bit value)
-  const cutoffUpper = body[22]; // bits 2-9
-  const cutoffLower = (body[33] >> 4) & 0x03; // bits 0-1 from bits 4-5 of byte 33
-  const cutoff = (cutoffUpper << 2) | cutoffLower;
+  const cutoff = read10BitValue(body[22], body[33], 4);
+
+  // Decode DRIVE (offset 29 for upper 8 bits, offset 35 bits 6-7 for lower 2 bits)
+  // Range: 0-1023 (10-bit value)
+  const drive = read10BitValue(body[29], body[35], 6);
 
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
     patchName,
-    drive: 0,
+    drive,
     oscilators: {
       vco1: {
         wave: 0,
