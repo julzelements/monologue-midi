@@ -114,7 +114,12 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
   const egAttack = read10BitValue(body[24], body[34], 2);
   const egDecay = read10BitValue(body[25], body[34], 4);
-  const egInt = read10BitValue(body[28], body[35], 0);
+  // TODO: EG INT decoding - offset 28 upper bits, offset 35 bits 0-1 lower bits
+  // const egInt = read10BitValue(body[28], body[35], 0);
+
+  // EG parameters (offset 34)
+  const egType = readBits(body[34], 0, 2);
+  const egTarget = readBits(body[34], 6, 2);
 
   const lfoRate = read10BitValue(body[26], body[35], 2);
   const lfoInt = read10BitValue(body[27], body[35], 4);
@@ -147,11 +152,11 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       resonance: 5000,
     },
     envelope: {
-      type: 5000,
-      attack: 5000,
-      decay: 5000,
-      intensity: 5000,
-      target: 5000,
+      type: egType,
+      attack: egAttack,
+      decay: egDecay,
+      intensity: 5000, // TODO: Implement EG INT decoding
+      target: egTarget,
     },
     lfo: {
       wave: 5000,

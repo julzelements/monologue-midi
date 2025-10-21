@@ -105,7 +105,34 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   const keyboardOctave = (params.keyboardOctave || 0) & 0x07;
   body[32] = (body[32] & ~(0x07 << 2)) | (keyboardOctave << 2);
 
-  // TODO: Encode other parameters (filter, envelope, etc.)
+  // Encode EG (Envelope Generator) parameters
+  const envelope = params.envelope;
+  if (envelope) {
+    // EG ATTACK (offset 24 for upper 8 bits, offset 34 bits 2-3 for lower 2 bits)
+    const egAttackEncoded = write10BitValue(envelope.attack || 0, 2);
+    body[24] = egAttackEncoded.upperByte;
+    body[34] = (body[34] & egAttackEncoded.mask) | egAttackEncoded.lowerBits;
+
+    // EG DECAY (offset 25 for upper 8 bits, offset 34 bits 4-5 for lower 2 bits)
+    const egDecayEncoded = write10BitValue(envelope.decay || 0, 4);
+    body[25] = egDecayEncoded.upperByte;
+    body[34] = (body[34] & egDecayEncoded.mask) | egDecayEncoded.lowerBits;
+
+    // TODO: EG INT encoding - offset 28 upper bits, offset 35 bits 0-1 lower bits
+    // const egIntEncoded = write10BitValue(envelope.intensity || 0, 0);
+    // body[28] = egIntEncoded.upperByte;
+    // body[35] = (body[35] & egIntEncoded.mask) | egIntEncoded.lowerBits;
+
+    // EG TYPE (offset 34 bits 0-1, range 0-2)
+    const egType = (envelope.type || 0) & 0x03;
+    body[34] = (body[34] & ~0x03) | egType;
+
+    // EG TARGET (offset 34 bits 6-7, range 0-2)
+    const egTarget = (envelope.target || 0) & 0x03;
+    body[34] = (body[34] & ~(0x03 << 6)) | (egTarget << 6);
+  }
+
+  // TODO: Encode other parameters (filter, LFO, etc.)
   // For now, leave rest as zeros
 
   // Encode body to 7-bit MIDI format (448 bytes -> 512 bytes)
