@@ -257,7 +257,7 @@
   "definitions": {
     "vco1": {
       "type": "object",
-      "required": ["wave", "shape", "level", "pitch", "duty", "octave"],
+      "required": ["wave", "shape", "level", "pitch", "octave"],
       "properties": {
         "wave": {
           "type": "integer",
@@ -283,12 +283,6 @@
           "maximum": 1023,
           "description": "Pitch offset (10-bit value)"
         },
-        "duty": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 2,
-          "description": "SYNC/RING: 0=RING, 1=OFF, 2=SYNC"
-        },
         "octave": {
           "type": "integer",
           "minimum": 0,
@@ -300,7 +294,7 @@
     },
     "vco2": {
       "type": "object",
-      "required": ["wave", "shape", "level", "pitch", "duty", "octave"],
+      "required": ["wave", "shape", "level", "pitch", "sync", "octave"],
       "properties": {
         "wave": {
           "type": "integer",
@@ -326,7 +320,7 @@
           "maximum": 1023,
           "description": "Pitch offset (10-bit value)"
         },
-        "duty": {
+        "sync": {
           "type": "integer",
           "minimum": 0,
           "maximum": 2,

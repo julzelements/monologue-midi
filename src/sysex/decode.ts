@@ -14,7 +14,6 @@ export interface MonologueParameters {
       shape: number;
       level: number;
       pitch: number;
-      duty: number;
       octave: number;
     };
     vco2: {
@@ -22,7 +21,7 @@ export interface MonologueParameters {
       shape: number;
       level: number;
       pitch: number;
-      duty: number;
+      sync: number;
       octave: number;
     };
   };
@@ -122,7 +121,6 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         shape: vco1Shape,
         level: vco1Level,
         pitch: vco1Pitch,
-        duty: 5000,
         octave: vco1Octave,
       },
       vco2: {
@@ -130,7 +128,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         shape: 5000,
         level: 5000,
         pitch: 5000,
-        duty: 5000,
+        sync: 5000,
         octave: 5000,
       },
     },
