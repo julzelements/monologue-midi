@@ -140,10 +140,10 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[27] = lfoRateEncoded.upperByte;
     body[35] = (body[35] & lfoRateEncoded.mask) | lfoRateEncoded.lowerBits;
 
-    // TODO: LFO INT encoding - needs investigation, offsets unclear
-    // const lfoIntEncoded = write10BitValue(lfo.intensity || 0, ?);
-    // body[??] = lfoIntEncoded.upperByte;
-    // body[35] = (body[35] & lfoIntEncoded.mask) | lfoIntEncoded.lowerBits;
+    // LFO INT (offset 28 for upper 8 bits, offset 35 bits 4-5 for lower 2 bits)
+    const lfoIntEncoded = write10BitValue(lfo.intensity || 0, 4);
+    body[28] = lfoIntEncoded.upperByte;
+    body[35] = (body[35] & lfoIntEncoded.mask) | lfoIntEncoded.lowerBits;
 
     // LFO TYPE (offset 36 bits 0-1, range 0-2)
     const lfoType = (lfo.wave || 0) & 0x03;

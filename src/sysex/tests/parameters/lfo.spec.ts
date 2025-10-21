@@ -40,8 +40,7 @@ describe("LFO Parameters", () => {
       expect(decoded.lfo.wave).toBe(parsedData.lfo.wave);
       expect(decoded.lfo.mode).toBe(parsedData.lfo.mode);
       expect(decoded.lfo.rate).toBe(parsedData.lfo.rate);
-      // TODO: Test intensity when decoding is implemented - offsets need investigation
-      // expect(decoded.lfo.intensity).toBe(parsedData.lfo.intensity);
+      expect(decoded.lfo.intensity).toBe(parsedData.lfo.intensity);
       expect(decoded.lfo.target).toBe(parsedData.lfo.target);
     });
   });
@@ -87,7 +86,7 @@ describe("LFO Parameters", () => {
         expect(decodedParams.lfo.mode).toBe(originalParams.lfo.mode);
         expect(decodedParams.lfo.rate).toBe(originalParams.lfo.rate);
         // TODO: Test intensity when encoding/decoding is implemented - offsets need investigation
-        // expect(decodedParams.lfo.intensity).toBe(originalParams.lfo.intensity);
+        expect(decodedParams.lfo.intensity).toBe(originalParams.lfo.intensity);
         expect(decodedParams.lfo.target).toBe(originalParams.lfo.target);
       }
     );

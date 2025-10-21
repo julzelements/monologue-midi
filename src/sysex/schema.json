@@ -78,8 +78,8 @@
         },
         "intensity": {
           "type": "integer",
-          "minimum": -512,
-          "maximum": 511,
+          "minimum": 0,
+          "maximum": 1023,
           "description": "Envelope intensity (bipolar)"
         },
         "target": {
@@ -115,8 +115,8 @@
         },
         "intensity": {
           "type": "integer",
-          "minimum": -512,
-          "maximum": 511,
+          "minimum": 0,
+          "maximum": 1023,
           "description": "LFO intensity (bipolar)"
         },
         "target": {

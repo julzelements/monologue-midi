@@ -122,8 +122,8 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const egTarget = readBits(body[34], 6, 2);
 
   const lfoRate = read10BitValue(body[27], body[35], 2);
-  // TODO: LFO INT decoding - needs investigation, offsets unclear
-  // const lfoInt = read10BitValue(body[??], body[35], ?);
+  const lfoInt = read10BitValue(body[28], body[35], 4);
+  // const lfoInt = read10BitValue(body[28], body[35], 4);
 
   // LFO parameters (offset 36)
   const lfoType = readBits(body[36], 0, 2);
@@ -168,7 +168,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       wave: lfoType,
       mode: lfoMode,
       rate: lfoRate,
-      intensity: 5000, // TODO: Implement LFO INT decoding - needs investigation
+      intensity: lfoInt,
       target: lfoTarget,
     },
     misc: {

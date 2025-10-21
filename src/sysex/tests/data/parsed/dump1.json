@@ -34,7 +34,7 @@
     "wave": 1,
     "mode": 1,
     "rate": 512,
-    "intensity": 0,
+    "intensity": 512,
     "target": 2
   },
   "misc": {
