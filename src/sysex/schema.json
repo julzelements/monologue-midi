@@ -140,6 +140,124 @@
       },
       "additionalProperties": false
     },
+    "programSettings": {
+      "type": "object",
+      "required": ["portamento", "slider", "tuning", "other"],
+      "properties": {
+        "portamento": {
+          "type": "object",
+          "required": ["time", "mode", "slideTime"],
+          "properties": {
+            "time": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 128,
+              "description": "Portamento time: 0=OFF, 1-128"
+            },
+            "mode": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Portamento mode: 0=Auto, 1=On"
+            },
+            "slideTime": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 72,
+              "description": "Slide time: 0-72 = 0% - 100%"
+            }
+          },
+          "additionalProperties": false
+        },
+        "slider": {
+          "type": "object",
+          "required": ["assign", "bendRangePlus", "bendRangeMinus"],
+          "properties": {
+            "assign": {
+              "type": "integer",
+              "enum": [13, 14, 17, 18, 21, 22, 23, 24, 26, 27, 28, 31, 32, 40, 56, 57],
+              "description": "Parameter assigned to slider (CC number)"
+            },
+            "bendRangePlus": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "description": "Pitch bend range (+): 1-12 semitones"
+            },
+            "bendRangeMinus": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "description": "Pitch bend range (-): 1-12 semitones"
+            }
+          },
+          "additionalProperties": false
+        },
+        "tuning": {
+          "type": "object",
+          "required": ["microTuning", "scaleKey", "programTuning"],
+          "properties": {
+            "microTuning": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 139,
+              "description": "Micro tuning scale selection"
+            },
+            "scaleKey": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 24,
+              "description": "Scale key: 0-24 = -12 to +12 keys"
+            },
+            "programTuning": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100,
+              "description": "Program tuning: 0-100 = -50 to +50 cents"
+            }
+          },
+          "additionalProperties": false
+        },
+        "other": {
+          "type": "object",
+          "required": ["lfoBpmSync", "cutoffKeyTrack", "cutoffVelocity", "ampVelocity", "programLevel"],
+          "properties": {
+            "lfoBpmSync": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "LFO BPM sync: 0=Off, 1=On"
+            },
+            "cutoffKeyTrack": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Cutoff key tracking: 0=0%, 1=50%, 2=100%"
+            },
+            "cutoffVelocity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2,
+              "description": "Cutoff velocity sensitivity: 0=0%, 1=50%, 2=100%"
+            },
+            "ampVelocity": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 127,
+              "description": "Amp velocity sensitivity"
+            },
+            "programLevel": {
+              "type": "integer",
+              "minimum": 77,
+              "maximum": 127,
+              "description": "Program level: 77-127 = -25 to +25"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
     "misc": {
       "type": "object",
       "required": ["bpmSync", "portamentMode", "portamentTime", "cutoffVelocity", "cutoffKeyTrack", "sliderAssign"],
