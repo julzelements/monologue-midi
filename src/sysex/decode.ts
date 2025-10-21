@@ -93,7 +93,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const drive = read10BitValue(body[29], body[35], 6);
   const keyboardOctave = readBits(body[32], 2, 3);
   const syncRing = readBits(body[32], 0, 2);
-  const seqTrig = readBits(body[36], 0, 1);
+  const seqTrig = readBits(body[36], 6, 1);
 
   const vco1Wave = readBits(body[30], 6, 2);
   const vco1Shape = read10BitValue(body[17], body[30], 2);

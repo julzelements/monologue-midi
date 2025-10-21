@@ -3,7 +3,7 @@
   "drive": 0,
   "keyboardOctave": 1,
   "syncRing": 1,
-  "seqTrig": 0,
+  "seqTrig": 1,
   "oscilators": {
     "vco1": {
       "wave": 0,
