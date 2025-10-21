@@ -3,7 +3,7 @@
  */
 
 import { parseSysex } from "./utils/sysex-parser";
-import { read10BitValue } from "./utils/bit-manipulation";
+import { read10BitValue, readBits } from "./utils/bit-manipulation";
 
 export interface MonologueParameters {
   patchName: string;
@@ -87,16 +87,29 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       patchName += String.fromCharCode(asciiChar);
     }
   }
-  // Trim trailing spaces
   patchName = patchName.trimEnd();
 
-  // Decode CUTOFF (offset 22 for upper 8 bits, offset 33 bits 4-5 for lower 2 bits)
-  // Range: 0-1023 (10-bit value)
-  const cutoff = read10BitValue(body[22], body[33], 4);
-
-  // Decode DRIVE (offset 29 for upper 8 bits, offset 35 bits 6-7 for lower 2 bits)
-  // Range: 0-1023 (10-bit value)
   const drive = read10BitValue(body[29], body[35], 6);
+
+  const vco1Wave = readBits(body[30], 6, 7);
+  const vco1Shape = read10BitValue(body[17], body[30], 2);
+  const vco1Level = read10BitValue(body[20], body[33], 0);
+  const vco1Pitch = read10BitValue(body[16], body[30], 0);
+  const vco1Octave = readBits(body[31], 4, 2);
+
+  const vco2Pitch = read10BitValue(body[18], body[31], 0);
+  const vco2Shape = read10BitValue(body[19], body[31], 2);
+  const vco2Level = read10BitValue(body[21], body[33], 2);
+
+  const cutoff = read10BitValue(body[22], body[33], 4);
+  const resonance = read10BitValue(body[23], body[33], 6);
+
+  const egAttack = read10BitValue(body[24], body[34], 2);
+  const egDecay = read10BitValue(body[25], body[34], 4);
+  const egInt = read10BitValue(body[28], body[35], 0);
+
+  const lfoRate = read10BitValue(body[26], body[35], 2);
+  const lfoInt = read10BitValue(body[27], body[35], 4);
 
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
@@ -105,47 +118,47 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     drive,
     oscilators: {
       vco1: {
-        wave: 0,
-        shape: 0,
-        level: 0,
-        pitch: 0,
-        duty: 0,
-        octave: 0,
+        wave: vco1Wave,
+        shape: vco1Shape,
+        level: vco1Level,
+        pitch: vco1Pitch,
+        duty: 5000,
+        octave: vco1Octave,
       },
       vco2: {
-        wave: 0,
-        shape: 0,
-        level: 0,
-        pitch: 0,
-        duty: 0,
-        octave: 0,
+        wave: 5000,
+        shape: 5000,
+        level: 5000,
+        pitch: 5000,
+        duty: 5000,
+        octave: 5000,
       },
     },
     filter: {
       cutoff,
-      resonance: 0,
+      resonance: 5000,
     },
     envelope: {
-      type: 0,
-      attack: 0,
-      decay: 0,
-      intensity: 0,
-      target: 0,
+      type: 5000,
+      attack: 5000,
+      decay: 5000,
+      intensity: 5000,
+      target: 5000,
     },
     lfo: {
-      wave: 0,
-      mode: 0,
-      rate: 0,
-      intensity: 0,
-      target: 0,
+      wave: 5000,
+      mode: 5000,
+      rate: 5000,
+      intensity: 5000,
+      target: 5000,
     },
     misc: {
-      bpmSync: 0,
-      portamentMode: 0,
-      portamentTime: 0,
-      cutoffVelocity: 0,
-      cutoffKeyTrack: 0,
-      sliderAssign: 0,
+      bpmSync: 5000,
+      portamentMode: 5000,
+      portamentTime: 5000,
+      cutoffVelocity: 5000,
+      cutoffKeyTrack: 5000,
+      sliderAssign: 5000,
     },
     sequencer: {},
   };
