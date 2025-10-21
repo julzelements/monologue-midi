@@ -2,6 +2,8 @@
   "patchName": "Lu-Fuki\u0000\u0000\u0000\u0000\u0000",
   "drive": 88,
   "keyboardOctave": 1,
+  "syncRing": 2,
+  "seqTrig": 0,
   "oscilators": {
     "vco1": {
       "wave": 1,
@@ -15,7 +17,6 @@
       "shape": 0,
       "level": 777,
       "pitch": 523,
-      "sync": 2,
       "octave": 1
     }
   },

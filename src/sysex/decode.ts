@@ -9,6 +9,8 @@ export interface MonologueParameters {
   patchName: string;
   drive: number;
   keyboardOctave: number;
+  syncRing: number;
+  seqTrig: number;
   oscilators: {
     vco1: {
       wave: number;
@@ -22,7 +24,6 @@ export interface MonologueParameters {
       shape: number;
       level: number;
       pitch: number;
-      sync: number;
       octave: number;
     };
   };
@@ -90,6 +91,9 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   patchName = patchName.trimEnd();
 
   const drive = read10BitValue(body[29], body[35], 6);
+  const keyboardOctave = readBits(body[32], 2, 3);
+  const syncRing = readBits(body[32], 0, 2);
+  const seqTrig = readBits(body[36], 0, 1);
 
   const vco1Wave = readBits(body[30], 6, 2);
   const vco1Shape = read10BitValue(body[17], body[30], 2);
@@ -102,9 +106,6 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const vco2Shape = read10BitValue(body[19], body[31], 2);
   const vco2Level = read10BitValue(body[21], body[33], 2);
   const vco2Octave = readBits(body[31], 4, 2);
-
-  const syncRing = readBits(body[32], 0, 2);
-  const keyboardOctave = readBits(body[32], 2, 3);
 
   const cutoff = read10BitValue(body[22], body[33], 4);
   const resonance = read10BitValue(body[23], body[33], 6);
@@ -127,6 +128,8 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     patchName,
     drive,
     keyboardOctave,
+    syncRing,
+    seqTrig,
     oscilators: {
       vco1: {
         wave: vco1Wave,
@@ -140,7 +143,6 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         shape: vco2Shape,
         level: vco2Level,
         pitch: vco2Pitch,
-        sync: syncRing,
         octave: vco2Octave,
       },
     },

@@ -35,12 +35,23 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   }
 
   // Encode DRIVE (offset 29 for upper 8 bits, offset 35 bits 6-7 for lower 2 bits)
-  // Range: 0-1023 (10-bit value)
   const drive = params.drive || 0;
   const driveEncoded = write10BitValue(drive, 6);
   body[29] = driveEncoded.upperByte;
   // Merge lower bits into byte 35 (preserving other bits)
   body[35] = (body[35] & driveEncoded.mask) | driveEncoded.lowerBits;
+
+  // KEYBOARD OCTAVE (offset 32 bits 2-4, range 0-4)
+  const keyboardOctave = (params.keyboardOctave || 0) & 0x07;
+  body[32] = (body[32] & ~(0x07 << 2)) | (keyboardOctave << 2);
+
+  // SYNC/RING (offset 32 bits 0-1, range 0-2)
+  const syncRing = (params.syncRing || 0) & 0x03;
+  body[32] = (body[32] & ~0x03) | syncRing;
+
+  // SEQ TRIG (offset 36 bit 6, range 0)
+  const seqTrig = (params.seqTrig || 0) & 0x01;
+  body[36] = (body[36] & ~(0x01 << 6)) | (seqTrig << 6);
 
   // Encode VCO1 parameters
   const vco1 = params.oscilators?.vco1;
@@ -95,15 +106,6 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     const vco2Wave = (vco2.wave || 0) & 0x03;
     body[31] = (body[31] & ~(0x03 << 6)) | (vco2Wave << 6);
   }
-
-  // Encode SYNC/RING and KEYBOARD OCTAVE (offset 32)
-  // SYNC/RING (offset 32 bits 0-1, range 0-2)
-  const syncRing = (vco2?.sync || 0) & 0x03;
-  body[32] = (body[32] & ~0x03) | syncRing;
-
-  // KEYBOARD OCTAVE (offset 32 bits 2-4, range 0-4)
-  const keyboardOctave = (params.keyboardOctave || 0) & 0x07;
-  body[32] = (body[32] & ~(0x07 << 2)) | (keyboardOctave << 2);
 
   // Encode EG (Envelope Generator) parameters
   const envelope = params.envelope;

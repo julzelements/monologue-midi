@@ -2,6 +2,8 @@
   "patchName": "<wavetable>\u0000",
   "drive": 0,
   "keyboardOctave": 1,
+  "syncRing": 1,
+  "seqTrig": 0,
   "oscilators": {
     "vco1": {
       "wave": 0,
@@ -15,7 +17,6 @@
       "shape": 584,
       "level": 1023,
       "pitch": 563,
-      "sync": 1,
       "octave": 0
     }
   },

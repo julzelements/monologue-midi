@@ -32,8 +32,6 @@ describe("VCO2 Parameters", () => {
       expect(decoded.oscilators.vco2.octave).toBeLessThanOrEqual(3);
       expect(decoded.oscilators.vco2.wave).toBeGreaterThanOrEqual(0);
       expect(decoded.oscilators.vco2.wave).toBeLessThanOrEqual(2);
-      expect(decoded.oscilators.vco2.sync).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.sync).toBeLessThanOrEqual(2);
 
       // Load parsed data to compare
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
@@ -43,7 +41,6 @@ describe("VCO2 Parameters", () => {
       expect(decoded.oscilators.vco2.level).toBe(parsedData.oscilators.vco2.level);
       expect(decoded.oscilators.vco2.octave).toBe(parsedData.oscilators.vco2.octave);
       expect(decoded.oscilators.vco2.wave).toBe(parsedData.oscilators.vco2.wave);
-      expect(decoded.oscilators.vco2.sync).toBe(parsedData.oscilators.vco2.sync);
     });
   });
 
@@ -67,7 +64,6 @@ describe("VCO2 Parameters", () => {
         expect(decoded.oscilators.vco2.level).toBe(originalParams.oscilators.vco2.level);
         expect(decoded.oscilators.vco2.octave).toBe(originalParams.oscilators.vco2.octave);
         expect(decoded.oscilators.vco2.wave).toBe(originalParams.oscilators.vco2.wave);
-        expect(decoded.oscilators.vco2.sync).toBe(originalParams.oscilators.vco2.sync);
       }
     );
   });
@@ -92,7 +88,6 @@ describe("VCO2 Parameters", () => {
         expect(decodedParams.oscilators.vco2.level).toBe(originalParams.oscilators.vco2.level);
         expect(decodedParams.oscilators.vco2.octave).toBe(originalParams.oscilators.vco2.octave);
         expect(decodedParams.oscilators.vco2.wave).toBe(originalParams.oscilators.vco2.wave);
-        expect(decodedParams.oscilators.vco2.sync).toBe(originalParams.oscilators.vco2.sync);
       }
     );
   });

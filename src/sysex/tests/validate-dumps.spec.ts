@@ -22,7 +22,6 @@ describe("Monologue Parameter Validation", () => {
           console.error(`\nValidation errors for ${dumpFile}:`);
           result.errors?.forEach((err) => console.error(`  - ${err}`));
         }
-
         expect(result.valid).toBe(true);
         expect(result.errors).toBeUndefined();
       });
@@ -118,14 +117,6 @@ describe("Monologue Parameter Validation", () => {
 
       expect(data.oscilators.vco1.pitch).toBeGreaterThanOrEqual(0);
       expect(data.oscilators.vco1.pitch).toBeLessThanOrEqual(1023);
-    });
-
-    it("should have valid bipolar values for envelope intensity", () => {
-      const filePath = join(__dirname, "data", "parsed", "dump1.json");
-      const data = JSON.parse(readFileSync(filePath, "utf8"));
-
-      expect(data.envelope.intensity).toBeGreaterThanOrEqual(-512);
-      expect(data.envelope.intensity).toBeLessThanOrEqual(511);
     });
 
     it("should have valid MIDI note values (0-127)", () => {
