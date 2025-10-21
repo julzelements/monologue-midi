@@ -89,6 +89,12 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   // Trim trailing spaces
   patchName = patchName.trimEnd();
 
+  // Decode CUTOFF (offset 22 for upper 8 bits, offset 33 bits 4-5 for lower 2 bits)
+  // Range: 0-1023 (10-bit value)
+  const cutoffUpper = body[22]; // bits 2-9
+  const cutoffLower = (body[33] >> 4) & 0x03; // bits 0-1 from bits 4-5 of byte 33
+  const cutoff = (cutoffUpper << 2) | cutoffLower;
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -113,7 +119,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       },
     },
     filter: {
-      cutoff: 0,
+      cutoff,
       resonance: 0,
     },
     envelope: {

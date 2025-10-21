@@ -29,7 +29,9 @@ Each row represents one byte with 8 bits:
 
 ### After Encoding (8 bytes of 7-bit MIDI data)
 
-The high bits are packed into byte 0, and bytes 1-7 contain the lower 7 bits:
+The high bits are packed into byte 0, and bytes 1-7 contain the lower 7 bits.
+
+**IMPORTANT**: According to Korg spec, bit 0 of the MSB byte contains bit 7 of data byte 0, bit 6 contains bit 7 of data byte 6.
 
 | Byte  | b7   | b6  | b5  | b4  | b3  | b2  | b1  | b0  | Description          |
 | ----- | ---- | --- | --- | --- | --- | --- | --- | --- | -------------------- |

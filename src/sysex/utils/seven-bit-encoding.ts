@@ -7,8 +7,9 @@
  * Original: 7 bytes of 8-bit data
  * Packed:   8 bytes of 7-bit data
  *
- * Pattern per set:
+ * Pattern per set (according to Korg spec NOTE 5):
  * - Byte 0: [0, b7₆, b7₅, b7₄, b7₃, b7₂, b7₁, b7₀] (all the high bits)
+ *   where bit 0 contains b7 of data byte 0, bit 6 contains b7 of data byte 6
  * - Byte 1-7: [0, b6-b0] (lower 7 bits of each original byte)
  */
 
@@ -28,7 +29,8 @@ export function decode7BitSet(midiSet: Uint8Array): Uint8Array {
 
   for (let i = 0; i < 7; i++) {
     // Extract the high bit for this byte from the packed byte
-    const highBit = (highBits >> (6 - i)) & 0x01;
+    // According to spec: bit i of highBits contains bit 7 of data byte i
+    const highBit = (highBits >> i) & 0x01;
     // Combine high bit (b7) with lower 7 bits (b6-b0)
     decoded[i] = (highBit << 7) | midiSet[i + 1];
   }
@@ -51,9 +53,10 @@ export function encode7BitSet(dataSet: Uint8Array): Uint8Array {
   let highBits = 0;
 
   // Pack all the high bits (b7) into the first byte
+  // According to spec: bit i of highBits should contain bit 7 of data byte i
   for (let i = 0; i < 7; i++) {
     const highBit = (dataSet[i] >> 7) & 0x01;
-    highBits |= highBit << (6 - i);
+    highBits |= highBit << i;
   }
 
   encoded[0] = highBits;

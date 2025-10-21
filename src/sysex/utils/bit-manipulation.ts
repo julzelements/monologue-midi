@@ -2,26 +2,31 @@
  * Bit manipulation utilities for parameter encoding/decoding
  *
  * Many Monologue parameters are 10-bit values (0-1023) split across multiple bytes:
- * - Upper 8 bits stored in one byte
- * - Lower 2 bits stored in another byte's specific bit positions
+ * - Bits 9-2 (the high 8 bits) stored in one byte
+ * - Bits 1-0 (the low 2 bits) stored in another byte's specific bit positions
+ *
+ * Example: Value 488 (0x1E8) = 0b0111101000
+ *   Bits [9:2] = 0b01111010 = 122 -> stored in upperByte
+ *   Bits [1:0] = 0b00 = 0 -> stored in lowerByte at specified offset
  */
 
 /**
  * Read a 10-bit value split across two bytes
  *
- * @param upperByte - Byte containing bits 2-9 (upper 8 bits)
- * @param lowerByte - Byte containing bits 0-1 (lower 2 bits)
- * @param lowerBitOffset - Bit position in lowerByte where the 2 bits start
+ * @param upperByte - Byte containing bits [9:2] of the 10-bit value
+ * @param lowerByte - Byte containing bits [1:0] packed with other data
+ * @param lowerBitOffset - Bit position in lowerByte where bits [1:0] start (0-7)
  * @returns 10-bit value (0-1023)
  */
 export function read10BitValue(upperByte: number, lowerByte: number, lowerBitOffset: number): number {
-  // Extract upper 8 bits (these are bits 2-9 of the final value)
+  // Extract the high 8 bits (bits [9:2] of the final 10-bit value)
   const upper8 = upperByte & 0xff;
 
-  // Extract lower 2 bits from the specified position
+  // Extract the low 2 bits (bits [1:0]) from the specified position
   const lower2 = (lowerByte >> lowerBitOffset) & 0x03;
 
-  // Combine: upper 8 bits shifted left by 2, OR with lower 2 bits
+  // Combine: shift high 8 bits left by 2 positions, OR with low 2 bits
+  // Result: [bit9 bit8 bit7 bit6 bit5 bit4 bit3 bit2 bit1 bit0]
   return (upper8 << 2) | lower2;
 }
 
@@ -29,8 +34,13 @@ export function read10BitValue(upperByte: number, lowerByte: number, lowerBitOff
  * Write a 10-bit value split across two bytes
  *
  * @param value - 10-bit value (0-1023)
- * @param lowerBitOffset - Bit position in the lower byte where bits should be written
- * @returns { upperByte, lowerBits } - Upper 8 bits and lower 2 bits for the offset
+ * @param lowerBitOffset - Bit position in the lower byte where bits [1:0] should be written
+ * @returns { upperByte, lowerBits, mask } - Upper 8 bits, lower 2 bits positioned, and mask to clear target bits
+ *
+ * Example: Value 488 (0b0111101000) with lowerBitOffset=4
+ *   upperByte = 122 (0b01111010) - bits [9:2]
+ *   lowerBits = 0 (0b00) shifted to position 4 = 0b00000000
+ *   mask = 0b11001111 (clears bits 4-5)
  */
 export function write10BitValue(
   value: number,
@@ -40,16 +50,16 @@ export function write10BitValue(
     throw new Error(`Value out of range: ${value} (expected 0-1023)`);
   }
 
-  // Upper 8 bits are bits 2-9 of the value
+  // Extract high 8 bits (bits [9:2]) by shifting right 2 positions
   const upperByte = (value >> 2) & 0xff;
 
-  // Lower 2 bits are bits 0-1 of the value
+  // Extract low 2 bits (bits [1:0])
   const lower2 = value & 0x03;
 
-  // Shift lower bits to the correct position
+  // Shift lower bits to the correct position in the target byte
   const lowerBits = lower2 << lowerBitOffset;
 
-  // Create mask to clear the target bits (2 bits at the offset)
+  // Create mask to clear the target bit positions (2 bits at the offset)
   const mask = ~(0x03 << lowerBitOffset);
 
   return { upperByte, lowerBits, mask };
@@ -59,9 +69,12 @@ export function write10BitValue(
  * Read a value from specific bits in a byte
  *
  * @param byte - The byte to read from
- * @param bitStart - Starting bit position (0-7)
- * @param bitCount - Number of bits to read (1-8)
+ * @param bitStart - Starting bit position (0=LSB, 7=MSB)
+ * @param bitCount - Number of consecutive bits to read (1-8)
  * @returns The extracted value
+ *
+ * Example: readBits(0b01001111, 4, 2) extracts bits [5:4]
+ *   Result: 0b00 = 0
  */
 export function readBits(byte: number, bitStart: number, bitCount: number): number {
   const mask = (1 << bitCount) - 1;
@@ -72,10 +85,13 @@ export function readBits(byte: number, bitStart: number, bitCount: number): numb
  * Write a value to specific bits in a byte
  *
  * @param byte - The original byte
- * @param value - The value to write
- * @param bitStart - Starting bit position (0-7)
- * @param bitCount - Number of bits to write (1-8)
+ * @param value - The value to write (will be masked to fit bitCount)
+ * @param bitStart - Starting bit position (0=LSB, 7=MSB)
+ * @param bitCount - Number of consecutive bits to write (1-8)
  * @returns The modified byte
+ *
+ * Example: writeBits(0b11111111, 0b00, 4, 2) writes 0b00 to bits [5:4]
+ *   Result: 0b11001111
  */
 export function writeBits(byte: number, value: number, bitStart: number, bitCount: number): number {
   const mask = (1 << bitCount) - 1;
