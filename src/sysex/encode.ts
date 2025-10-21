@@ -118,10 +118,10 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[25] = egDecayEncoded.upperByte;
     body[34] = (body[34] & egDecayEncoded.mask) | egDecayEncoded.lowerBits;
 
-    // TODO: EG INT encoding - needs investigation, offsets unclear
-    // const egIntEncoded = write10BitValue(envelope.intensity || 0, 0);
-    // body[28] = egIntEncoded.upperByte;
-    // body[35] = (body[35] & egIntEncoded.mask) | egIntEncoded.lowerBits;
+    // EG INT (offset 26 for upper 8 bits, offset 35 bits 0-1 for lower 2 bits)
+    const egIntEncoded = write10BitValue(envelope.intensity || 0, 0);
+    body[26] = egIntEncoded.upperByte;
+    body[35] = (body[35] & egIntEncoded.mask) | egIntEncoded.lowerBits;
 
     // EG TYPE (offset 34 bits 0-1, range 0-2)
     const egType = (envelope.type || 0) & 0x03;

@@ -91,21 +91,18 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
   const drive = read10BitValue(body[29], body[35], 6);
 
-  // VCO1 parameters (offset 30)
   const vco1Wave = readBits(body[30], 6, 2);
   const vco1Shape = read10BitValue(body[17], body[30], 2);
   const vco1Level = read10BitValue(body[20], body[33], 0);
   const vco1Pitch = read10BitValue(body[16], body[30], 0);
   const vco1Octave = readBits(body[30], 4, 2);
 
-  // VCO2 parameters (offset 31)
   const vco2Wave = readBits(body[31], 6, 2);
   const vco2Pitch = read10BitValue(body[18], body[31], 0);
   const vco2Shape = read10BitValue(body[19], body[31], 2);
   const vco2Level = read10BitValue(body[21], body[33], 2);
   const vco2Octave = readBits(body[31], 4, 2);
 
-  // Sync/Ring and Keyboard Octave (offset 32)
   const syncRing = readBits(body[32], 0, 2);
   const keyboardOctave = readBits(body[32], 2, 3);
 
@@ -114,18 +111,12 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
   const egAttack = read10BitValue(body[24], body[34], 2);
   const egDecay = read10BitValue(body[25], body[34], 4);
-  // TODO: EG INT decoding - needs investigation, offsets unclear
-  // const egInt = read10BitValue(body[28], body[35], 0);
-
-  // EG parameters (offset 34)
+  const egInt = read10BitValue(body[26], body[35], 0);
   const egType = readBits(body[34], 0, 2);
   const egTarget = readBits(body[34], 6, 2);
 
   const lfoRate = read10BitValue(body[27], body[35], 2);
   const lfoInt = read10BitValue(body[28], body[35], 4);
-  // const lfoInt = read10BitValue(body[28], body[35], 4);
-
-  // LFO parameters (offset 36)
   const lfoType = readBits(body[36], 0, 2);
   const lfoMode = readBits(body[36], 2, 2);
   const lfoTarget = readBits(body[36], 4, 2);
@@ -155,13 +146,13 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     },
     filter: {
       cutoff,
-      resonance: 5000,
+      resonance,
     },
     envelope: {
       type: egType,
       attack: egAttack,
       decay: egDecay,
-      intensity: 5000, // TODO: Implement EG INT decoding - needs investigation
+      intensity: egInt,
       target: egTarget,
     },
     lfo: {

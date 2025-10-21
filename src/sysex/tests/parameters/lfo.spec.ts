@@ -61,8 +61,7 @@ describe("LFO Parameters", () => {
       expect(decoded.lfo.wave).toBe(originalParams.lfo.wave);
       expect(decoded.lfo.mode).toBe(originalParams.lfo.mode);
       expect(decoded.lfo.rate).toBe(originalParams.lfo.rate);
-      // TODO: Test intensity when encoding is implemented - offsets need investigation
-      // expect(decoded.lfo.intensity).toBe(originalParams.lfo.intensity);
+      expect(decoded.lfo.intensity).toBe(originalParams.lfo.intensity);
       expect(decoded.lfo.target).toBe(originalParams.lfo.target);
     });
   });

@@ -28,9 +28,8 @@ describe("EG (Envelope Generator) Parameters", () => {
       expect(decoded.envelope.attack).toBeLessThanOrEqual(1023);
       expect(decoded.envelope.decay).toBeGreaterThanOrEqual(0);
       expect(decoded.envelope.decay).toBeLessThanOrEqual(1023);
-      // TODO: Test intensity when decoding is implemented - offsets need investigation
-      // expect(decoded.envelope.intensity).toBeGreaterThanOrEqual(0);
-      // expect(decoded.envelope.intensity).toBeLessThanOrEqual(1023);
+      expect(decoded.envelope.intensity).toBeGreaterThanOrEqual(0);
+      expect(decoded.envelope.intensity).toBeLessThanOrEqual(1023);
       expect(decoded.envelope.target).toBeGreaterThanOrEqual(0);
       expect(decoded.envelope.target).toBeLessThanOrEqual(2);
 
@@ -40,8 +39,7 @@ describe("EG (Envelope Generator) Parameters", () => {
       expect(decoded.envelope.type).toBe(parsedData.envelope.type);
       expect(decoded.envelope.attack).toBe(parsedData.envelope.attack);
       expect(decoded.envelope.decay).toBe(parsedData.envelope.decay);
-      // TODO: Test intensity when decoding is implemented - offsets need investigation
-      // expect(decoded.envelope.intensity).toBe(parsedData.envelope.intensity);
+      expect(decoded.envelope.intensity).toBe(parsedData.envelope.intensity);
       expect(decoded.envelope.target).toBe(parsedData.envelope.target);
     });
   });
@@ -62,7 +60,6 @@ describe("EG (Envelope Generator) Parameters", () => {
       expect(decoded.envelope.type).toBe(originalParams.envelope.type);
       expect(decoded.envelope.attack).toBe(originalParams.envelope.attack);
       expect(decoded.envelope.decay).toBe(originalParams.envelope.decay);
-      // TODO: Test intensity when encoding is implemented - offsets need investigation
       // expect(decoded.envelope.intensity).toBe(originalParams.envelope.intensity);
       expect(decoded.envelope.target).toBe(originalParams.envelope.target);
     });
@@ -86,8 +83,7 @@ describe("EG (Envelope Generator) Parameters", () => {
         expect(decodedParams.envelope.type).toBe(originalParams.envelope.type);
         expect(decodedParams.envelope.attack).toBe(originalParams.envelope.attack);
         expect(decodedParams.envelope.decay).toBe(originalParams.envelope.decay);
-        // TODO: Test intensity when encoding/decoding is implemented - offsets need investigation
-        // expect(decodedParams.envelope.intensity).toBe(originalParams.envelope.intensity);
+        expect(decodedParams.envelope.intensity).toBe(originalParams.envelope.intensity);
         expect(decodedParams.envelope.target).toBe(originalParams.envelope.target);
       }
     );
