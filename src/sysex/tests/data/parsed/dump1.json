@@ -1,13 +1,14 @@
 {
   "patchName": "<afx acid3>\u0000",
   "drive": 0,
+  "keyboardOctave": 0,
   "oscilators": {
     "vco1": {
       "wave": 2,
       "shape": 0,
       "level": 1023,
       "pitch": 512,
-      "octave": 0
+      "octave": 1
     },
     "vco2": {
       "wave": 2,

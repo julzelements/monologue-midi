@@ -1,13 +1,14 @@
 {
   "patchName": "Injection\u0000\u0000\u0000",
   "drive": 1023,
+  "keyboardOctave": 1,
   "oscilators": {
     "vco1": {
       "wave": 2,
       "shape": 0,
       "level": 573,
       "pitch": 512,
-      "octave": 0
+      "octave": 1
     },
     "vco2": {
       "wave": 1,

@@ -1,13 +1,14 @@
 {
   "patchName": "Lu-Fuki\u0000\u0000\u0000\u0000\u0000",
   "drive": 88,
+  "keyboardOctave": 1,
   "oscilators": {
     "vco1": {
       "wave": 1,
       "shape": 0,
       "level": 1023,
       "pitch": 512,
-      "octave": 0
+      "octave": 1
     },
     "vco2": {
       "wave": 2,
