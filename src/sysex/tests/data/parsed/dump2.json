@@ -50,9 +50,9 @@
       "bendRangeMinus": 12
     },
     "pitch": {
-      "microTuning": 5000,
+      "microTuning": 0,
       "scaleKey": 12,
-      "programTuning": 0
+      "programTuning": 50
     },
     "other": {
       "lfoBpmSync": 1,

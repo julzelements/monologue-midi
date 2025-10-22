@@ -154,6 +154,10 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const bendRangePlus = readBits(body[43], 0, 4);
   const bendRangeMinus = readBits(body[43], 4, 4);
 
+  const programTuning = body[37];
+  const microTuning = body[38];
+  const scaleKey = body[39];
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -208,9 +212,9 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         bendRangeMinus: bendRangeMinus,
       },
       pitch: {
-        microTuning: 5000,
-        scaleKey: 5000,
-        programTuning: 5000,
+        microTuning: microTuning,
+        scaleKey: scaleKey,
+        programTuning: programTuning,
       },
       other: {
         lfoBpmSync: 5000,

@@ -342,6 +342,39 @@ Below is a table for each parameter.
     1 : SHAPE
     2 : PITCH
 
+*note P11 (MICRO TUNING)
+    0 : Equal Temp
+    1 : Pure Major
+    2 : Pure Minor
+    3 : Pythagorean
+    4 : Werckmeister
+    5 : Kirnburger
+    6 : Slendro
+    7 : Pelog
+    8 : Ionian
+    9 : Dorian
+   10 : Aeolian
+   11 : Major Penta
+   12 : Minor Penta
+   13 : Reverse
+   14 : AFX001
+   15 : AFX002
+   16 : AFX003
+   17 : AFX004
+   18 : AFX005
+   19 : AFX006
+  128 : USER SCALE 1
+  129 : USER SCALE 2
+  130 : USER SCALE 3
+  131 : USER SCALE 4
+  132 : USER SCALE 5
+  133 : USER SCALE 6
+  134 : USER OCTAVE 1
+  135 : USER OCTAVE 2
+  136 : USER OCTAVE 3
+  137 : USER OCTAVE 4
+  138 : USER OCTAVE 5
+  139 : USER OCTAVE 6
 
 *note P12 (Slider Assign)
    13 : VCO 1 PITCH

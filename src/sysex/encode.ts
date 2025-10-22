@@ -189,6 +189,19 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[43] = (body[43] & ~(0x0f << 4)) | (bendRangeMinus << 4);
   }
 
+  // Encode Pitch settings
+  const pitch = params.programSettings?.pitch;
+  if (pitch) {
+    // PROGRAM TUNING (offset 37, range 0-100 = -50 to +50 cents)
+    body[37] = (pitch.programTuning || 0) & 0x7f;
+
+    // MICRO TUNING (offset 38, range 0-139)
+    body[38] = (pitch.microTuning || 0) & 0xff;
+
+    // SCALE KEY (offset 39, range 0-24 = -12 to +12 keys)
+    body[39] = (pitch.scaleKey || 0) & 0x1f;
+  }
+
   // TODO: Encode other parameters (filter, misc, etc.)
   // For now, leave rest as zeros
 
