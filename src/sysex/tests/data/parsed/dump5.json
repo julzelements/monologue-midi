@@ -40,26 +40,26 @@
   },
   "programSettings": {
     "portamento": {
-      "time": 5000,
-      "mode": 5000,
+      "time": 1,
+      "mode": 0,
       "slideTime": 5000
     },
     "slider": {
-      "assign": 5000,
-      "bendRangePlus": 5000,
-      "bendRangeMinus": 5000
+      "assign": 56,
+      "bendRangePlus": 2,
+      "bendRangeMinus": 2
     },
-    "tuning": {
+    "pitch": {
       "microTuning": 5000,
-      "scaleKey": 5000,
-      "programTuning": 5000
+      "scaleKey": 12,
+      "programTuning": 0
     },
     "other": {
-      "lfoBpmSync": 5000,
-      "cutoffKeyTrack": 5000,
-      "cutoffVelocity": 5000,
-      "ampVelocity": 5000,
-      "programLevel": 5000
+      "lfoBpmSync": 0,
+      "cutoffKeyTrack": 0,
+      "cutoffVelocity": 0,
+      "ampVelocity": 0,
+      "programLevel": 112
     }
   },
   "misc": {
