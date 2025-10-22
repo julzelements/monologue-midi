@@ -3,7 +3,18 @@
   "title": "MonologueParameters",
   "description": "Complete parameter schema for Korg Monologue synthesizer patches",
   "type": "object",
-  "required": ["patchName", "drive", "keyboardOctave", "oscilators", "filter", "envelope", "lfo", "misc", "sequencer"],
+  "required": [
+    "patchName",
+    "drive",
+    "keyboardOctave",
+    "oscilators",
+    "filter",
+    "envelope",
+    "lfo",
+    "programSettings",
+    "misc",
+    "sequencer"
+  ],
   "properties": {
     "patchName": {
       "type": "string",
