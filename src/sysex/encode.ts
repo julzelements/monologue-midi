@@ -174,6 +174,21 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[44] = (body[44] & ~0x01) | portamentoMode;
   }
 
+  // Encode Slider settings
+  const slider = params.programSettings?.slider;
+  if (slider) {
+    // SLIDER ASSIGN (offset 42, CC number)
+    body[42] = (slider.assign || 0) & 0x7f;
+
+    // BEND RANGE (+) (offset 43 bits 0-3, range 1-12)
+    const bendRangePlus = (slider.bendRangePlus || 1) & 0x0f;
+    body[43] = (body[43] & ~0x0f) | bendRangePlus;
+
+    // BEND RANGE (-) (offset 43 bits 4-7, range 1-12)
+    const bendRangeMinus = (slider.bendRangeMinus || 1) & 0x0f;
+    body[43] = (body[43] & ~(0x0f << 4)) | (bendRangeMinus << 4);
+  }
+
   // TODO: Encode other parameters (filter, misc, etc.)
   // For now, leave rest as zeros
 

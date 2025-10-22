@@ -150,6 +150,10 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const portamentoTime = body[41];
   const portamentoMode = readBits(body[44], 0, 1);
 
+  const sliderAssign = body[42];
+  const bendRangePlus = readBits(body[43], 0, 4);
+  const bendRangeMinus = readBits(body[43], 4, 4);
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -199,9 +203,9 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         slideTime: portamentoSlideTime,
       },
       slider: {
-        assign: 5000,
-        bendRangePlus: 5000,
-        bendRangeMinus: 5000,
+        assign: sliderAssign,
+        bendRangePlus: bendRangePlus,
+        bendRangeMinus: bendRangeMinus,
       },
       pitch: {
         microTuning: 5000,
