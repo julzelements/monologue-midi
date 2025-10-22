@@ -1,67 +1,67 @@
 // Lookup tables for converting between numeric values and human-readable labels
 
-export const VCO1_WAVE_LABELS = ['SQR', 'TRI', 'SAW'] as const;
-export const VCO2_WAVE_LABELS = ['NOISE', 'TRI', 'SAW'] as const;
-export const SYNC_RING_LABELS = ['RING', 'OFF', 'SYNC'] as const;
+export const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
+export const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
+export const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
 export const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
-export const EG_TYPE_LABELS = ['GATE', 'A/G/D', 'A/D'] as const;
-export const EG_TARGET_LABELS = ['CUTOFF', 'PITCH 2', 'PITCH'] as const;
-export const LFO_MODE_LABELS = ['1-SHOT', 'SLOW', 'FAST'] as const;
-export const LFO_TARGET_LABELS = ['CUTOFF', 'SHAPE', 'PITCH'] as const;
-export const PERCENTAGE_LABELS = ['0%', '33%', '66%', '100%'] as const;
-export const STEP_RESOLUTION_LABELS = ['1/16', '1/8', '1/4', '1/2', '1/1'] as const;
-export const BOOLEAN_LABELS = ['OFF', 'ON'] as const;
+export const EG_TYPE_LABELS = ["GATE", "A/G/D", "A/D"] as const;
+export const EG_TARGET_LABELS = ["CUTOFF", "PITCH 2", "PITCH"] as const;
+export const LFO_MODE_LABELS = ["1-SHOT", "SLOW", "FAST"] as const;
+export const LFO_TARGET_LABELS = ["CUTOFF", "SHAPE", "PITCH"] as const;
+export const PERCENTAGE_LABELS = ["0%", "33%", "66%", "100%"] as const;
+export const STEP_RESOLUTION_LABELS = ["1/16", "1/8", "1/4", "1/2", "1/1"] as const;
+export const BOOLEAN_LABELS = ["OFF", "ON"] as const;
 
 // Slider Assign labels mapped by ID
 export const SLIDER_ASSIGN_LABELS: Record<number, string> = {
-  13: 'VCO 1 PITCH',
-  14: 'VCO 1 SHAPE',
-  17: 'VCO 2 PITCH',
-  18: 'VCO 2 SHAPE',
-  21: 'VCO 1 LEVEL',
-  22: 'VCO 2 LEVEL',
-  23: 'CUTOFF',
-  24: 'RESONANCE',
-  26: 'ATTACK',
-  27: 'DECAY',
-  28: 'EG INT',
-  31: 'LFO RATE',
-  32: 'LFO INT',
-  40: 'PORTAMENT',
-  56: 'PITCH BEND',
-  57: 'GATE TIME'
+  13: "VCO 1 PITCH",
+  14: "VCO 1 SHAPE",
+  17: "VCO 2 PITCH",
+  18: "VCO 2 SHAPE",
+  21: "VCO 1 LEVEL",
+  22: "VCO 2 LEVEL",
+  23: "CUTOFF",
+  24: "RESONANCE",
+  26: "ATTACK",
+  27: "DECAY",
+  28: "EG INT",
+  31: "LFO RATE",
+  32: "LFO INT",
+  40: "PORTAMENT",
+  56: "PITCH BEND",
+  57: "GATE TIME",
 };
 
 // Motion Parameter labels mapped by ID (includes all valid motion parameter IDs)
 export const MOTION_PARAM_LABELS: Record<number, string> = {
-  0: 'None',
-  13: 'VCO 1 PITCH',
-  14: 'VCO 1 SHAPE',
-  15: 'VCO 1 OCTAVE',
-  16: 'VCO 1 WAVE',
-  17: 'VCO 2 PITCH',
-  18: 'VCO 2 SHAPE',
-  19: 'VCO 2 OCTAVE',
-  20: 'VCO 2 WAVE',
-  21: 'VCO 1 LEVEL',
-  22: 'VCO 2 LEVEL',
-  23: 'CUTOFF',
-  24: 'RESONANCE',
-  25: 'SYNC/RING',
-  26: 'ATTACK',
-  27: 'DECAY',
-  28: 'EG INT',
-  29: 'EG TYPE',
-  30: 'EG TARGET',
-  31: 'LFO RATE',
-  32: 'LFO INT',
-  33: 'LFO TARGET',
-  34: 'LFO TYPE',
-  35: 'LFO MODE',
-  37: 'DRIVE',
-  40: 'PORTAMENT',
-  56: 'PITCH BEND',
-  57: 'GATE TIME'
+  0: "None",
+  13: "VCO 1 PITCH",
+  14: "VCO 1 SHAPE",
+  15: "VCO 1 OCTAVE",
+  16: "VCO 1 WAVE",
+  17: "VCO 2 PITCH",
+  18: "VCO 2 SHAPE",
+  19: "VCO 2 OCTAVE",
+  20: "VCO 2 WAVE",
+  21: "VCO 1 LEVEL",
+  22: "VCO 2 LEVEL",
+  23: "CUTOFF",
+  24: "RESONANCE",
+  25: "SYNC/RING",
+  26: "ATTACK",
+  27: "DECAY",
+  28: "EG INT",
+  29: "EG TYPE",
+  30: "EG TARGET",
+  31: "LFO RATE",
+  32: "LFO INT",
+  33: "LFO TARGET",
+  34: "LFO TYPE",
+  35: "LFO MODE",
+  37: "DRIVE",
+  40: "PORTAMENT",
+  56: "PITCH BEND",
+  57: "GATE TIME",
 };
 
 // Format functions: numeric value -> pretty string
@@ -195,3 +195,6 @@ export function parseBoolean(label: string): number {
   if (index === -1) throw new Error(`Unknown boolean: ${label}`);
   return index;
 }
+
+// NOTE: Portamento time is super strange
+// 0-72 maps to 0% to 100%. But some numbers, (like 49) are skipped...
