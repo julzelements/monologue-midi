@@ -38,28 +38,6 @@ describe("Portamento Parameters", () => {
     });
   });
 
-  describe("Encoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
-      "should encode portamento settings correctly from %s",
-      (dumpFile) => {
-        // Load parsed data
-        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
-
-        // Encode to SysEx
-        const sysex = encodeMonologueParameters(originalParams);
-
-        // Decode back
-        const decoded = decodeMonologueParameters(sysex);
-
-        // Verify portamento settings match original
-        expect(decoded.programSettings.portamento.time).toBe(originalParams.programSettings.portamento.time);
-        expect(decoded.programSettings.portamento.mode).toBe(originalParams.programSettings.portamento.mode);
-        expect(decoded.programSettings.portamento.slideTime).toBe(originalParams.programSettings.portamento.slideTime);
-      }
-    );
-  });
-
   describe("Round-trip", () => {
     it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
       "should preserve portamento settings through encode->decode cycle for %s",

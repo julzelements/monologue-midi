@@ -146,6 +146,10 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const lfoMode = readBits(body[36], 2, 2);
   const lfoTarget = readBits(body[36], 4, 2);
 
+  const portamentoSlideTime = body[40];
+  const portamentoTime = body[41];
+  const portamentoMode = readBits(body[44], 0, 1);
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -190,9 +194,9 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     },
     programSettings: {
       portamento: {
-        time: 5000,
-        mode: 5000,
-        slideTime: 5000,
+        time: portamentoTime,
+        mode: portamentoMode,
+        slideTime: portamentoSlideTime,
       },
       slider: {
         assign: 5000,

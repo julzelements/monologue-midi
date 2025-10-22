@@ -160,6 +160,20 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[36] = (body[36] & ~(0x03 << 4)) | (lfoTarget << 4);
   }
 
+  // Encode Portamento settings
+  const portamento = params.programSettings?.portamento;
+  if (portamento) {
+    // SLIDE TIME (offset 40, range 0-72)
+    body[40] = (portamento.slideTime || 0) & 0x7f;
+
+    // PORTAMENTO TIME (offset 41, range 0-128)
+    body[41] = (portamento.time || 0) & 0xff;
+
+    // PORTAMENTO MODE (offset 44 bit 0, range 0-1)
+    const portamentoMode = (portamento.mode || 0) & 0x01;
+    body[44] = (body[44] & ~0x01) | portamentoMode;
+  }
+
   // TODO: Encode other parameters (filter, misc, etc.)
   // For now, leave rest as zeros
 
