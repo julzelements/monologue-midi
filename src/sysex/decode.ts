@@ -45,6 +45,30 @@ export interface MonologueParameters {
     intensity: number;
     target: number;
   };
+  programSettings: {
+    portamento: {
+      time: number;
+      mode: number;
+      slideTime: number;
+    };
+    slider: {
+      assign: number;
+      bendRangePlus: number;
+      bendRangeMinus: number;
+    };
+    pitch: {
+      microTuning: number;
+      scaleKey: number;
+      programTuning: number;
+    };
+    other: {
+      lfoBpmSync: number;
+      cutoffKeyTrack: number;
+      cutoffVelocity: number;
+      ampVelocity: number;
+      programLevel: number;
+    };
+  };
   misc: {
     bpmSync: number;
     portamentMode: number;
@@ -163,6 +187,30 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       rate: lfoRate,
       intensity: lfoInt,
       target: lfoTarget,
+    },
+    programSettings: {
+      portamento: {
+        time: 5000,
+        mode: 5000,
+        slideTime: 5000,
+      },
+      slider: {
+        assign: 5000,
+        bendRangePlus: 5000,
+        bendRangeMinus: 5000,
+      },
+      pitch: {
+        microTuning: 5000,
+        scaleKey: 5000,
+        programTuning: 5000,
+      },
+      other: {
+        lfoBpmSync: 5000,
+        cutoffKeyTrack: 5000,
+        cutoffVelocity: 5000,
+        ampVelocity: 5000,
+        programLevel: 5000,
+      },
     },
     misc: {
       bpmSync: 5000,

@@ -22,26 +22,42 @@ describe("Portamento Parameters", () => {
       const decoded = decodeMonologueParameters(sysex);
 
       // Check that Portamento settings are valid
-      expect(decoded.oscilators.vco2.pitch).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.pitch).toBeLessThanOrEqual(1023);
-      expect(decoded.oscilators.vco2.shape).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.shape).toBeLessThanOrEqual(1023);
-      expect(decoded.oscilators.vco2.level).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.level).toBeLessThanOrEqual(1023);
-      expect(decoded.oscilators.vco2.octave).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.octave).toBeLessThanOrEqual(3);
-      expect(decoded.oscilators.vco2.wave).toBeGreaterThanOrEqual(0);
-      expect(decoded.oscilators.vco2.wave).toBeLessThanOrEqual(2);
+      expect(decoded.programSettings.portamento.time).toBeGreaterThanOrEqual(0);
+      expect(decoded.programSettings.portamento.time).toBeLessThanOrEqual(128);
+      expect(decoded.programSettings.portamento.mode).toBeGreaterThanOrEqual(0);
+      expect(decoded.programSettings.portamento.mode).toBeLessThanOrEqual(1);
+      expect(decoded.programSettings.portamento.slideTime).toBeGreaterThanOrEqual(0);
+      expect(decoded.programSettings.portamento.slideTime).toBeLessThanOrEqual(72);
 
       // Load parsed data to compare
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.oscilators.vco2.pitch).toBe(parsedData.oscilators.vco2.pitch);
-      expect(decoded.oscilators.vco2.shape).toBe(parsedData.oscilators.vco2.shape);
-      expect(decoded.oscilators.vco2.level).toBe(parsedData.oscilators.vco2.level);
-      expect(decoded.oscilators.vco2.octave).toBe(parsedData.oscilators.vco2.octave);
-      expect(decoded.oscilators.vco2.wave).toBe(parsedData.oscilators.vco2.wave);
+      expect(decoded.programSettings.portamento.time).toBe(parsedData.programSettings.portamento.time);
+      expect(decoded.programSettings.portamento.mode).toBe(parsedData.programSettings.portamento.mode);
+      expect(decoded.programSettings.portamento.slideTime).toBe(parsedData.programSettings.portamento.slideTime);
     });
+  });
+
+  describe("Encoding", () => {
+    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
+      "should encode portamento settings correctly from %s",
+      (dumpFile) => {
+        // Load parsed data
+        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
+        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
+
+        // Encode to SysEx
+        const sysex = encodeMonologueParameters(originalParams);
+
+        // Decode back
+        const decoded = decodeMonologueParameters(sysex);
+
+        // Verify portamento settings match original
+        expect(decoded.programSettings.portamento.time).toBe(originalParams.programSettings.portamento.time);
+        expect(decoded.programSettings.portamento.mode).toBe(originalParams.programSettings.portamento.mode);
+        expect(decoded.programSettings.portamento.slideTime).toBe(originalParams.programSettings.portamento.slideTime);
+      }
+    );
   });
 
   describe("Round-trip", () => {
@@ -58,12 +74,12 @@ describe("Portamento Parameters", () => {
         // Decode back
         const decodedParams = decodeMonologueParameters(sysex);
 
-        // Check Portamento is preserved
-        expect(decodedParams.oscilators.vco2.pitch).toBe(originalParams.oscilators.vco2.pitch);
-        expect(decodedParams.oscilators.vco2.shape).toBe(originalParams.oscilators.vco2.shape);
-        expect(decodedParams.oscilators.vco2.level).toBe(originalParams.oscilators.vco2.level);
-        expect(decodedParams.oscilators.vco2.octave).toBe(originalParams.oscilators.vco2.octave);
-        expect(decodedParams.oscilators.vco2.wave).toBe(originalParams.oscilators.vco2.wave);
+        // Check portamento settings are preserved
+        expect(decodedParams.programSettings.portamento.time).toBe(originalParams.programSettings.portamento.time);
+        expect(decodedParams.programSettings.portamento.mode).toBe(originalParams.programSettings.portamento.mode);
+        expect(decodedParams.programSettings.portamento.slideTime).toBe(
+          originalParams.programSettings.portamento.slideTime
+        );
       }
     );
   });
