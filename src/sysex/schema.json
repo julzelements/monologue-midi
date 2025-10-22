@@ -153,7 +153,7 @@
     },
     "programSettings": {
       "type": "object",
-      "required": ["portamento", "slider", "tuning", "other"],
+      "required": ["portamento", "slider", "pitch", "other"],
       "properties": {
         "portamento": {
           "type": "object",
@@ -204,7 +204,7 @@
           },
           "additionalProperties": false
         },
-        "tuning": {
+        "pitch": {
           "type": "object",
           "required": ["microTuning", "scaleKey", "programTuning"],
           "properties": {
