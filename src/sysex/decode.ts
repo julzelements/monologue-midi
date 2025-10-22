@@ -158,6 +158,12 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const microTuning = body[38];
   const scaleKey = body[39];
 
+  const lfoBpmSync = readBits(body[44], 3, 1);
+  const cutoffVelocity = readBits(body[44], 4, 2);
+  const cutoffKeyTrack = readBits(body[44], 6, 2);
+  const programLevel = body[45];
+  const ampVelocity = body[46];
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -217,11 +223,11 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         programTuning: programTuning,
       },
       other: {
-        lfoBpmSync: 5000,
-        cutoffKeyTrack: 5000,
-        cutoffVelocity: 5000,
-        ampVelocity: 5000,
-        programLevel: 5000,
+        lfoBpmSync: lfoBpmSync,
+        cutoffKeyTrack: cutoffKeyTrack,
+        cutoffVelocity: cutoffVelocity,
+        ampVelocity: ampVelocity,
+        programLevel: programLevel,
       },
     },
     misc: {

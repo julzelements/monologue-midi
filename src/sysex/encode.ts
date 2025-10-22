@@ -202,6 +202,28 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[39] = (pitch.scaleKey || 0) & 0x1f;
   }
 
+  // Encode Other settings
+  const other = params.programSettings?.other;
+  if (other) {
+    // LFO BPM SYNC (offset 44 bit 3, range 0-1)
+    const lfoBpmSync = (other.lfoBpmSync || 0) & 0x01;
+    body[44] = (body[44] & ~(0x01 << 3)) | (lfoBpmSync << 3);
+
+    // CUTOFF VELOCITY (offset 44 bits 4-5, range 0-2)
+    const cutoffVelocity = (other.cutoffVelocity || 0) & 0x03;
+    body[44] = (body[44] & ~(0x03 << 4)) | (cutoffVelocity << 4);
+
+    // CUTOFF KEY TRACK (offset 44 bits 6-7, range 0-2)
+    const cutoffKeyTrack = (other.cutoffKeyTrack || 0) & 0x03;
+    body[44] = (body[44] & ~(0x03 << 6)) | (cutoffKeyTrack << 6);
+
+    // PROGRAM LEVEL (offset 45, range 77-127)
+    body[45] = (other.programLevel || 102) & 0x7f; // Default 102 = 0
+
+    // AMP VELOCITY (offset 46, range 0-127)
+    body[46] = (other.ampVelocity || 0) & 0x7f;
+  }
+
   // TODO: Encode other parameters (filter, misc, etc.)
   // For now, leave rest as zeros
 
