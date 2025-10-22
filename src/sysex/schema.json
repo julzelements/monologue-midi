@@ -269,48 +269,6 @@
       },
       "additionalProperties": false
     },
-    "misc": {
-      "type": "object",
-      "required": ["bpmSync", "portamentMode", "portamentTime", "cutoffVelocity", "cutoffKeyTrack", "sliderAssign"],
-      "properties": {
-        "bpmSync": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 1,
-          "description": "BPM sync on/off"
-        },
-        "portamentMode": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 1,
-          "description": "Portamento mode on/off"
-        },
-        "portamentTime": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 127,
-          "description": "Portamento time (7-bit value)"
-        },
-        "cutoffVelocity": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 3,
-          "description": "Cutoff velocity sensitivity: 0=0%, 1=33%, 2=66%, 3=100%"
-        },
-        "cutoffKeyTrack": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 3,
-          "description": "Cutoff key tracking: 0=0%, 1=33%, 2=66%, 3=100%"
-        },
-        "sliderAssign": {
-          "type": "integer",
-          "enum": [13, 14, 17, 18, 21, 22, 23, 24, 26, 27, 28, 31, 32, 40, 56, 57],
-          "description": "Parameter assigned to slider (CC number)"
-        }
-      },
-      "additionalProperties": false
-    },
     "sequencer": {
       "type": "object",
       "required": ["bpm", "stepLength", "stepResolution", "swing", "defaultGateTime", "motionSlotParams", "steps"],

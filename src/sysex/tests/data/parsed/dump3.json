@@ -62,14 +62,6 @@
       "programLevel": 112
     }
   },
-  "misc": {
-    "bpmSync": 1,
-    "portamentMode": 0,
-    "portamentTime": 0,
-    "cutoffVelocity": 2,
-    "cutoffKeyTrack": 0,
-    "sliderAssign": 23
-  },
   "sequencer": {
     "bpm": 122,
     "stepLength": 16,
