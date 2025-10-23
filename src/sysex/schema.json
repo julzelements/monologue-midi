@@ -3,13 +3,7 @@
   "title": "MonologueParameters",
   "description": "Complete parameter schema for Korg Monologue synthesizer patches",
   "type": "object",
-  "required": [
-    "patchName",
-    "panelSettings",
-    "programSettings",
-    "sequencerSettings",
-    "sequencerSteps"
-  ],
+  "required": ["patchName", "panelSettings", "programSettings", "sequencerSettings", "sequencerSteps"],
   "properties": {
     "patchName": {
       "type": "string",
