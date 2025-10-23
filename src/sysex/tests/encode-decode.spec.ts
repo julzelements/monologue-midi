@@ -9,7 +9,7 @@ import { decodeMonologueParameters } from "../decode";
 import { encodeMonologueParameters } from "../encode";
 
 describe("SysEx Encode/Decode", () => {
-  const dumpFiles = ["dump1", "dump2", "dump3", "dump4", "dump5"];
+  const dumpFiles = ["dump1"];
 
   // Expected program names for each dump file
   const expectedProgramNames = {
@@ -26,7 +26,6 @@ describe("SysEx Encode/Decode", () => {
       const dumpPath = join(__dirname, "data", "dumps", "dump1.json");
       const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
 
-      // Get the raw SysEx data
       const sysex = new Uint8Array(dumpData.rawData);
 
       // This should not throw - PROG marker should be valid

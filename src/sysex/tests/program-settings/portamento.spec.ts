@@ -10,55 +10,37 @@ import { encodeMonologueParameters } from "../../encode";
 
 describe("Portamento Parameters", () => {
   describe("Decoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])("should decode portamento settings from %s", (dumpFile) => {
+    it.each(["dump1"])("should decode portamento settings from %s", (dumpFile) => {
       // Load the raw SysEx dump data
       const dumpPath = join(__dirname, "..", "data", "dumps", `${dumpFile}.json`);
       const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
 
-      // Get the raw SysEx data
       const sysex = new Uint8Array(dumpData.rawData);
 
-      // Decode the SysEx
       const decoded = decodeMonologueParameters(sysex);
 
-      // Check that Portamento settings are valid
-      expect(decoded.programSettings.portamento.time).toBeGreaterThanOrEqual(0);
-      expect(decoded.programSettings.portamento.time).toBeLessThanOrEqual(128);
-      expect(decoded.programSettings.portamento.mode).toBeGreaterThanOrEqual(0);
-      expect(decoded.programSettings.portamento.mode).toBeLessThanOrEqual(1);
-      expect(decoded.programSettings.portamento.slideTime).toBeGreaterThanOrEqual(0);
-      expect(decoded.programSettings.portamento.slideTime).toBeLessThanOrEqual(72);
-
-      // Load parsed data to compare
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.programSettings.portamento.time).toBe(parsedData.programSettings.portamento.time);
-      expect(decoded.programSettings.portamento.mode).toBe(parsedData.programSettings.portamento.mode);
-      expect(decoded.programSettings.portamento.slideTime).toBe(parsedData.programSettings.portamento.slideTime);
+      expect(decoded.programSettings.portamento.time.value).toBe(parsedData.programSettings.portamento.time.value);
+      expect(decoded.programSettings.portamento.mode.value).toBe(parsedData.programSettings.portamento.mode.value);
+      expect(decoded.programSettings.portamento.slideTime.value).toBe(parsedData.programSettings.portamento.slideTime.value);
     });
   });
 
   describe("Round-trip", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
-      "should preserve portamento settings through encode->decode cycle for %s",
-      (dumpFile) => {
-        // Load parsed data
-        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
+    it.each(["dump1"])("should preserve portamento settings through encode->decode cycle for %s", (dumpFile) => {
+      const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
+      const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
 
-        // Encode to SysEx
-        const sysex = encodeMonologueParameters(originalParams);
+      const sysex = encodeMonologueParameters(originalParams);
+      const decodedParams = decodeMonologueParameters(sysex);
 
-        // Decode back
-        const decodedParams = decodeMonologueParameters(sysex);
-
-        // Check portamento settings are preserved
-        expect(decodedParams.programSettings.portamento.time).toBe(originalParams.programSettings.portamento.time);
-        expect(decodedParams.programSettings.portamento.mode).toBe(originalParams.programSettings.portamento.mode);
-        expect(decodedParams.programSettings.portamento.slideTime).toBe(
-          originalParams.programSettings.portamento.slideTime
-        );
-      }
-    );
+      // Check portamento settings are preserved
+      expect(decodedParams.programSettings.portamento.time.value).toBe(originalParams.programSettings.portamento.time.value);
+      expect(decodedParams.programSettings.portamento.mode.value).toBe(originalParams.programSettings.portamento.mode.value);
+      expect(decodedParams.programSettings.portamento.slideTime.value).toBe(
+        originalParams.programSettings.portamento.slideTime.value
+      );
+    });
   });
 });

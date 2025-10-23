@@ -5,79 +5,76 @@
 import { parseSysex } from "./utils/sysex-parser";
 import { read10BitValue, readBits } from "./utils/bit-manipulation";
 
+interface NamedValue {
+  name: string;
+  value: number;
+}
+
 export interface MonologueParameters {
   patchName: string;
-  drive: number;
-  keyboardOctave: number;
-  syncRing: number;
-  seqTrig: number;
+  drive: NamedValue;
+  keyboardOctave: NamedValue;
+  syncRing: NamedValue;
+  seqTrig: NamedValue;
   oscilators: {
     vco1: {
-      wave: number;
-      shape: number;
-      level: number;
-      pitch: number;
-      octave: number;
+      wave: NamedValue;
+      shape: NamedValue;
+      level: NamedValue;
+      pitch: NamedValue;
+      octave: NamedValue;
     };
     vco2: {
-      wave: number;
-      shape: number;
-      level: number;
-      pitch: number;
-      octave: number;
+      wave: NamedValue;
+      shape: NamedValue;
+      level: NamedValue;
+      pitch: NamedValue;
+      octave: NamedValue;
     };
   };
   filter: {
-    cutoff: number;
-    resonance: number;
+    cutoff: NamedValue;
+    resonance: NamedValue;
   };
   envelope: {
-    type: number;
-    attack: number;
-    decay: number;
-    intensity: number;
-    target: number;
+    type: NamedValue;
+    attack: NamedValue;
+    decay: NamedValue;
+    intensity: NamedValue;
+    target: NamedValue;
   };
   lfo: {
-    wave: number;
-    mode: number;
-    rate: number;
-    intensity: number;
-    target: number;
+    wave: NamedValue;
+    mode: NamedValue;
+    rate: NamedValue;
+    intensity: NamedValue;
+    target: NamedValue;
   };
   programSettings: {
     portamento: {
-      time: number;
-      mode: number;
-      slideTime: number;
+      time: NamedValue;
+      mode: NamedValue;
+      slideTime: NamedValue;
     };
     slider: {
-      assign: number;
-      bendRangePlus: number;
-      bendRangeMinus: number;
+      assign: NamedValue;
+      bendRangePlus: NamedValue;
+      bendRangeMinus: NamedValue;
     };
     pitch: {
-      microTuning: number;
-      scaleKey: number;
-      programTuning: number;
+      microTuning: NamedValue;
+      scaleKey: NamedValue;
+      programTuning: NamedValue;
     };
     other: {
-      lfoBpmSync: number;
-      cutoffKeyTrack: number;
-      cutoffVelocity: number;
-      ampVelocity: number;
-      programLevel: number;
+      lfoBpmSync: NamedValue;
+      cutoffKeyTrack: NamedValue;
+      cutoffVelocity: NamedValue;
+      ampVelocity: NamedValue;
+      programLevel: NamedValue;
     };
   };
-  misc: {
-    bpmSync: number;
-    portamentMode: number;
-    portamentTime: number;
-    cutoffVelocity: number;
-    cutoffKeyTrack: number;
-    sliderAssign: number;
-  };
-  sequencer: any; // Full sequencer structure - to be defined later
+  // sequencer: any; // Full sequencer structure - to be defined later
 }
 
 /**
@@ -168,76 +165,67 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   // For now, return a stub with placeholder values
   return {
     patchName,
-    drive,
-    keyboardOctave,
-    syncRing,
-    seqTrig,
+    drive: { name: "Drive", value: drive },
+    keyboardOctave: { name: "Keyboard Octave", value: keyboardOctave },
+    syncRing: { name: "Sync/Ring", value: syncRing },
+    seqTrig: { name: "Seq Trig", value: seqTrig },
     oscilators: {
       vco1: {
-        wave: vco1Wave,
-        shape: vco1Shape,
-        level: vco1Level,
-        pitch: vco1Pitch,
-        octave: vco1Octave,
+        wave: { name: "Wave", value: vco1Wave },
+        shape: { name: "Shape", value: vco1Shape },
+        level: { name: "Level", value: vco1Level },
+        pitch: { name: "Pitch", value: vco1Pitch },
+        octave: { name: "Octave", value: vco1Octave },
       },
       vco2: {
-        wave: vco2Wave,
-        shape: vco2Shape,
-        level: vco2Level,
-        pitch: vco2Pitch,
-        octave: vco2Octave,
+        wave: { name: "Wave", value: vco2Wave },
+        shape: { name: "Shape", value: vco2Shape },
+        level: { name: "Level", value: vco2Level },
+        pitch: { name: "Pitch", value: vco2Pitch },
+        octave: { name: "Octave", value: vco2Octave },
       },
     },
     filter: {
-      cutoff,
-      resonance,
+      cutoff: { name: "Cutoff", value: cutoff },
+      resonance: { name: "Resonance", value: resonance },
     },
     envelope: {
-      type: egType,
-      attack: egAttack,
-      decay: egDecay,
-      intensity: egInt,
-      target: egTarget,
+      type: { name: "Envelope Type", value: egType },
+      attack: { name: "Attack", value: egAttack },
+      decay: { name: "Decay", value: egDecay },
+      intensity: { name: "Intensity", value: egInt },
+      target: { name: "Target", value: egTarget },
     },
     lfo: {
-      wave: lfoType,
-      mode: lfoMode,
-      rate: lfoRate,
-      intensity: lfoInt,
-      target: lfoTarget,
+      wave: { name: "Wave", value: lfoType },
+      mode: { name: "LFO Mode", value: lfoMode },
+      rate: { name: "Rate", value: lfoRate },
+      intensity: { name: "Intensity", value: lfoInt },
+      target: { name: "Target", value: lfoTarget },
     },
     programSettings: {
       portamento: {
-        time: portamentoTime,
-        mode: portamentoMode,
-        slideTime: portamentoSlideTime,
+        time: { name: "time", value: portamentoTime },
+        mode: { name: "mode", value: portamentoMode },
+        slideTime: { name: "slideTime", value: portamentoSlideTime },
       },
       slider: {
-        assign: sliderAssign,
-        bendRangePlus: bendRangePlus,
-        bendRangeMinus: bendRangeMinus,
+        assign: { name: "assign", value: sliderAssign },
+        bendRangePlus: { name: "bendRangePlus", value: bendRangePlus },
+        bendRangeMinus: { name: "bendRangeMinus", value: bendRangeMinus },
       },
       pitch: {
-        microTuning: microTuning,
-        scaleKey: scaleKey,
-        programTuning: programTuning,
+        microTuning: { name: "microTuning", value: microTuning },
+        scaleKey: { name: "scaleKey", value: scaleKey },
+        programTuning: { name: "programTuning", value: programTuning },
       },
       other: {
-        lfoBpmSync: lfoBpmSync,
-        cutoffKeyTrack: cutoffKeyTrack,
-        cutoffVelocity: cutoffVelocity,
-        ampVelocity: ampVelocity,
-        programLevel: programLevel,
+        lfoBpmSync: { name: "lfoBpmSync", value: lfoBpmSync },
+        cutoffKeyTrack: { name: "cutoffKeyTrack", value: cutoffKeyTrack },
+        cutoffVelocity: { name: "cutoffVelocity", value: cutoffVelocity },
+        ampVelocity: { name: "ampVelocity", value: ampVelocity },
+        programLevel: { name: "programLevel", value: programLevel },
       },
     },
-    misc: {
-      bpmSync: 5000,
-      portamentMode: 5000,
-      portamentTime: 5000,
-      cutoffVelocity: 5000,
-      cutoffKeyTrack: 5000,
-      sliderAssign: 5000,
-    },
-    sequencer: {},
   };
 }

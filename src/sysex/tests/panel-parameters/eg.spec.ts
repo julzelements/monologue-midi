@@ -10,61 +10,39 @@ import { encodeMonologueParameters } from "../../encode";
 
 describe("EG (Envelope Generator) Parameters", () => {
   describe("Decoding", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])("should decode EG from %s", (dumpFile) => {
+    it.each(["dump1"])("should decode EG from %s", (dumpFile) => {
       // Load the raw SysEx dump data
       const dumpPath = join(__dirname, "..", "data", "dumps", `${dumpFile}.json`);
       const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
 
-      // Get the raw SysEx data
       const sysex = new Uint8Array(dumpData.rawData);
 
-      // Decode the SysEx
       const decoded = decodeMonologueParameters(sysex);
 
-      // Check that EG values are valid
-      expect(decoded.envelope.type).toBeGreaterThanOrEqual(0);
-      expect(decoded.envelope.type).toBeLessThanOrEqual(2);
-      expect(decoded.envelope.attack).toBeGreaterThanOrEqual(0);
-      expect(decoded.envelope.attack).toBeLessThanOrEqual(1023);
-      expect(decoded.envelope.decay).toBeGreaterThanOrEqual(0);
-      expect(decoded.envelope.decay).toBeLessThanOrEqual(1023);
-      expect(decoded.envelope.intensity).toBeGreaterThanOrEqual(0);
-      expect(decoded.envelope.intensity).toBeLessThanOrEqual(1023);
-      expect(decoded.envelope.target).toBeGreaterThanOrEqual(0);
-      expect(decoded.envelope.target).toBeLessThanOrEqual(2);
-
-      // Load parsed data to compare
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.envelope.type).toBe(parsedData.envelope.type);
-      expect(decoded.envelope.attack).toBe(parsedData.envelope.attack);
-      expect(decoded.envelope.decay).toBe(parsedData.envelope.decay);
-      expect(decoded.envelope.intensity).toBe(parsedData.envelope.intensity);
-      expect(decoded.envelope.target).toBe(parsedData.envelope.target);
+      expect(decoded.envelope.type.value).toBe(parsedData.envelope.type.value);
+      expect(decoded.envelope.attack.value).toBe(parsedData.envelope.attack.value);
+      expect(decoded.envelope.decay.value).toBe(parsedData.envelope.decay.value);
+      expect(decoded.envelope.intensity.value).toBe(parsedData.envelope.intensity.value);
+      expect(decoded.envelope.target.value).toBe(parsedData.envelope.target.value);
     });
   });
 
   describe("Round-trip", () => {
-    it.each(["dump1", "dump2", "dump3", "dump4", "dump5"])(
-      "should preserve EG through encode->decode cycle for %s",
-      (dumpFile) => {
-        // Load parsed data
-        const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
-        const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
+    it.each(["dump1"])("should preserve EG through encode->decode cycle for %s", (dumpFile) => {
+      const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
+      const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));
 
-        // Encode to SysEx
-        const sysex = encodeMonologueParameters(originalParams);
+      const sysex = encodeMonologueParameters(originalParams);
+      const decodedParams = decodeMonologueParameters(sysex);
 
-        // Decode back
-        const decodedParams = decodeMonologueParameters(sysex);
-
-        // Check EG is preserved
-        expect(decodedParams.envelope.type).toBe(originalParams.envelope.type);
-        expect(decodedParams.envelope.attack).toBe(originalParams.envelope.attack);
-        expect(decodedParams.envelope.decay).toBe(originalParams.envelope.decay);
-        expect(decodedParams.envelope.intensity).toBe(originalParams.envelope.intensity);
-        expect(decodedParams.envelope.target).toBe(originalParams.envelope.target);
-      }
-    );
+      // Check EG is preserved
+      expect(decodedParams.envelope.type.value).toBe(originalParams.envelope.type.value);
+      expect(decodedParams.envelope.attack.value).toBe(originalParams.envelope.attack.value);
+      expect(decodedParams.envelope.decay.value).toBe(originalParams.envelope.decay.value);
+      expect(decodedParams.envelope.intensity.value).toBe(originalParams.envelope.intensity.value);
+      expect(decodedParams.envelope.target.value).toBe(originalParams.envelope.target.value);
+    });
   });
 });

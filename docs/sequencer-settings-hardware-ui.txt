@@ -1,0 +1,26 @@
+Button 5
+BPM
+
+Button 6 Sequence Parameters
+Step Length
+Step Resolution
+Swing
+Default Gate Time
+
+Button 11 Motion Enable
+1
+2
+3
+4
+
+Button 12 Motion Smooth
+1
+2
+3
+4
+
+I'm not sure whether this is a global thing.
+Does the Button 11, parameter 2 manually flip all the 
+motion enable to OFF/ON? Or is it a separate setting
+hiding in the sysex somewhere?
+
