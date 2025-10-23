@@ -20,26 +20,31 @@ describe("Sequencer Parameters", () => {
       const sysex = new Uint8Array(dumpData.rawData);
       const decoded = decodeMonologueParameters(sysex);
 
+      const decodedSeqSettings = decoded.sequencerSettings;
+      const expectedSeqSettings = parsedData.sequencerSettings;
+      const decodedSteps = decoded.sequencerSteps;
+      const expectedSteps = parsedData.sequencerSteps;
+
       // Basic sequencer settings
-      expect(decoded.sequencer.bpm.value).toBe(parsedData.sequencer.bpm.value);
-      expect(decoded.sequencer.stepLength.value).toBe(parsedData.sequencer.stepLength.value);
-      expect(decoded.sequencer.stepResolution.value).toBe(parsedData.sequencer.stepResolution.value);
-      expect(decoded.sequencer.swing.value).toBe(parsedData.sequencer.swing.value);
-      expect(decoded.sequencer.defaultGateTime.value).toBe(parsedData.sequencer.defaultGateTime.value);
+      expect(decodedSeqSettings.bpm.value).toBe(expectedSeqSettings.bpm.value);
+      expect(decodedSeqSettings.stepLength.value).toBe(expectedSeqSettings.stepLength.value);
+      expect(decodedSeqSettings.stepResolution.value).toBe(expectedSeqSettings.stepResolution.value);
+      expect(decodedSeqSettings.swing.value).toBe(expectedSeqSettings.swing.value);
+      expect(decodedSeqSettings.defaultGateTime.value).toBe(expectedSeqSettings.defaultGateTime.value);
 
       // Motion slot params
-      expect(decoded.sequencer.motionSlotParams).toHaveLength(4);
-      decoded.sequencer.motionSlotParams.forEach((slot: any, i: number) => {
-        expect(slot.slotNumber).toBe(parsedData.sequencer.motionSlotParams[i].slotNumber);
-        expect(slot.active.value).toBe(parsedData.sequencer.motionSlotParams[i].active.value);
-        expect(slot.smooth.value).toBe(parsedData.sequencer.motionSlotParams[i].smooth.value);
-        expect(slot.parameter.value).toBe(parsedData.sequencer.motionSlotParams[i].parameter.value);
+      expect(decodedSeqSettings.motionSlotParams).toHaveLength(4);
+      decodedSeqSettings.motionSlotParams.forEach((slot: any, i: number) => {
+        expect(slot.slotNumber).toBe(expectedSeqSettings.motionSlotParams[i].slotNumber);
+        expect(slot.active.value).toBe(expectedSeqSettings.motionSlotParams[i].active.value);
+        expect(slot.smooth.value).toBe(expectedSeqSettings.motionSlotParams[i].smooth.value);
+        expect(slot.parameter.value).toBe(expectedSeqSettings.motionSlotParams[i].parameter.value);
       });
 
       // Sequencer steps
-      expect(decoded.sequencer.steps).toHaveLength(16);
-      decoded.sequencer.steps.forEach((step: any, i: number) => {
-        const parsedStep = parsedData.sequencer.steps[i];
+      expect(decodedSteps).toHaveLength(16);
+      decodedSteps.forEach((step: any, i: number) => {
+        const parsedStep = expectedSteps[i];
 
         expect(step.stepNumber).toBe(parsedStep.stepNumber);
         expect(step.active.value).toBe(parsedStep.active.value);

@@ -20,11 +20,15 @@ describe("LFO Parameters", () => {
       const decoded = decodeMonologueParameters(sysex);
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.lfo.wave.value).toBe(parsedData.lfo.wave.value);
-      expect(decoded.lfo.mode.value).toBe(parsedData.lfo.mode.value);
-      expect(decoded.lfo.rate.value).toBe(parsedData.lfo.rate.value);
-      expect(decoded.lfo.intensity.value).toBe(parsedData.lfo.intensity.value);
-      expect(decoded.lfo.target.value).toBe(parsedData.lfo.target.value);
+
+      const decodedLFO = decoded.panelSettings.lfo;
+      const expectedLFO = parsedData.panelSettings.lfo;
+
+      expect(decodedLFO.wave.value).toBe(expectedLFO.wave.value);
+      expect(decodedLFO.mode.value).toBe(expectedLFO.mode.value);
+      expect(decodedLFO.rate.value).toBe(expectedLFO.rate.value);
+      expect(decodedLFO.intensity.value).toBe(expectedLFO.intensity.value);
+      expect(decodedLFO.target.value).toBe(expectedLFO.target.value);
     });
   });
 
@@ -36,13 +40,16 @@ describe("LFO Parameters", () => {
       const sysex = encodeMonologueParameters(originalParams);
       const decodedParams = decodeMonologueParameters(sysex);
 
+      const originalLFO = originalParams.panelSettings.lfo;
+      const decodedLFO = decodedParams.panelSettings.lfo;
+
       // Check LFO is preserved
-      expect(decodedParams.lfo.wave.value).toBe(originalParams.lfo.wave.value);
-      expect(decodedParams.lfo.mode.value).toBe(originalParams.lfo.mode.value);
-      expect(decodedParams.lfo.rate.value).toBe(originalParams.lfo.rate.value);
+      expect(decodedLFO.wave.value).toBe(originalLFO.wave.value);
+      expect(decodedLFO.mode.value).toBe(originalLFO.mode.value);
+      expect(decodedLFO.rate.value).toBe(originalLFO.rate.value);
       // TODO: Test intensity when encoding/decoding is implemented - offsets need investigation
-      expect(decodedParams.lfo.intensity.value).toBe(originalParams.lfo.intensity.value);
-      expect(decodedParams.lfo.target.value).toBe(originalParams.lfo.target.value);
+      expect(decodedLFO.intensity.value).toBe(originalLFO.intensity.value);
+      expect(decodedLFO.target.value).toBe(originalLFO.target.value);
     });
   });
 });

@@ -20,10 +20,14 @@ describe("Miscellaneous Panel Parameters", () => {
       const decoded = decodeMonologueParameters(sysex);
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.drive.value).toBe(parsedData.drive.value);
-      expect(decoded.keyboardOctave.value).toBe(parsedData.keyboardOctave.value);
-      expect(decoded.syncRing.value).toBe(parsedData.syncRing.value);
-      expect(decoded.seqTrig.value).toBe(parsedData.seqTrig.value);
+
+      const decodedPanel = decoded.panelSettings;
+      const expectedPanel = parsedData.panelSettings;
+
+      expect(decodedPanel.drive.value).toBe(expectedPanel.drive.value);
+      expect(decodedPanel.keyboardOctave.value).toBe(expectedPanel.keyboardOctave.value);
+      expect(decodedPanel.syncRing.value).toBe(expectedPanel.syncRing.value);
+      expect(decodedPanel.seqTrig.value).toBe(expectedPanel.seqTrig.value);
     });
   });
 
@@ -41,11 +45,14 @@ describe("Miscellaneous Panel Parameters", () => {
         // Decode back
         const decodedParams = decodeMonologueParameters(sysex);
 
+        const originalPanel = originalParams.panelSettings;
+        const decodedPanel = decodedParams.panelSettings;
+
         // Check all parameters are preserved
-        expect(decodedParams.drive.value).toBe(originalParams.drive.value);
-        expect(decodedParams.keyboardOctave.value).toBe(originalParams.keyboardOctave.value);
-        expect(decodedParams.syncRing.value).toBe(originalParams.syncRing.value);
-        expect(decodedParams.seqTrig.value).toBe(originalParams.seqTrig.value);
+        expect(decodedPanel.drive.value).toBe(originalPanel.drive.value);
+        expect(decodedPanel.keyboardOctave.value).toBe(originalPanel.keyboardOctave.value);
+        expect(decodedPanel.syncRing.value).toBe(originalPanel.syncRing.value);
+        expect(decodedPanel.seqTrig.value).toBe(originalPanel.seqTrig.value);
       }
     );
   });

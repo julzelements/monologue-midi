@@ -20,11 +20,14 @@ describe("VCO2 Parameters", () => {
       const sysex = new Uint8Array(dumpData.rawData);
       const decoded = decodeMonologueParameters(sysex);
 
-      expect(decoded.oscilators.vco2.pitch.value).toBe(parsedData.oscilators.vco2.pitch.value);
-      expect(decoded.oscilators.vco2.shape.value).toBe(parsedData.oscilators.vco2.shape.value);
-      expect(decoded.oscilators.vco2.level.value).toBe(parsedData.oscilators.vco2.level.value);
-      expect(decoded.oscilators.vco2.octave.value).toBe(parsedData.oscilators.vco2.octave.value);
-      expect(decoded.oscilators.vco2.wave.value).toBe(parsedData.oscilators.vco2.wave.value);
+      const decodedVCO2 = decoded.panelSettings.oscilators.vco2;
+      const expectedVCO2 = parsedData.panelSettings.oscilators.vco2;
+
+      expect(decodedVCO2.pitch.value).toBe(expectedVCO2.pitch.value);
+      expect(decodedVCO2.shape.value).toBe(expectedVCO2.shape.value);
+      expect(decodedVCO2.level.value).toBe(expectedVCO2.level.value);
+      expect(decodedVCO2.octave.value).toBe(expectedVCO2.octave.value);
+      expect(decodedVCO2.wave.value).toBe(expectedVCO2.wave.value);
     });
   });
 
@@ -36,11 +39,14 @@ describe("VCO2 Parameters", () => {
       const sysex = encodeMonologueParameters(originalParams);
       const decodedParams = decodeMonologueParameters(sysex);
 
-      expect(decodedParams.oscilators.vco2.pitch.value).toBe(originalParams.oscilators.vco2.pitch.value);
-      expect(decodedParams.oscilators.vco2.shape.value).toBe(originalParams.oscilators.vco2.shape.value);
-      expect(decodedParams.oscilators.vco2.level.value).toBe(originalParams.oscilators.vco2.level.value);
-      expect(decodedParams.oscilators.vco2.octave.value).toBe(originalParams.oscilators.vco2.octave.value);
-      expect(decodedParams.oscilators.vco2.wave.value).toBe(originalParams.oscilators.vco2.wave.value);
+      const originalVCO2 = originalParams.panelSettings.oscilators.vco2;
+      const decodedVCO2 = decodedParams.panelSettings.oscilators.vco2;
+
+      expect(decodedVCO2.pitch.value).toBe(originalVCO2.pitch.value);
+      expect(decodedVCO2.shape.value).toBe(originalVCO2.shape.value);
+      expect(decodedVCO2.level.value).toBe(originalVCO2.level.value);
+      expect(decodedVCO2.octave.value).toBe(originalVCO2.octave.value);
+      expect(decodedVCO2.wave.value).toBe(originalVCO2.wave.value);
     });
   });
 });
