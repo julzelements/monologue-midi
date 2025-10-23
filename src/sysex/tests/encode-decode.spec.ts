@@ -87,6 +87,60 @@ describe("SysEx Encode/Decode", () => {
         expect(decoded.patchName).toBe(expected);
       });
     });
+
+    it("should encode parsed dump1 to match original raw data", () => {
+      // Load the parsed JSON data
+      const parsedPath = join(__dirname, "data", "parsed", "dump1.json");
+      const parsedParams = JSON.parse(readFileSync(parsedPath, "utf8"));
+
+      // Load the original raw SysEx dump data
+      const dumpPath = join(__dirname, "data", "dumps", "dump1.json");
+      const dumpData = JSON.parse(readFileSync(dumpPath, "utf8"));
+      const expectedSysex = new Uint8Array(dumpData.rawData);
+
+      // Encode the parsed parameters
+      const encodedSysex = encodeMonologueParameters(parsedParams);
+
+      // Compare byte by byte
+      expect(encodedSysex.length).toBe(expectedSysex.length);
+
+      // Find and report differences
+      const differences: Array<{ index: number; expected: number; received: number }> = [];
+      for (let i = 0; i < expectedSysex.length; i++) {
+        if (encodedSysex[i] !== expectedSysex[i]) {
+          differences.push({
+            index: i,
+            expected: expectedSysex[i],
+            received: encodedSysex[i],
+          });
+        }
+      }
+
+      if (differences.length > 0) {
+        console.log("\n=== Byte Differences ===");
+        console.log(`Total differences: ${differences.length} out of ${expectedSysex.length} bytes\n`);
+
+        differences.forEach((diff) => {
+          const start = Math.max(0, diff.index - 2);
+          const end = Math.min(expectedSysex.length, diff.index + 3);
+          const context = Array.from(expectedSysex.slice(start, end));
+          const receivedContext = Array.from(encodedSysex.slice(start, end));
+
+          console.log(`Position ${diff.index} (0x${diff.index.toString(16).padStart(3, "0")}):`);
+          console.log(
+            `  Expected: ${diff.expected.toString().padStart(3)} (0x${diff.expected.toString(16).padStart(2, "0")})`
+          );
+          console.log(
+            `  Received: ${diff.received.toString().padStart(3)} (0x${diff.received.toString(16).padStart(2, "0")})`
+          );
+          console.log(`  Context (expected): [${context.map((b) => b.toString().padStart(3)).join(", ")}]`);
+          console.log(`  Context (received): [${receivedContext.map((b) => b.toString().padStart(3)).join(", ")}]`);
+          console.log("");
+        });
+      }
+
+      expect(Array.from(encodedSysex)).toEqual(Array.from(expectedSysex));
+    });
   });
 
   describe("Round-trip encoding/decoding", () => {

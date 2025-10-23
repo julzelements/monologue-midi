@@ -238,6 +238,12 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[46] = (other.ampVelocity?.value || 0) & 0x7f;
   }
 
+  // Write SEQD marker (offset 48-51)
+  body[48] = 0x53; // 'S'
+  body[49] = 0x45; // 'E'
+  body[50] = 0x51; // 'Q'
+  body[51] = 0x44; // 'D'
+
   // Encode Sequencer Settings
   const seqSettings = params.sequencerSettings;
   if (seqSettings) {
