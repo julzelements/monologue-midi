@@ -5,14 +5,10 @@
   "type": "object",
   "required": [
     "patchName",
-    "drive",
-    "keyboardOctave",
-    "oscilators",
-    "filter",
-    "envelope",
-    "lfo",
+    "panelSettings",
     "programSettings",
-    "sequencer"
+    "sequencerSettings",
+    "sequencerSteps"
   ],
   "properties": {
     "patchName": {
@@ -20,100 +16,107 @@
       "maxLength": 12,
       "description": "Patch name, max 12 characters"
     },
-    "drive": {
-      "$ref": "#/definitions/namedValue",
-      "description": "Drive amount (10-bit value)"
-    },
-    "keyboardOctave": {
-      "$ref": "#/definitions/namedValue",
-      "description": "Keyboard octave transpose: 0=-2, 1=-1, 2=0, 3=+1, 4=+2"
-    },
-    "syncRing": {
-      "$ref": "#/definitions/namedValue",
-      "description": "SYNC/RING: 0=RING, 1=OFF, 2=SYNC"
-    },
-    "seqTrig": {
-      "$ref": "#/definitions/namedValue",
-      "description": "Sequencer: Key Trigger/Hold: 0=OFF, 1=ON"
-    },
-    "oscilators": {
+    "panelSettings": {
       "type": "object",
-      "required": ["vco1", "vco2"],
+      "required": ["drive", "keyboardOctave", "syncRing", "seqTrig", "oscilators", "filter", "envelope", "lfo"],
       "properties": {
-        "vco1": {
-          "$ref": "#/definitions/vco1"
+        "drive": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Drive amount (10-bit value)"
         },
-        "vco2": {
-          "$ref": "#/definitions/vco2"
-        }
-      },
-      "additionalProperties": false
-    },
-    "filter": {
-      "type": "object",
-      "required": ["cutoff", "resonance"],
-      "properties": {
-        "cutoff": {
+        "keyboardOctave": {
           "$ref": "#/definitions/namedValue",
-          "description": "Filter cutoff frequency (10-bit value)"
+          "description": "Keyboard octave transpose: 0=-2, 1=-1, 2=0, 3=+1, 4=+2"
         },
-        "resonance": {
+        "syncRing": {
           "$ref": "#/definitions/namedValue",
-          "description": "Filter resonance (10-bit value)"
-        }
-      },
-      "additionalProperties": false
-    },
-    "envelope": {
-      "type": "object",
-      "required": ["type", "attack", "decay", "intensity", "target"],
-      "properties": {
-        "type": {
-          "$ref": "#/definitions/namedValue",
-          "description": "Envelope type: 0=GATE, 1=A/G/D, 2=A/D"
+          "description": "SYNC/RING: 0=RING, 1=OFF, 2=SYNC"
         },
-        "attack": {
+        "seqTrig": {
           "$ref": "#/definitions/namedValue",
-          "description": "Attack time (10-bit value)"
+          "description": "Sequencer: Key Trigger/Hold: 0=OFF, 1=ON"
         },
-        "decay": {
-          "$ref": "#/definitions/namedValue",
-          "description": "Decay time (10-bit value)"
+        "oscilators": {
+          "type": "object",
+          "required": ["vco1", "vco2"],
+          "properties": {
+            "vco1": {
+              "$ref": "#/definitions/vco1"
+            },
+            "vco2": {
+              "$ref": "#/definitions/vco2"
+            }
+          },
+          "additionalProperties": false
         },
-        "intensity": {
-          "$ref": "#/definitions/namedValue",
-          "description": "Envelope intensity (bipolar)"
+        "filter": {
+          "type": "object",
+          "required": ["cutoff", "resonance"],
+          "properties": {
+            "cutoff": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Filter cutoff frequency (10-bit value)"
+            },
+            "resonance": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Filter resonance (10-bit value)"
+            }
+          },
+          "additionalProperties": false
         },
-        "target": {
-          "$ref": "#/definitions/namedValue",
-          "description": "EG Target: 0=CUTOFF, 1=PITCH 2, 2=PITCH"
-        }
-      },
-      "additionalProperties": false
-    },
-    "lfo": {
-      "type": "object",
-      "required": ["wave", "mode", "rate", "intensity", "target"],
-      "properties": {
-        "wave": {
-          "$ref": "#/definitions/namedValue",
-          "description": "LFO wave: 0=SQR, 1=TRI, 2=SAW"
+        "envelope": {
+          "type": "object",
+          "required": ["type", "attack", "decay", "intensity", "target"],
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Envelope type: 0=GATE, 1=A/G/D, 2=A/D"
+            },
+            "attack": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Attack time (10-bit value)"
+            },
+            "decay": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Decay time (10-bit value)"
+            },
+            "intensity": {
+              "$ref": "#/definitions/namedValue",
+              "description": "Envelope intensity (bipolar)"
+            },
+            "target": {
+              "$ref": "#/definitions/namedValue",
+              "description": "EG Target: 0=CUTOFF, 1=PITCH 2, 2=PITCH"
+            }
+          },
+          "additionalProperties": false
         },
-        "mode": {
-          "$ref": "#/definitions/namedValue",
-          "description": "LFO mode: 0=1-SHOT, 1=SLOW, 2=FAST"
-        },
-        "rate": {
-          "$ref": "#/definitions/namedValue",
-          "description": "LFO rate (10-bit value)"
-        },
-        "intensity": {
-          "$ref": "#/definitions/namedValue",
-          "description": "LFO intensity (bipolar)"
-        },
-        "target": {
-          "$ref": "#/definitions/namedValue",
-          "description": "LFO Target: 0=CUTOFF, 1=SHAPE, 2=PITCH"
+        "lfo": {
+          "type": "object",
+          "required": ["wave", "mode", "rate", "intensity", "target"],
+          "properties": {
+            "wave": {
+              "$ref": "#/definitions/namedValue",
+              "description": "LFO wave: 0=SQR, 1=TRI, 2=SAW"
+            },
+            "mode": {
+              "$ref": "#/definitions/namedValue",
+              "description": "LFO mode: 0=1-SHOT, 1=SLOW, 2=FAST"
+            },
+            "rate": {
+              "$ref": "#/definitions/namedValue",
+              "description": "LFO rate (10-bit value)"
+            },
+            "intensity": {
+              "$ref": "#/definitions/namedValue",
+              "description": "LFO intensity (bipolar)"
+            },
+            "target": {
+              "$ref": "#/definitions/namedValue",
+              "description": "LFO Target: 0=CUTOFF, 1=SHAPE, 2=PITCH"
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -209,9 +212,9 @@
       },
       "additionalProperties": false
     },
-    "sequencer": {
+    "sequencerSettings": {
       "type": "object",
-      "required": ["bpm", "stepLength", "stepResolution", "swing", "defaultGateTime", "motionSlotParams", "steps"],
+      "required": ["bpm", "stepLength", "stepResolution", "swing", "defaultGateTime", "motionSlotParams"],
       "properties": {
         "bpm": {
           "$ref": "#/definitions/namedValue",
@@ -241,18 +244,18 @@
             "$ref": "#/definitions/motionSlot"
           },
           "description": "Four motion sequencing parameter slots"
-        },
-        "steps": {
-          "type": "array",
-          "minItems": 16,
-          "maxItems": 16,
-          "items": {
-            "$ref": "#/definitions/sequencerStep"
-          },
-          "description": "16 sequencer steps"
         }
       },
       "additionalProperties": false
+    },
+    "sequencerSteps": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/definitions/sequencerStep"
+      },
+      "description": "16 sequencer steps"
     }
   },
   "additionalProperties": false,
