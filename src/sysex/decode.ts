@@ -74,7 +74,7 @@ export interface MonologueParameters {
       programLevel: NamedValue;
     };
   };
-  // sequencer: any; // Full sequencer structure - to be defined later
+  sequencer: any; // Full sequencer structure - to be defined later
 }
 
 /**
@@ -161,6 +161,80 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const programLevel = body[45];
   const ampVelocity = body[46];
 
+  function sequencerFromSysEx(data: Uint8Array<ArrayBufferLike>) {
+    const steps = [];
+    for (let i = 0; i < 16; i++) {
+      const base = 96 + i * 22;
+      const gateTriggerByte = data[base + 4];
+
+      const note = {
+        key: { name: "Key", value: data[base] },
+        velocity: { name: "Velocity", value: data[base + 2] },
+        // bits 0..6 (7 bits)
+        gateTime: { name: "GateTime", value: readBits(gateTriggerByte, 0, 7) },
+        // bit 7 (1 bit)
+        trigger: { name: "Trigger", value: readBits(gateTriggerByte, 7, 1) },
+      };
+
+      const motionSlotsData: any = [[], [], [], []];
+      for (let j = 0; j < 4; j++) {
+        motionSlotsData[j].push({ name: `Motion Slot ${j + 1} Data 1`, value: data[96 + 6 + j * 4 + i * 22] });
+        motionSlotsData[j].push({ name: `Motion Slot ${j + 1} Data 2`, value: data[96 + 7 + j * 4 + i * 22] });
+        motionSlotsData[j].push({ name: `Motion Slot ${j + 1} Data 3`, value: data[96 + 8 + j * 4 + i * 22] });
+        motionSlotsData[j].push({ name: `Motion Slot ${j + 1} Data 4`, value: data[96 + 9 + j * 4 + i * 22] });
+      }
+      const stepNumber = i + 1;
+      const active: NamedValue = {
+        name: `On/Off`,
+        value: readBits(data[64 + Math.floor(i / 16)], i % 8, 1),
+      };
+
+      const motionActive: NamedValue = {
+        name: `Motion On/Off`,
+        value: readBits(data[66 + Math.floor(i / 16)], i % 8, 1),
+      };
+
+      const slideActive: NamedValue = {
+        name: `Slide On/Off`,
+        value: readBits(data[68 + Math.floor(i / 16)], i % 8, 1),
+      };
+
+      const sequencerEvent = {
+        note,
+        motionSlotsData,
+      };
+      const step = {
+        stepNumber,
+        active,
+        motionActive,
+        slideActive,
+        event: sequencerEvent,
+      };
+      steps.push(step);
+    }
+    const motionSlotParams = [];
+    for (let i = 0; i < 4; i++) {
+      motionSlotParams.push({
+        slotNumber: i + 1,
+        active: { name: `On/Off`, value: readBits(data[72 + i * 2], 0, 1) },
+        smooth: { name: `Smooth On/Off`, value: readBits(data[72 + i * 2], 1, 1) },
+        parameter: { name: "Parameter", value: data[73 + i * 2] },
+      });
+    }
+
+    const bpm = { name: "BPM", value: (((data[53] & 0x0f) << 8) | data[52]) / 10 }; // 12 bit value
+
+    return {
+      bpm,
+      stepLength: { name: "Step Length", value: data[54] },
+      stepResolution: { name: "Step Resolution", value: data[55] },
+      swing: { name: "Swing", value: data[56] },
+      defaultGateTime: { name: "Default Gate Time", value: data[57] },
+      motionSlotParams,
+      steps,
+    };
+  }
+
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
   return {
@@ -227,5 +301,6 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         programLevel: { name: "programLevel", value: programLevel },
       },
     },
+    sequencer: sequencerFromSysEx(body),
   };
 }

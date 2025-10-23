@@ -1,5 +1,5 @@
 {
-  "patchName": "<afx acid3>\u0000",
+  "patchName": "<afx acid3>",
   "drive": { "name": "Drive", "value": 0 },
   "keyboardOctave": { "name": "Keyboard Octave", "value": 0 },
   "syncRing": { "name": "Sync/Ring", "value": 1 },
@@ -20,10 +20,7 @@
       "octave": { "name": "Octave", "value": 0 }
     }
   },
-  "filter": {
-    "cutoff": { "name": "Cutoff", "value": 488 },
-    "resonance": { "name": "Resonance", "value": 909 }
-  },
+  "filter": { "cutoff": { "name": "Cutoff", "value": 488 }, "resonance": { "name": "Resonance", "value": 909 } },
   "envelope": {
     "type": { "name": "Envelope Type", "value": 0 },
     "attack": { "name": "Attack", "value": 0 },
@@ -83,13 +80,13 @@
       },
       {
         "slotNumber": 3,
-        "active": { "name": "On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
         "parameter": { "name": "Parameter", "value": 27 }
       },
       {
         "slotNumber": 4,
-        "active": { "name": "On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
         "parameter": { "name": "Parameter", "value": 28 }
       }
@@ -97,9 +94,9 @@
     "steps": [
       {
         "stepNumber": 1,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 0 },
+        "motionActive": { "name": "Motion On/Off", "value": 0 },
+        "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 40 },
@@ -178,13 +175,13 @@
       {
         "stepNumber": 3,
         "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "motionActive": { "name": "Motion On/Off", "value": 3 },
         "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 29 },
             "velocity": { "name": "Velocity", "value": 90 },
-            "gateTime": { "name": "GateTime", "value": 127 },
+            "gateTime": { "name": "GateTime", "value": 63 },
             "trigger": { "name": "Trigger", "value": 1 }
           },
           "motionSlotsData": [
@@ -217,9 +214,9 @@
       },
       {
         "stepNumber": 4,
-        "active": { "name": "On/Off", "value": 0 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 0 },
+        "active": { "name": "On/Off", "value": 6 },
+        "motionActive": { "name": "Motion On/Off", "value": 7 },
+        "slideActive": { "name": "Slide On/Off", "value": 4 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 0 },
@@ -257,9 +254,9 @@
       },
       {
         "stepNumber": 5,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 0 },
+        "active": { "name": "On/Off", "value": 15 },
+        "motionActive": { "name": "Motion On/Off", "value": 15 },
+        "slideActive": { "name": "Slide On/Off", "value": 2 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 30 },
@@ -297,8 +294,8 @@
       },
       {
         "stepNumber": 6,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 7 },
+        "motionActive": { "name": "Motion On/Off", "value": 7 },
         "slideActive": { "name": "Slide On/Off", "value": 1 },
         "event": {
           "note": {
@@ -337,8 +334,8 @@
       },
       {
         "stepNumber": 7,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 3 },
+        "motionActive": { "name": "Motion On/Off", "value": 3 },
         "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
@@ -417,9 +414,9 @@
       },
       {
         "stepNumber": 9,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 0 },
+        "motionActive": { "name": "Motion On/Off", "value": 0 },
+        "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 30 },
@@ -498,7 +495,7 @@
       {
         "stepNumber": 11,
         "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "motionActive": { "name": "Motion On/Off", "value": 3 },
         "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
@@ -537,9 +534,9 @@
       },
       {
         "stepNumber": 12,
-        "active": { "name": "On/Off", "value": 0 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 0 },
+        "active": { "name": "On/Off", "value": 6 },
+        "motionActive": { "name": "Motion On/Off", "value": 7 },
+        "slideActive": { "name": "Slide On/Off", "value": 4 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 28 },
@@ -577,9 +574,9 @@
       },
       {
         "stepNumber": 13,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
-        "slideActive": { "name": "Slide On/Off", "value": 0 },
+        "active": { "name": "On/Off", "value": 15 },
+        "motionActive": { "name": "Motion On/Off", "value": 15 },
+        "slideActive": { "name": "Slide On/Off", "value": 2 },
         "event": {
           "note": {
             "key": { "name": "Key", "value": 34 },
@@ -617,8 +614,8 @@
       },
       {
         "stepNumber": 14,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 7 },
+        "motionActive": { "name": "Motion On/Off", "value": 7 },
         "slideActive": { "name": "Slide On/Off", "value": 1 },
         "event": {
           "note": {
@@ -657,8 +654,8 @@
       },
       {
         "stepNumber": 15,
-        "active": { "name": "On/Off", "value": 1 },
-        "motionActive": { "name": "Motion On/Off", "value": 1 },
+        "active": { "name": "On/Off", "value": 3 },
+        "motionActive": { "name": "Motion On/Off", "value": 3 },
         "slideActive": { "name": "Slide On/Off", "value": 0 },
         "event": {
           "note": {
