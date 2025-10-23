@@ -107,6 +107,20 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[31] = (body[31] & ~(0x03 << 6)) | (vco2Wave << 6);
   }
 
+  // Encode Filter parameters
+  const filter = params.panelSettings?.filter;
+  if (filter) {
+    // CUTOFF (offset 22 for upper 8 bits, offset 33 bits 4-5 for lower 2 bits)
+    const cutoffEncoded = write10BitValue(filter.cutoff?.value || 0, 4);
+    body[22] = cutoffEncoded.upperByte;
+    body[33] = (body[33] & cutoffEncoded.mask) | cutoffEncoded.lowerBits;
+
+    // RESONANCE (offset 23 for upper 8 bits, offset 33 bits 6-7 for lower 2 bits)
+    const resonanceEncoded = write10BitValue(filter.resonance?.value || 0, 6);
+    body[23] = resonanceEncoded.upperByte;
+    body[33] = (body[33] & resonanceEncoded.mask) | resonanceEncoded.lowerBits;
+  }
+
   // Encode EG (Envelope Generator) parameters
   const envelope = params.envelope;
   if (envelope) {
