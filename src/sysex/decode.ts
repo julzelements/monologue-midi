@@ -162,14 +162,11 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   const ampVelocity = body[46];
 
   const steps = Array.from({ length: 16 }, (_, i) => {
-    const base = 96 + i * 22;
-    const gateTriggerByte = body[base + 4];
-
     const note = {
-      key: { name: "Key", value: body[base] },
-      velocity: { name: "Velocity", value: body[base + 2] },
-      gateTime: { name: "GateTime", value: readBits(gateTriggerByte, 0, 7) },
-      trigger: { name: "Trigger", value: readBits(gateTriggerByte, 7, 1) },
+      key: { name: "Key", value: body[96 + i * 22] },
+      velocity: { name: "Velocity", value: body[96 + i * 22 + 2] },
+      gateTime: { name: "GateTime", value: readBits(body[96 + i * 22 + 4], 0, 7) },
+      trigger: { name: "Trigger", value: readBits(body[96 + i * 22 + 4], 7, 1) },
     };
 
     const motionSlotsData = Array.from({ length: 4 }, (_, j) =>
@@ -213,16 +210,6 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   }));
 
   const bpm = { name: "BPM", value: (((body[53] & 0x0f) << 8) | body[52]) / 10 }; // 12 bit value
-
-  const sequencer = {
-    bpm,
-    stepLength: { name: "Step Length", value: body[54] },
-    stepResolution: { name: "Step Resolution", value: body[55] },
-    swing: { name: "Swing", value: body[56] },
-    defaultGateTime: { name: "Default Gate Time", value: body[57] },
-    motionSlotParams,
-    steps,
-  };
 
   // TODO: Implement full decoding logic for other parameters
   // For now, return a stub with placeholder values
@@ -290,6 +277,14 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         programLevel: { name: "programLevel", value: programLevel },
       },
     },
-    sequencer,
+    sequencer: {
+      bpm,
+      stepLength: { name: "Step Length", value: body[54] },
+      stepResolution: { name: "Step Resolution", value: body[55] },
+      swing: { name: "Swing", value: body[56] },
+      defaultGateTime: { name: "Default Gate Time", value: body[57] },
+      motionSlotParams,
+      steps,
+    },
   };
 }
