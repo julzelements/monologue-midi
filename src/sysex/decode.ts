@@ -12,43 +12,45 @@ interface NamedValue {
 
 export interface MonologueParameters {
   patchName: string;
-  drive: NamedValue;
-  keyboardOctave: NamedValue;
-  syncRing: NamedValue;
-  seqTrig: NamedValue;
-  oscilators: {
-    vco1: {
-      wave: NamedValue;
-      shape: NamedValue;
-      level: NamedValue;
-      pitch: NamedValue;
-      octave: NamedValue;
+  panelSettings: {
+    drive: NamedValue;
+    keyboardOctave: NamedValue;
+    syncRing: NamedValue;
+    seqTrig: NamedValue;
+    oscilators: {
+      vco1: {
+        wave: NamedValue;
+        shape: NamedValue;
+        level: NamedValue;
+        pitch: NamedValue;
+        octave: NamedValue;
+      };
+      vco2: {
+        wave: NamedValue;
+        shape: NamedValue;
+        level: NamedValue;
+        pitch: NamedValue;
+        octave: NamedValue;
+      };
     };
-    vco2: {
-      wave: NamedValue;
-      shape: NamedValue;
-      level: NamedValue;
-      pitch: NamedValue;
-      octave: NamedValue;
+    filter: {
+      cutoff: NamedValue;
+      resonance: NamedValue;
     };
-  };
-  filter: {
-    cutoff: NamedValue;
-    resonance: NamedValue;
-  };
-  envelope: {
-    type: NamedValue;
-    attack: NamedValue;
-    decay: NamedValue;
-    intensity: NamedValue;
-    target: NamedValue;
-  };
-  lfo: {
-    wave: NamedValue;
-    mode: NamedValue;
-    rate: NamedValue;
-    intensity: NamedValue;
-    target: NamedValue;
+    envelope: {
+      type: NamedValue;
+      attack: NamedValue;
+      decay: NamedValue;
+      intensity: NamedValue;
+      target: NamedValue;
+    };
+    lfo: {
+      wave: NamedValue;
+      mode: NamedValue;
+      rate: NamedValue;
+      intensity: NamedValue;
+      target: NamedValue;
+    };
   };
   programSettings: {
     portamento: {
@@ -74,7 +76,34 @@ export interface MonologueParameters {
       programLevel: NamedValue;
     };
   };
-  sequencer: any; // Full sequencer structure - to be defined later
+  sequencerSettings: {
+    bpm: NamedValue;
+    stepLength: NamedValue;
+    stepResolution: NamedValue;
+    swing: NamedValue;
+    defaultGateTime: NamedValue;
+    motionSlotParams: Array<{
+      slotNumber: number;
+      active: NamedValue;
+      smooth: NamedValue;
+      parameter: NamedValue;
+    }>;
+  };
+  sequencerSteps: Array<{
+    stepNumber: number;
+    active: NamedValue;
+    motionActive: NamedValue;
+    slideActive: NamedValue;
+    event: {
+      note: {
+        key: NamedValue;
+        velocity: NamedValue;
+        gateTime: NamedValue;
+        trigger: NamedValue;
+      };
+      motionSlotsData: NamedValue[][];
+    };
+  }>;
 }
 
 /**
@@ -215,43 +244,45 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
   // For now, return a stub with placeholder values
   return {
     patchName,
-    drive: { name: "Drive", value: drive },
-    keyboardOctave: { name: "Keyboard Octave", value: keyboardOctave },
-    syncRing: { name: "Sync/Ring", value: syncRing },
-    seqTrig: { name: "Seq Trig", value: seqTrig },
-    oscilators: {
-      vco1: {
-        wave: { name: "Wave", value: vco1Wave },
-        shape: { name: "Shape", value: vco1Shape },
-        level: { name: "Level", value: vco1Level },
-        pitch: { name: "Pitch", value: vco1Pitch },
-        octave: { name: "Octave", value: vco1Octave },
+    panelSettings: {
+      drive: { name: "Drive", value: drive },
+      keyboardOctave: { name: "Keyboard Octave", value: keyboardOctave },
+      syncRing: { name: "Sync/Ring", value: syncRing },
+      seqTrig: { name: "Seq Trig", value: seqTrig },
+      oscilators: {
+        vco1: {
+          wave: { name: "Wave", value: vco1Wave },
+          shape: { name: "Shape", value: vco1Shape },
+          level: { name: "Level", value: vco1Level },
+          pitch: { name: "Pitch", value: vco1Pitch },
+          octave: { name: "Octave", value: vco1Octave },
+        },
+        vco2: {
+          wave: { name: "Wave", value: vco2Wave },
+          shape: { name: "Shape", value: vco2Shape },
+          level: { name: "Level", value: vco2Level },
+          pitch: { name: "Pitch", value: vco2Pitch },
+          octave: { name: "Octave", value: vco2Octave },
+        },
       },
-      vco2: {
-        wave: { name: "Wave", value: vco2Wave },
-        shape: { name: "Shape", value: vco2Shape },
-        level: { name: "Level", value: vco2Level },
-        pitch: { name: "Pitch", value: vco2Pitch },
-        octave: { name: "Octave", value: vco2Octave },
+      filter: {
+        cutoff: { name: "Cutoff", value: cutoff },
+        resonance: { name: "Resonance", value: resonance },
       },
-    },
-    filter: {
-      cutoff: { name: "Cutoff", value: cutoff },
-      resonance: { name: "Resonance", value: resonance },
-    },
-    envelope: {
-      type: { name: "Envelope Type", value: egType },
-      attack: { name: "Attack", value: egAttack },
-      decay: { name: "Decay", value: egDecay },
-      intensity: { name: "Intensity", value: egInt },
-      target: { name: "Target", value: egTarget },
-    },
-    lfo: {
-      wave: { name: "Wave", value: lfoType },
-      mode: { name: "LFO Mode", value: lfoMode },
-      rate: { name: "Rate", value: lfoRate },
-      intensity: { name: "Intensity", value: lfoInt },
-      target: { name: "Target", value: lfoTarget },
+      envelope: {
+        type: { name: "Envelope Type", value: egType },
+        attack: { name: "Attack", value: egAttack },
+        decay: { name: "Decay", value: egDecay },
+        intensity: { name: "Intensity", value: egInt },
+        target: { name: "Target", value: egTarget },
+      },
+      lfo: {
+        wave: { name: "Wave", value: lfoType },
+        mode: { name: "LFO Mode", value: lfoMode },
+        rate: { name: "Rate", value: lfoRate },
+        intensity: { name: "Intensity", value: lfoInt },
+        target: { name: "Target", value: lfoTarget },
+      },
     },
     programSettings: {
       portamento: {
@@ -277,14 +308,14 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         programLevel: { name: "programLevel", value: programLevel },
       },
     },
-    sequencer: {
+    sequencerSettings: {
       bpm,
       stepLength: { name: "Step Length", value: body[54] },
       stepResolution: { name: "Step Resolution", value: body[55] },
       swing: { name: "Swing", value: body[56] },
       defaultGateTime: { name: "Default Gate Time", value: body[57] },
       motionSlotParams,
-      steps,
     },
+    sequencerSteps: steps,
   };
 }

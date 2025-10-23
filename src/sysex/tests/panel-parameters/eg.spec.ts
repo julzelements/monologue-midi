@@ -21,11 +21,15 @@ describe("EG (Envelope Generator) Parameters", () => {
 
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.envelope.type.value).toBe(parsedData.envelope.type.value);
-      expect(decoded.envelope.attack.value).toBe(parsedData.envelope.attack.value);
-      expect(decoded.envelope.decay.value).toBe(parsedData.envelope.decay.value);
-      expect(decoded.envelope.intensity.value).toBe(parsedData.envelope.intensity.value);
-      expect(decoded.envelope.target.value).toBe(parsedData.envelope.target.value);
+
+      const decodedEG = decoded.panelSettings.envelope;
+      const expectedEG = parsedData.panelSettings.envelope;
+
+      expect(decodedEG.type.value).toBe(expectedEG.type.value);
+      expect(decodedEG.attack.value).toBe(expectedEG.attack.value);
+      expect(decodedEG.decay.value).toBe(expectedEG.decay.value);
+      expect(decodedEG.intensity.value).toBe(expectedEG.intensity.value);
+      expect(decodedEG.target.value).toBe(expectedEG.target.value);
     });
   });
 
@@ -37,12 +41,15 @@ describe("EG (Envelope Generator) Parameters", () => {
       const sysex = encodeMonologueParameters(originalParams);
       const decodedParams = decodeMonologueParameters(sysex);
 
+      const originalEG = originalParams.panelSettings.envelope;
+      const decodedEG = decodedParams.panelSettings.envelope;
+
       // Check EG is preserved
-      expect(decodedParams.envelope.type.value).toBe(originalParams.envelope.type.value);
-      expect(decodedParams.envelope.attack.value).toBe(originalParams.envelope.attack.value);
-      expect(decodedParams.envelope.decay.value).toBe(originalParams.envelope.decay.value);
-      expect(decodedParams.envelope.intensity.value).toBe(originalParams.envelope.intensity.value);
-      expect(decodedParams.envelope.target.value).toBe(originalParams.envelope.target.value);
+      expect(decodedEG.type.value).toBe(originalEG.type.value);
+      expect(decodedEG.attack.value).toBe(originalEG.attack.value);
+      expect(decodedEG.decay.value).toBe(originalEG.decay.value);
+      expect(decodedEG.intensity.value).toBe(originalEG.intensity.value);
+      expect(decodedEG.target.value).toBe(originalEG.target.value);
     });
   });
 });

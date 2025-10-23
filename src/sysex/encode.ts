@@ -35,26 +35,26 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   }
 
   // Encode DRIVE (offset 29 for upper 8 bits, offset 35 bits 6-7 for lower 2 bits)
-  const drive = params.drive?.value || 0;
+  const drive = params.panelSettings?.drive?.value || 0;
   const driveEncoded = write10BitValue(drive, 6);
   body[29] = driveEncoded.upperByte;
   // Merge lower bits into byte 35 (preserving other bits)
   body[35] = (body[35] & driveEncoded.mask) | driveEncoded.lowerBits;
 
   // KEYBOARD OCTAVE (offset 32 bits 2-4, range 0-4)
-  const keyboardOctave = (params.keyboardOctave?.value || 0) & 0x07;
+  const keyboardOctave = (params.panelSettings?.keyboardOctave?.value || 0) & 0x07;
   body[32] = (body[32] & ~(0x07 << 2)) | (keyboardOctave << 2);
 
   // SYNC/RING (offset 32 bits 0-1, range 0-2)
-  const syncRing = (params.syncRing?.value || 0) & 0x03;
+  const syncRing = (params.panelSettings?.syncRing?.value || 0) & 0x03;
   body[32] = (body[32] & ~0x03) | syncRing;
 
   // SEQ TRIG (offset 36 bit 6, range 0)
-  const seqTrig = (params.seqTrig?.value || 0) & 0x01;
+  const seqTrig = (params.panelSettings?.seqTrig?.value || 0) & 0x01;
   body[36] = (body[36] & ~(0x01 << 6)) | (seqTrig << 6);
 
   // Encode VCO1 parameters
-  const vco1 = params.oscilators?.vco1;
+  const vco1 = params.panelSettings?.oscilators?.vco1;
   if (vco1) {
     // VCO1 PITCH (offset 16 for upper 8 bits, offset 30 bits 0-1 for lower 2 bits)
     const vco1PitchEncoded = write10BitValue(vco1.pitch?.value || 0, 0);
@@ -81,7 +81,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   }
 
   // Encode VCO2 parameters
-  const vco2 = params.oscilators?.vco2;
+  const vco2 = params.panelSettings?.oscilators?.vco2;
   if (vco2) {
     // VCO2 PITCH (offset 18 for upper 8 bits, offset 31 bits 0-1 for lower 2 bits)
     const vco2PitchEncoded = write10BitValue(vco2.pitch?.value || 0, 0);
@@ -122,7 +122,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   }
 
   // Encode EG (Envelope Generator) parameters
-  const envelope = params.envelope;
+  const envelope = params.panelSettings?.envelope;
   if (envelope) {
     // EG ATTACK (offset 24 for upper 8 bits, offset 34 bits 2-3 for lower 2 bits)
     const egAttackEncoded = write10BitValue(envelope.attack?.value || 0, 2);
@@ -149,7 +149,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   }
 
   // Encode LFO parameters
-  const lfo = params.lfo;
+  const lfo = params.panelSettings?.lfo;
   if (lfo) {
     // LFO RATE (offset 27 for upper 8 bits, offset 35 bits 2-3 for lower 2 bits)
     const lfoRateEncoded = write10BitValue(lfo.rate?.value || 0, 2);
