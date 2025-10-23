@@ -41,7 +41,7 @@ describe("Sequencer Settings", () => {
     });
   });
 
-  describe.skip("Round-trip", () => {
+  describe("Round-trip", () => {
     it.each(["dump1"])("should preserve Sequencer Settings through encode->decode cycle for %s", (dumpFile) => {
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const originalParams = JSON.parse(readFileSync(parsedPath, "utf8"));

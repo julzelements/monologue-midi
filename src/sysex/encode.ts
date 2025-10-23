@@ -274,7 +274,34 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     }
   }
 
-  // TODO: Encode sequencer steps
+  // Encode Sequencer Steps active/motion/slide bits
+  const seqSteps = params.sequencerSteps;
+  if (seqSteps) {
+    // Step active bits (offset 64-65, 16 steps, 1 bit each)
+    // Step motion active bits (offset 66-67, 16 steps, 1 bit each)
+    // Step slide active bits (offset 68-69, 16 steps, 1 bit each)
+    seqSteps.forEach((step: any, i: number) => {
+      const byteOffset = Math.floor(i / 8);
+      const bitOffset = i % 8;
+
+      // Step active
+      if (step.active?.value) {
+        body[64 + byteOffset] |= 1 << bitOffset;
+      }
+
+      // Motion active
+      if (step.motionActive?.value) {
+        body[66 + byteOffset] |= 1 << bitOffset;
+      }
+
+      // Slide active
+      if (step.slideActive?.value) {
+        body[68 + byteOffset] |= 1 << bitOffset;
+      }
+    });
+  }
+
+  // TODO: Encode sequencer step note events and motion data
   // For now, leave rest as zeros
 
   // Encode body to 7-bit MIDI format (448 bytes -> 512 bytes)
