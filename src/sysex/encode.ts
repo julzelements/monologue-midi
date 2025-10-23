@@ -290,6 +290,15 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
         // Slot parameter (CC number)
         body[baseOffset + 1] = (slot.parameter?.value || 0) & 0x7f;
       });
+
+      // If motion slot step flags are present, write them into offsets 80..87
+      seqSettings.motionSlotParams.forEach((slot: any, i: number) => {
+        const flags: number[] = (slot.stepFlags as number[]) || [];
+        const firstByte = flags.slice(0, 8).reduce((acc, v, idx) => acc | ((v & 0x01) << idx), 0);
+        const secondByte = flags.slice(8, 16).reduce((acc, v, idx) => acc | ((v & 0x01) << idx), 0);
+        body[80 + i * 2] = firstByte & 0xff;
+        body[80 + i * 2 + 1] = secondByte & 0xff;
+      });
     }
   }
 

@@ -1,5 +1,5 @@
 {
-  "patchName": "<afx acid3>\u0000",
+  "patchName": "<afx acid3>",
   "panelSettings": {
     "drive": { "name": "Drive", "value": 0 },
     "keyboardOctave": { "name": "Keyboard Octave", "value": 0 },
@@ -75,25 +75,29 @@
         "slotNumber": 1,
         "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 0 },
-        "parameter": { "name": "Parameter", "value": 23 }
+        "parameter": { "name": "Parameter", "value": 23 },
+        "stepFlags": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       },
       {
         "slotNumber": 2,
         "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 0 },
-        "parameter": { "name": "Parameter", "value": 24 }
+        "parameter": { "name": "Parameter", "value": 24 },
+        "stepFlags": [1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]
       },
       {
         "slotNumber": 3,
         "active": { "name": "On/Off", "value": 1 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
-        "parameter": { "name": "Parameter", "value": 27 }
+        "parameter": { "name": "Parameter", "value": 27 },
+        "stepFlags": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       },
       {
         "slotNumber": 4,
         "active": { "name": "On/Off", "value": 1 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
-        "parameter": { "name": "Parameter", "value": 28 }
+        "parameter": { "name": "Parameter", "value": 28 },
+        "stepFlags": [1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
       }
     ]
   },

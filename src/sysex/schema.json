@@ -325,7 +325,7 @@
     },
     "motionSlot": {
       "type": "object",
-      "required": ["slotNumber", "active", "smooth", "parameter"],
+      "required": ["slotNumber", "active", "smooth", "parameter", "stepFlags"],
       "properties": {
         "slotNumber": {
           "type": "integer",
@@ -344,6 +344,17 @@
         "parameter": {
           "$ref": "#/definitions/namedValue",
           "description": "Parameter assigned to this motion slot"
+        },
+        "stepFlags": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "description": "Per-step flags indicating which steps this motion slot is active on (16 boolean values, 0=OFF, 1=ON)"
         }
       },
       "additionalProperties": false

@@ -87,6 +87,7 @@ export interface MonologueParameters {
       active: NamedValue;
       smooth: NamedValue;
       parameter: NamedValue;
+      stepFlags: number[];
     }>;
   };
   sequencerSteps: Array<{
@@ -207,19 +208,20 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
 
     const stepNumber = i + 1;
 
+    const byteIndex = Math.floor(i / 8);
     const active: NamedValue = {
       name: "On/Off",
-      value: readBits(body[64 + Math.floor(i / 16)], i % 8, 1),
+      value: readBits(body[64 + byteIndex], i % 8, 1),
     };
 
     const motionActive: NamedValue = {
       name: "Motion On/Off",
-      value: readBits(body[66 + Math.floor(i / 16)], i % 8, 1),
+      value: readBits(body[66 + byteIndex], i % 8, 1),
     };
 
     const slideActive: NamedValue = {
       name: "Slide On/Off",
-      value: readBits(body[68 + Math.floor(i / 16)], i % 8, 1),
+      value: readBits(body[68 + byteIndex], i % 8, 1),
     };
 
     return {
@@ -231,12 +233,26 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     };
   });
 
-  const motionSlotParams = Array.from({ length: 4 }, (_, i) => ({
-    slotNumber: i + 1,
-    active: { name: "On/Off", value: readBits(body[72 + i * 2], 0, 1) },
-    smooth: { name: "Smooth On/Off", value: readBits(body[72 + i * 2], 1, 1) },
-    parameter: { name: "Parameter", value: body[73 + i * 2] },
-  }));
+  const motionSlotParams = Array.from({ length: 4 }, (_, i) => {
+    // Decode motion slot per-step flags (offsets 80-87)
+    // Each slot has 2 bytes: first byte = steps 1-8 mask, second = steps 9-16 mask
+    const flagByte1 = body[80 + i * 2] || 0;
+    const flagByte2 = body[80 + i * 2 + 1] || 0;
+    const stepFlags: number[] = Array.from({ length: 16 }, (_, s) => {
+      if (s < 8) {
+        return (flagByte1 >> s) & 0x01;
+      }
+      return (flagByte2 >> (s - 8)) & 0x01;
+    });
+
+    return {
+      slotNumber: i + 1,
+      active: { name: "On/Off", value: readBits(body[72 + i * 2], 0, 1) },
+      smooth: { name: "Smooth On/Off", value: readBits(body[72 + i * 2], 1, 1) },
+      parameter: { name: "Parameter", value: body[73 + i * 2] },
+      stepFlags,
+    };
+  });
 
   const bpm = { name: "BPM", value: (((body[53] & 0x0f) << 8) | body[52]) / 10 }; // 12 bit value
 
