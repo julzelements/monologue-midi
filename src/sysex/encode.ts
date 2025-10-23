@@ -49,6 +49,9 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
   const syncRing = (params.panelSettings?.syncRing?.value || 0) & 0x03;
   body[32] = (body[32] & ~0x03) | syncRing;
 
+  // Reserved bits (offset 32 bits 5-7) - set to 111 (0xe0)
+  body[32] = body[32] | 0xe0;
+
   // SEQ TRIG (offset 36 bit 6, range 0)
   const seqTrig = (params.panelSettings?.seqTrig?.value || 0) & 0x01;
   body[36] = (body[36] & ~(0x01 << 6)) | (seqTrig << 6);
@@ -231,12 +234,18 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     const cutoffKeyTrack = (other.cutoffKeyTrack?.value || 0) & 0x03;
     body[44] = (body[44] & ~(0x03 << 6)) | (cutoffKeyTrack << 6);
 
+    // Reserved bits (offset 44 bits 1-2) - set to 11 (0x06)
+    body[44] = body[44] | 0x06;
+
     // PROGRAM LEVEL (offset 45, range 77-127)
     body[45] = (other.programLevel?.value || 102) & 0x7f; // Default 102 = 0
 
     // AMP VELOCITY (offset 46, range 0-127)
     body[46] = (other.ampVelocity?.value || 0) & 0x7f;
   }
+
+  // Reserved byte (offset 47) - set to 0xc8 (200)
+  body[47] = 0xc8;
 
   // Write SEQD marker (offset 48-51)
   body[48] = 0x53; // 'S'
@@ -263,6 +272,10 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
 
     // DEFAULT GATE TIME (offset 57)
     body[57] = (seqSettings.defaultGateTime?.value || 54) & 0x7f;
+
+    // Reserved bytes (offset 58-59) - set to 0xff (255)
+    body[58] = 0xff;
+    body[59] = 0xff;
 
     // MOTION SLOT PARAMS (offset 72-79, 4 slots x 2 bytes each)
     if (seqSettings.motionSlotParams) {
