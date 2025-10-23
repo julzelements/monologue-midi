@@ -76,28 +76,28 @@
         "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 0 },
         "parameter": { "name": "Parameter", "value": 23 },
-        "stepFlags": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        "hasMotionData": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       },
       {
         "slotNumber": 2,
         "active": { "name": "On/Off", "value": 0 },
         "smooth": { "name": "Smooth On/Off", "value": 0 },
         "parameter": { "name": "Parameter", "value": 24 },
-        "stepFlags": [1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]
+        "hasMotionData": [1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0]
       },
       {
         "slotNumber": 3,
         "active": { "name": "On/Off", "value": 1 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
         "parameter": { "name": "Parameter", "value": 27 },
-        "stepFlags": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        "hasMotionData": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
       },
       {
         "slotNumber": 4,
         "active": { "name": "On/Off", "value": 1 },
         "smooth": { "name": "Smooth On/Off", "value": 1 },
         "parameter": { "name": "Parameter", "value": 28 },
-        "stepFlags": [1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+        "hasMotionData": [1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
       }
     ]
   },

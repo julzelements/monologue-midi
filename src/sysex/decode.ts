@@ -87,7 +87,7 @@ export interface MonologueParameters {
       active: NamedValue;
       smooth: NamedValue;
       parameter: NamedValue;
-      stepFlags: number[];
+      hasMotionData: number[];
     }>;
   };
   sequencerSteps: Array<{
@@ -238,7 +238,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
     // Each slot has 2 bytes: first byte = steps 1-8 mask, second = steps 9-16 mask
     const flagByte1 = body[80 + i * 2] || 0;
     const flagByte2 = body[80 + i * 2 + 1] || 0;
-    const stepFlags: number[] = Array.from({ length: 16 }, (_, s) => {
+    const hasMotionData: number[] = Array.from({ length: 16 }, (_, s) => {
       if (s < 8) {
         return (flagByte1 >> s) & 0x01;
       }
@@ -250,7 +250,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
       active: { name: "On/Off", value: readBits(body[72 + i * 2], 0, 1) },
       smooth: { name: "Smooth On/Off", value: readBits(body[72 + i * 2], 1, 1) },
       parameter: { name: "Parameter", value: body[73 + i * 2] },
-      stepFlags,
+      hasMotionData,
     };
   });
 

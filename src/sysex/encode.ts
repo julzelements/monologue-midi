@@ -293,7 +293,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
 
       // If motion slot step flags are present, write them into offsets 80..87
       seqSettings.motionSlotParams.forEach((slot: any, i: number) => {
-        const flags: number[] = (slot.stepFlags as number[]) || [];
+        const flags: number[] = (slot.hasMotionData as number[]) || [];
         const firstByte = flags.slice(0, 8).reduce((acc, v, idx) => acc | ((v & 0x01) << idx), 0);
         const secondByte = flags.slice(8, 16).reduce((acc, v, idx) => acc | ((v & 0x01) << idx), 0);
         body[80 + i * 2] = firstByte & 0xff;
