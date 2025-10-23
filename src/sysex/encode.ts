@@ -298,11 +298,39 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
       if (step.slideActive?.value) {
         body[68 + byteOffset] |= 1 << bitOffset;
       }
+
+      // Encode note event data for this step (offset 96 + i * 22)
+      const baseOffset = 96 + i * 22;
+      const noteEvent = step.event?.note;
+
+      if (noteEvent) {
+        // NOTE KEY (offset 96 + i * 22)
+        body[baseOffset] = (noteEvent.key?.value || 0) & 0x7f;
+
+        // NOTE VELOCITY (offset 96 + i * 22 + 2)
+        body[baseOffset + 2] = (noteEvent.velocity?.value || 0) & 0x7f;
+
+        // GATE TIME (7 bits) + TRIGGER (1 bit at bit 7) (offset 96 + i * 22 + 4)
+        const gateTime = (noteEvent.gateTime?.value || 0) & 0x7f;
+        const trigger = (noteEvent.trigger?.value || 0) & 0x01;
+        body[baseOffset + 4] = gateTime | (trigger << 7);
+      }
+
+      // Encode motion slots data (4 slots × 4 data points each)
+      // offset: 96 + 6 + j * 4 + k + i * 22
+      const motionSlotsData = step.event?.motionSlotsData;
+      if (motionSlotsData) {
+        motionSlotsData.forEach((slotData: any, j: number) => {
+          if (slotData) {
+            slotData.forEach((dataPoint: any, k: number) => {
+              const offset = 96 + 6 + j * 4 + k + i * 22;
+              body[offset] = (dataPoint.value || 0) & 0xff;
+            });
+          }
+        });
+      }
     });
   }
-
-  // TODO: Encode sequencer step note events and motion data
-  // For now, leave rest as zeros
 
   // Encode body to 7-bit MIDI format (448 bytes -> 512 bytes)
   const encodedBody = encode7BitData(body);
