@@ -77,26 +77,31 @@ describe("Sequencer Parameters", () => {
       const sysex = encodeMonologueParameters(originalParams);
       const decodedParams = decodeMonologueParameters(sysex);
 
+      const originalSeqSettings = originalParams.sequencerSettings;
+      const decodedSeqSettings = decodedParams.sequencerSettings;
+      const originalSteps = originalParams.sequencerSteps;
+      const decodedSteps = decodedParams.sequencerSteps;
+
       // Basic sequencer settings
-      expect(decodedParams.sequencer.bpm.value).toBe(originalParams.sequencer.bpm.value);
-      expect(decodedParams.sequencer.stepLength.value).toBe(originalParams.sequencer.stepLength.value);
-      expect(decodedParams.sequencer.stepResolution.value).toBe(originalParams.sequencer.stepResolution.value);
-      expect(decodedParams.sequencer.swing.value).toBe(originalParams.sequencer.swing.value);
-      expect(decodedParams.sequencer.defaultGateTime.value).toBe(originalParams.sequencer.defaultGateTime.value);
+      expect(decodedSeqSettings.bpm.value).toBe(originalSeqSettings.bpm.value);
+      expect(decodedSeqSettings.stepLength.value).toBe(originalSeqSettings.stepLength.value);
+      expect(decodedSeqSettings.stepResolution.value).toBe(originalSeqSettings.stepResolution.value);
+      expect(decodedSeqSettings.swing.value).toBe(originalSeqSettings.swing.value);
+      expect(decodedSeqSettings.defaultGateTime.value).toBe(originalSeqSettings.defaultGateTime.value);
 
       // Motion slot params
-      expect(decodedParams.sequencer.motionSlotParams).toHaveLength(4);
-      decodedParams.sequencer.motionSlotParams.forEach((slot: any, i: number) => {
-        expect(slot.slotNumber).toBe(originalParams.sequencer.motionSlotParams[i].slotNumber);
-        expect(slot.active.value).toBe(originalParams.sequencer.motionSlotParams[i].active.value);
-        expect(slot.smooth.value).toBe(originalParams.sequencer.motionSlotParams[i].smooth.value);
-        expect(slot.parameter.value).toBe(originalParams.sequencer.motionSlotParams[i].parameter.value);
+      expect(decodedSeqSettings.motionSlotParams).toHaveLength(4);
+      decodedSeqSettings.motionSlotParams.forEach((slot: any, i: number) => {
+        expect(slot.slotNumber).toBe(originalSeqSettings.motionSlotParams[i].slotNumber);
+        expect(slot.active.value).toBe(originalSeqSettings.motionSlotParams[i].active.value);
+        expect(slot.smooth.value).toBe(originalSeqSettings.motionSlotParams[i].smooth.value);
+        expect(slot.parameter.value).toBe(originalSeqSettings.motionSlotParams[i].parameter.value);
       });
 
       // Sequencer steps
-      expect(decodedParams.sequencer.steps).toHaveLength(16);
-      decodedParams.sequencer.steps.forEach((step: any, i: number) => {
-        const originalStep = originalParams.sequencer.steps[i];
+      expect(decodedSteps).toHaveLength(16);
+      decodedSteps.forEach((step: any, i: number) => {
+        const originalStep = originalSteps[i];
 
         expect(step.stepNumber).toBe(originalStep.stepNumber);
         expect(step.active.value).toBe(originalStep.active.value);

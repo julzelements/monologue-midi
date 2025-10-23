@@ -238,7 +238,43 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[46] = (other.ampVelocity?.value || 0) & 0x7f;
   }
 
-  // TODO: Encode other parameters (filter, misc, etc.)
+  // Encode Sequencer Settings
+  const seqSettings = params.sequencerSettings;
+  if (seqSettings) {
+    // BPM (offset 52-53, 12-bit value, stored as value * 10)
+    const bpmValue = Math.round((seqSettings.bpm?.value || 120) * 10);
+    body[52] = bpmValue & 0xff; // Lower 8 bits
+    body[53] = (body[53] & 0xf0) | ((bpmValue >> 8) & 0x0f); // Upper 4 bits in lower nibble
+
+    // STEP LENGTH (offset 54, range 1-16)
+    body[54] = (seqSettings.stepLength?.value || 16) & 0x1f;
+
+    // STEP RESOLUTION (offset 55)
+    body[55] = (seqSettings.stepResolution?.value || 0) & 0x7f;
+
+    // SWING (offset 56)
+    body[56] = (seqSettings.swing?.value || 0) & 0x7f;
+
+    // DEFAULT GATE TIME (offset 57)
+    body[57] = (seqSettings.defaultGateTime?.value || 54) & 0x7f;
+
+    // MOTION SLOT PARAMS (offset 72-79, 4 slots x 2 bytes each)
+    if (seqSettings.motionSlotParams) {
+      seqSettings.motionSlotParams.forEach((slot: any, i: number) => {
+        const baseOffset = 72 + i * 2;
+
+        // Slot active (bit 0) and smooth (bit 1)
+        const active = (slot.active?.value || 0) & 0x01;
+        const smooth = (slot.smooth?.value || 0) & 0x01;
+        body[baseOffset] = active | (smooth << 1);
+
+        // Slot parameter (CC number)
+        body[baseOffset + 1] = (slot.parameter?.value || 0) & 0x7f;
+      });
+    }
+  }
+
+  // TODO: Encode sequencer steps
   // For now, leave rest as zeros
 
   // Encode body to 7-bit MIDI format (448 bytes -> 512 bytes)
