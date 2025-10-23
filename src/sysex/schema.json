@@ -3,7 +3,17 @@
   "title": "MonologueParameters",
   "description": "Complete parameter schema for Korg Monologue synthesizer patches",
   "type": "object",
-  "required": ["patchName", "drive", "keyboardOctave", "oscilators", "filter", "envelope", "lfo", "programSettings"],
+  "required": [
+    "patchName",
+    "drive",
+    "keyboardOctave",
+    "oscilators",
+    "filter",
+    "envelope",
+    "lfo",
+    "programSettings",
+    "sequencer"
+  ],
   "properties": {
     "patchName": {
       "type": "string",
@@ -198,6 +208,51 @@
         }
       },
       "additionalProperties": false
+    },
+    "sequencer": {
+      "type": "object",
+      "required": ["bpm", "stepLength", "stepResolution", "swing", "defaultGateTime", "motionSlotParams", "steps"],
+      "properties": {
+        "bpm": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Sequencer BPM"
+        },
+        "stepLength": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Number of steps in sequence (1-16)"
+        },
+        "stepResolution": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Step resolution"
+        },
+        "swing": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Swing amount"
+        },
+        "defaultGateTime": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Default gate time for steps"
+        },
+        "motionSlotParams": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/definitions/motionSlot"
+          },
+          "description": "Four motion sequencing parameter slots"
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/definitions/sequencerStep"
+          },
+          "description": "16 sequencer steps"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,
@@ -267,6 +322,106 @@
         "octave": {
           "$ref": "#/definitions/namedValue",
           "description": "Octave: 0=16', 1=8', 2=4', 3=2'"
+        }
+      },
+      "additionalProperties": false
+    },
+    "motionSlot": {
+      "type": "object",
+      "required": ["slotNumber", "active", "smooth", "parameter"],
+      "properties": {
+        "slotNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "Motion slot number (1-4)"
+        },
+        "active": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Motion slot on/off: 0=OFF, 1=ON"
+        },
+        "smooth": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Motion smooth on/off: 0=OFF, 1=ON"
+        },
+        "parameter": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Parameter assigned to this motion slot"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sequencerStep": {
+      "type": "object",
+      "required": ["stepNumber", "active", "motionActive", "slideActive", "event"],
+      "properties": {
+        "stepNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16,
+          "description": "Step number (1-16)"
+        },
+        "active": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Step on/off: 0=OFF, 1=ON"
+        },
+        "motionActive": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Motion on/off for this step: 0=OFF, 1=ON"
+        },
+        "slideActive": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Slide on/off for this step: 0=OFF, 1=ON"
+        },
+        "event": {
+          "$ref": "#/definitions/stepEvent"
+        }
+      },
+      "additionalProperties": false
+    },
+    "stepEvent": {
+      "type": "object",
+      "required": ["note", "motionSlotsData"],
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/noteEvent"
+        },
+        "motionSlotsData": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/definitions/namedValue"
+            }
+          },
+          "description": "Motion data for 4 slots, each with 4 data points"
+        }
+      },
+      "additionalProperties": false
+    },
+    "noteEvent": {
+      "type": "object",
+      "required": ["key", "velocity", "gateTime", "trigger"],
+      "properties": {
+        "key": {
+          "$ref": "#/definitions/namedValue",
+          "description": "MIDI note number"
+        },
+        "velocity": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Note velocity (0-127)"
+        },
+        "gateTime": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Note gate time"
+        },
+        "trigger": {
+          "$ref": "#/definitions/namedValue",
+          "description": "Trigger mode"
         }
       },
       "additionalProperties": false

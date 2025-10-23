@@ -22,10 +22,16 @@ describe("Other Program Settings Parameters", () => {
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
       expect(decoded.programSettings.other.lfoBpmSync.value).toBe(parsedData.programSettings.other.lfoBpmSync.value);
-      expect(decoded.programSettings.other.cutoffKeyTrack.value).toBe(parsedData.programSettings.other.cutoffKeyTrack.value);
-      expect(decoded.programSettings.other.cutoffVelocity.value).toBe(parsedData.programSettings.other.cutoffVelocity.value);
+      expect(decoded.programSettings.other.cutoffKeyTrack.value).toBe(
+        parsedData.programSettings.other.cutoffKeyTrack.value
+      );
+      expect(decoded.programSettings.other.cutoffVelocity.value).toBe(
+        parsedData.programSettings.other.cutoffVelocity.value
+      );
       expect(decoded.programSettings.other.ampVelocity.value).toBe(parsedData.programSettings.other.ampVelocity.value);
-      expect(decoded.programSettings.other.programLevel.value).toBe(parsedData.programSettings.other.programLevel.value);
+      expect(decoded.programSettings.other.programLevel.value).toBe(
+        parsedData.programSettings.other.programLevel.value
+      );
     });
   });
 
@@ -38,15 +44,21 @@ describe("Other Program Settings Parameters", () => {
       const decodedParams = decodeMonologueParameters(sysex);
 
       // Check other settings are preserved
-      expect(decodedParams.programSettings.other.lfoBpmSync.value).toBe(originalParams.programSettings.other.lfoBpmSync.value);
+      expect(decodedParams.programSettings.other.lfoBpmSync.value).toBe(
+        originalParams.programSettings.other.lfoBpmSync.value
+      );
       expect(decodedParams.programSettings.other.cutoffKeyTrack.value).toBe(
         originalParams.programSettings.other.cutoffKeyTrack.value
       );
       expect(decodedParams.programSettings.other.cutoffVelocity.value).toBe(
         originalParams.programSettings.other.cutoffVelocity.value
       );
-      expect(decodedParams.programSettings.other.ampVelocity.value).toBe(originalParams.programSettings.other.ampVelocity.value);
-      expect(decodedParams.programSettings.other.programLevel.value).toBe(originalParams.programSettings.other.programLevel.value);
+      expect(decodedParams.programSettings.other.ampVelocity.value).toBe(
+        originalParams.programSettings.other.ampVelocity.value
+      );
+      expect(decodedParams.programSettings.other.programLevel.value).toBe(
+        originalParams.programSettings.other.programLevel.value
+      );
     });
   });
 });

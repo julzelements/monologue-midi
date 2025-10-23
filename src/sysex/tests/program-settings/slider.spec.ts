@@ -22,8 +22,12 @@ describe("Slider Parameters", () => {
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
       expect(decoded.programSettings.slider.assign.value).toBe(parsedData.programSettings.slider.assign.value);
-      expect(decoded.programSettings.slider.bendRangePlus.value).toBe(parsedData.programSettings.slider.bendRangePlus.value);
-      expect(decoded.programSettings.slider.bendRangeMinus.value).toBe(parsedData.programSettings.slider.bendRangeMinus.value);
+      expect(decoded.programSettings.slider.bendRangePlus.value).toBe(
+        parsedData.programSettings.slider.bendRangePlus.value
+      );
+      expect(decoded.programSettings.slider.bendRangeMinus.value).toBe(
+        parsedData.programSettings.slider.bendRangeMinus.value
+      );
     });
   });
 
@@ -36,7 +40,9 @@ describe("Slider Parameters", () => {
       const decodedParams = decodeMonologueParameters(sysex);
 
       // Check slider settings are preserved
-      expect(decodedParams.programSettings.slider.assign.value).toBe(originalParams.programSettings.slider.assign.value);
+      expect(decodedParams.programSettings.slider.assign.value).toBe(
+        originalParams.programSettings.slider.assign.value
+      );
       expect(decodedParams.programSettings.slider.bendRangePlus.value).toBe(
         originalParams.programSettings.slider.bendRangePlus.value
       );

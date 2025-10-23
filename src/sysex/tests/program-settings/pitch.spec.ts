@@ -21,7 +21,9 @@ describe("Pitch Parameters", () => {
 
       const parsedPath = join(__dirname, "..", "data", "parsed", `${dumpFile}.json`);
       const parsedData = JSON.parse(readFileSync(parsedPath, "utf8"));
-      expect(decoded.programSettings.pitch.programTuning.value).toBe(parsedData.programSettings.pitch.programTuning.value);
+      expect(decoded.programSettings.pitch.programTuning.value).toBe(
+        parsedData.programSettings.pitch.programTuning.value
+      );
       // TODO: try saving a patch with a non-default microtuning that is not Equal Temp: 0.
       expect(decoded.programSettings.pitch.microTuning.value).toBe(parsedData.programSettings.pitch.microTuning.value);
       expect(decoded.programSettings.pitch.scaleKey.value).toBe(parsedData.programSettings.pitch.scaleKey.value);
@@ -40,8 +42,12 @@ describe("Pitch Parameters", () => {
       expect(decodedParams.programSettings.pitch.programTuning.value).toBe(
         originalParams.programSettings.pitch.programTuning.value
       );
-      expect(decodedParams.programSettings.pitch.microTuning.value).toBe(originalParams.programSettings.pitch.microTuning.value);
-      expect(decodedParams.programSettings.pitch.scaleKey.value).toBe(originalParams.programSettings.pitch.scaleKey.value);
+      expect(decodedParams.programSettings.pitch.microTuning.value).toBe(
+        originalParams.programSettings.pitch.microTuning.value
+      );
+      expect(decodedParams.programSettings.pitch.scaleKey.value).toBe(
+        originalParams.programSettings.pitch.scaleKey.value
+      );
     });
   });
 });
