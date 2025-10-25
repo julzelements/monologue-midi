@@ -1,19 +1,22 @@
 // Lookup tables for converting between numeric values and human-readable labels
 
-export const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
-export const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
-export const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
-export const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
-export const EG_TYPE_LABELS = ["GATE", "A/G/D", "A/D"] as const;
-export const EG_TARGET_LABELS = ["CUTOFF", "PITCH 2", "PITCH"] as const;
-export const LFO_MODE_LABELS = ["1-SHOT", "SLOW", "FAST"] as const;
-export const LFO_TARGET_LABELS = ["CUTOFF", "SHAPE", "PITCH"] as const;
-export const PERCENTAGE_LABELS = ["0%", "33%", "66%", "100%"] as const;
-export const STEP_RESOLUTION_LABELS = ["1/16", "1/8", "1/4", "1/2", "1/1"] as const;
-export const BOOLEAN_LABELS = ["OFF", "ON"] as const;
+import { MonologueParameters } from "./decode";
+
+const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
+const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
+const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
+const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
+const KEYBOARD_OCTAVE_LABELS = ["-2", "-1", "0", "+1", "+2"] as const;
+const EG_TYPE_LABELS = ["GATE", "A/G/D", "A/D"] as const;
+const EG_TARGET_LABELS = ["CUTOFF", "PITCH 2", "PITCH"] as const;
+const LFO_MODE_LABELS = ["1-SHOT", "SLOW", "FAST"] as const;
+const LFO_TARGET_LABELS = ["CUTOFF", "SHAPE", "PITCH"] as const;
+const PERCENTAGE_LABELS = ["0%", "33%", "66%", "100%"] as const;
+const STEP_RESOLUTION_LABELS = ["1/16", "1/8", "1/4", "1/2", "1/1"] as const;
+const BOOLEAN_LABELS = ["OFF", "ON"] as const;
 
 // Slider Assign labels mapped by ID
-export const SLIDER_ASSIGN_LABELS: Record<number, string> = {
+const SLIDER_ASSIGN_LABELS: Record<number, string> = {
   13: "VCO 1 PITCH",
   14: "VCO 1 SHAPE",
   17: "VCO 2 PITCH",
@@ -33,7 +36,7 @@ export const SLIDER_ASSIGN_LABELS: Record<number, string> = {
 };
 
 // Motion Parameter labels mapped by ID (includes all valid motion parameter IDs)
-export const MOTION_PARAM_LABELS: Record<number, string> = {
+const MOTION_PARAM_LABELS: Record<number, string> = {
   0: "None",
   13: "VCO 1 PITCH",
   14: "VCO 1 SHAPE",
@@ -62,6 +65,127 @@ export const MOTION_PARAM_LABELS: Record<number, string> = {
   40: "PORTAMENT",
   56: "PITCH BEND",
   57: "GATE TIME",
+};
+
+export const prettyPanelSettings = (patch: MonologueParameters) => {
+  return {
+    drive: {
+      ...patch.panelSettings.drive,
+      formatted: patch.panelSettings.drive.value / 1023,
+    },
+    keyboardOctave: {
+      ...patch.panelSettings.keyboardOctave,
+      formatted: KEYBOARD_OCTAVE_LABELS[patch.panelSettings.keyboardOctave.value],
+    },
+    syncRing: {
+      ...patch.panelSettings.syncRing,
+      formatted: SYNC_RING_LABELS[patch.panelSettings.syncRing.value],
+    },
+    seqTrig: {
+      ...patch.panelSettings.seqTrig,
+      formatted: BOOLEAN_LABELS[patch.panelSettings.seqTrig.value],
+    },
+    oscilators: {
+      vco1: {
+        wave: {
+          ...patch.panelSettings.oscilators.vco1.wave,
+          formatted: VCO1_WAVE_LABELS[patch.panelSettings.oscilators.vco1.wave.value],
+        },
+        shape: {
+          ...patch.panelSettings.oscilators.vco1.shape,
+          formatted: patch.panelSettings.oscilators.vco1.shape.value / 1023,
+        },
+        level: {
+          ...patch.panelSettings.oscilators.vco1.level,
+          formatted: patch.panelSettings.oscilators.vco1.level.value / 1023,
+        },
+        pitch: {
+          ...patch.panelSettings.oscilators.vco1.pitch,
+          formatted: patch.panelSettings.oscilators.vco1.pitch.value / 1023,
+        },
+        octave: {
+          ...patch.panelSettings.oscilators.vco1.octave,
+          formatted: OCTAVE_LABELS[patch.panelSettings.oscilators.vco1.octave.value],
+        },
+      },
+      vco2: {
+        wave: {
+          ...patch.panelSettings.oscilators.vco2.wave,
+          formatted: VCO2_WAVE_LABELS[patch.panelSettings.oscilators.vco2.wave.value],
+        },
+        shape: {
+          ...patch.panelSettings.oscilators.vco2.shape,
+          formatted: patch.panelSettings.oscilators.vco2.shape.value / 1023,
+        },
+        level: {
+          ...patch.panelSettings.oscilators.vco2.level,
+          formatted: patch.panelSettings.oscilators.vco2.level.value / 1023,
+        },
+        pitch: {
+          ...patch.panelSettings.oscilators.vco2.pitch,
+          formatted: patch.panelSettings.oscilators.vco2.pitch.value / 1023,
+        },
+        octave: {
+          ...patch.panelSettings.oscilators.vco2.octave,
+          formatted: OCTAVE_LABELS[patch.panelSettings.oscilators.vco2.octave.value],
+        },
+      },
+    },
+    filter: {
+      cutoff: {
+        ...patch.panelSettings.filter.cutoff,
+        formatted: patch.panelSettings.filter.cutoff.value / 1023,
+      },
+      resonance: {
+        ...patch.panelSettings.filter.resonance,
+        formatted: patch.panelSettings.filter.resonance.value / 1023,
+      },
+    },
+    envelope: {
+      type: {
+        ...patch.panelSettings.envelope.type,
+        formatted: EG_TYPE_LABELS[patch.panelSettings.envelope.type.value],
+      },
+      attack: {
+        ...patch.panelSettings.envelope.attack,
+        formatted: patch.panelSettings.envelope.attack.value / 1023,
+      },
+      decay: {
+        ...patch.panelSettings.envelope.decay,
+        formatted: patch.panelSettings.envelope.decay.value / 1023,
+      },
+      intensity: {
+        ...patch.panelSettings.envelope.intensity,
+        formatted: patch.panelSettings.envelope.intensity.value / 1023,
+      },
+      target: {
+        ...patch.panelSettings.envelope.target,
+        formatted: EG_TARGET_LABELS[patch.panelSettings.envelope.target.value],
+      },
+    },
+    lfo: {
+      wave: {
+        ...patch.panelSettings.lfo.wave,
+        formatted: PERCENTAGE_LABELS[patch.panelSettings.lfo.wave.value],
+      },
+      mode: {
+        ...patch.panelSettings.lfo.mode,
+        formatted: LFO_MODE_LABELS[patch.panelSettings.lfo.mode.value],
+      },
+      rate: {
+        ...patch.panelSettings.lfo.rate,
+        formatted: patch.panelSettings.lfo.rate.value / 1023,
+      },
+      intensity: {
+        ...patch.panelSettings.lfo.intensity,
+        formatted: patch.panelSettings.lfo.intensity.value / 1023,
+      },
+      target: {
+        ...patch.panelSettings.lfo.target,
+        formatted: LFO_TARGET_LABELS[patch.panelSettings.lfo.target.value],
+      },
+    },
+  };
 };
 
 // Format functions: numeric value -> pretty string
