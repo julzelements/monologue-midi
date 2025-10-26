@@ -71,7 +71,7 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
   return {
     drive: {
       ...patch.panelSettings.drive,
-      formatted: patch.panelSettings.drive.value / 1023,
+      formatted: patch.panelSettings.drive.value,
     },
     keyboardOctave: {
       ...patch.panelSettings.keyboardOctave,
@@ -93,15 +93,15 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
         },
         shape: {
           ...patch.panelSettings.oscilators.vco1.shape,
-          formatted: patch.panelSettings.oscilators.vco1.shape.value / 1023,
+          formatted: patch.panelSettings.oscilators.vco1.shape.value,
         },
         level: {
           ...patch.panelSettings.oscilators.vco1.level,
-          formatted: patch.panelSettings.oscilators.vco1.level.value / 1023,
+          formatted: patch.panelSettings.oscilators.vco1.level.value,
         },
         pitch: {
           ...patch.panelSettings.oscilators.vco1.pitch,
-          formatted: patch.panelSettings.oscilators.vco1.pitch.value / 1023,
+          formatted: vcoPitchToCents(patch.panelSettings.oscilators.vco1.pitch.value),
         },
         octave: {
           ...patch.panelSettings.oscilators.vco1.octave,
@@ -115,15 +115,15 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
         },
         shape: {
           ...patch.panelSettings.oscilators.vco2.shape,
-          formatted: patch.panelSettings.oscilators.vco2.shape.value / 1023,
+          formatted: patch.panelSettings.oscilators.vco2.shape.value,
         },
         level: {
           ...patch.panelSettings.oscilators.vco2.level,
-          formatted: patch.panelSettings.oscilators.vco2.level.value / 1023,
+          formatted: patch.panelSettings.oscilators.vco2.level.value,
         },
         pitch: {
           ...patch.panelSettings.oscilators.vco2.pitch,
-          formatted: patch.panelSettings.oscilators.vco2.pitch.value / 1023,
+          formatted: vcoPitchToCents(patch.panelSettings.oscilators.vco2.pitch.value),
         },
         octave: {
           ...patch.panelSettings.oscilators.vco2.octave,
@@ -134,11 +134,11 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
     filter: {
       cutoff: {
         ...patch.panelSettings.filter.cutoff,
-        formatted: patch.panelSettings.filter.cutoff.value / 1023,
+        formatted: patch.panelSettings.filter.cutoff.value,
       },
       resonance: {
         ...patch.panelSettings.filter.resonance,
-        formatted: patch.panelSettings.filter.resonance.value / 1023,
+        formatted: patch.panelSettings.filter.resonance.value,
       },
     },
     envelope: {
@@ -148,15 +148,15 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
       },
       attack: {
         ...patch.panelSettings.envelope.attack,
-        formatted: patch.panelSettings.envelope.attack.value / 1023,
+        formatted: patch.panelSettings.envelope.attack.value,
       },
       decay: {
         ...patch.panelSettings.envelope.decay,
-        formatted: patch.panelSettings.envelope.decay.value / 1023,
+        formatted: patch.panelSettings.envelope.decay.value,
       },
       intensity: {
         ...patch.panelSettings.envelope.intensity,
-        formatted: patch.panelSettings.envelope.intensity.value / 1023,
+        formatted: patch.panelSettings.envelope.intensity.value,
       },
       target: {
         ...patch.panelSettings.envelope.target,
@@ -174,11 +174,11 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
       },
       rate: {
         ...patch.panelSettings.lfo.rate,
-        formatted: patch.panelSettings.lfo.rate.value / 1023,
+        formatted: patch.panelSettings.lfo.rate.value,
       },
       intensity: {
         ...patch.panelSettings.lfo.intensity,
-        formatted: patch.panelSettings.lfo.intensity.value / 1023,
+        formatted: patch.panelSettings.lfo.intensity.value,
       },
       target: {
         ...patch.panelSettings.lfo.target,
@@ -239,6 +239,42 @@ export function formatStepResolution(value: number): string {
 
 export function formatBoolean(value: number): string {
   return BOOLEAN_LABELS[value] ?? `UNKNOWN(${value})`;
+}
+
+/**
+ * Convert VCO pitch value (0-1023) to cents
+ * Based on the non-linear mapping from the Monologue specification:
+ * - 0-4: -1200 cents
+ * - 4-356: -1200 to -256 cents (linear interpolation)
+ * - 356-476: -256 to -16 cents (linear interpolation)
+ * - 476-492: -16 to 0 cents (linear interpolation)
+ * - 492-532: 0 cents
+ * - 532-548: 0 to 16 cents (linear interpolation)
+ * - 548-668: 16 to 256 cents (linear interpolation)
+ * - 668-1020: 256 to 1200 cents (linear interpolation)
+ * - 1020-1023: 1200 cents
+ */
+
+export function vcoPitchToCents(value: number): number {
+  const v = Math.max(0, Math.min(1023, value));
+  const range = [
+    [0, 4, -1200, -1200],
+    [4, 356, -1200, -256],
+    [356, 476, -256, -16],
+    [476, 492, -16, 0],
+    [492, 532, 0, 0],
+    [532, 548, 0, 16],
+    [548, 668, 16, 256],
+    [668, 1020, 256, 1200],
+    [1020, 1023, 1200, 1200],
+  ];
+
+  function lerp(x: number, x1: number, x2: number, y1: number, y2: number) {
+    return y1 + ((x - x1) / (x2 - x1)) * (y2 - y1);
+  }
+
+  const [x1, x2, y1, y2] = range.find(([a, b]) => v >= a && v <= b)!;
+  return y1 === y2 ? y1 : lerp(v, x1, x2, y1, y2);
 }
 
 // Parse functions: pretty string -> numeric value
@@ -318,6 +354,41 @@ export function parseBoolean(label: string): number {
   const index = BOOLEAN_LABELS.indexOf(label as any);
   if (index === -1) throw new Error(`Unknown boolean: ${label}`);
   return index;
+}
+
+/**
+ * Convert LFO rate value (0-1023) to BPM-synced time division label
+ * When BPM sync is ON, the LFO rate maps to musical time divisions
+ * When BPM sync is OFF, returns the raw value
+ *
+ * @param value - LFO rate value (0-1023)
+ * @param bpmSyncOn - Whether BPM sync is enabled (0 = off, 1 = on)
+ * @returns Time division string (e.g., "1/4", "1/8") or raw value
+ */
+export function lfoRateToBpmSync(value: number, bpmSyncOn: number): string | number {
+  if (bpmSyncOn === 0) return value;
+
+  const steps = [
+    "4",
+    "2",
+    "1",
+    "3/4",
+    "1/2",
+    "3/8",
+    "1/3",
+    "1/4",
+    "3/16",
+    "1/6",
+    "1/8",
+    "1/12",
+    "1/16",
+    "1/24",
+    "1/32",
+    "1/36",
+  ];
+
+  const index = Math.min(Math.floor(value / 64), steps.length - 1);
+  return steps[index];
 }
 
 // NOTE: Portamento time is super strange
