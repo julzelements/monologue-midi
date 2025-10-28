@@ -4,6 +4,7 @@ import { MonologueParameters } from "./decode";
 
 const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
 const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
+const LFO_TYPE_LABELS = ["SQR", "TRI", "SAW"] as const;
 const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
 const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
 const KEYBOARD_OCTAVE_LABELS = ["-2", "-1", "0", "+1", "+2"] as const;
@@ -164,9 +165,9 @@ export const prettyPanelSettings = (patch: MonologueParameters) => {
       },
     },
     lfo: {
-      wave: {
-        ...patch.panelSettings.lfo.wave,
-        formatted: PERCENTAGE_LABELS[patch.panelSettings.lfo.wave.value],
+      type: {
+        ...patch.panelSettings.lfo.type,
+        formatted: LFO_TYPE_LABELS[patch.panelSettings.lfo.type.value],
       },
       mode: {
         ...patch.panelSettings.lfo.mode,

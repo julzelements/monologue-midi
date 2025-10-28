@@ -165,7 +165,7 @@ export function encodeMonologueParameters(params: MonologueParameters): Uint8Arr
     body[35] = (body[35] & lfoIntEncoded.mask) | lfoIntEncoded.lowerBits;
 
     // LFO TYPE (offset 36 bits 0-1, range 0-2)
-    const lfoType = (lfo.wave?.value || 0) & 0x03;
+    const lfoType = (lfo.type?.value || 0) & 0x03;
     body[36] = (body[36] & ~0x03) | lfoType;
 
     // LFO MODE (offset 36 bits 2-3, range 0-2)

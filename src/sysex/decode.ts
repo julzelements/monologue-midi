@@ -45,7 +45,7 @@ export interface MonologueParameters {
       target: NamedValue;
     };
     lfo: {
-      wave: NamedValue;
+      type: NamedValue;
       mode: NamedValue;
       rate: NamedValue;
       intensity: NamedValue;
@@ -293,7 +293,7 @@ export function decodeMonologueParameters(sysex: Uint8Array): MonologueParameter
         target: { name: "Target", value: egTarget },
       },
       lfo: {
-        wave: { name: "Wave", value: lfoType },
+        type: { name: "Wave", value: lfoType },
         mode: { name: "LFO Mode", value: lfoMode },
         rate: { name: "Rate", value: lfoRate },
         intensity: { name: "Intensity", value: lfoInt },

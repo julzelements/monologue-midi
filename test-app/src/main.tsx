@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { decodeMonologueParameters } from "@julzelements/monologue-midi";
+import { decodeMonologueParameters, prettyPanelSettings } from "@julzelements/monologue-midi";
 import { WebMidi } from "webmidi";
 
 const App = () => {
@@ -135,6 +135,153 @@ const App = () => {
       {midiData && (
         <>
           <h2>Patch: {midiData.patchName}</h2>
+
+          {/* Prettified Panel Settings */}
+          <div style={{ marginBottom: "30px" }}>
+            <h3 style={{ marginBottom: "15px" }}>Panel Settings</h3>
+            {(() => {
+              const prettySettings = prettyPanelSettings(midiData);
+
+              const ParameterCard = ({ label, param }: { label: string; param: any }) => (
+                <div
+                  style={{
+                    backgroundColor: "#f9f9f9",
+                    padding: "12px",
+                    borderRadius: "6px",
+                    border: "1px solid #e0e0e0",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "6px",
+                  }}
+                >
+                  <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{label}</div>
+                  <div style={{ fontSize: "20px", color: "#0066cc", fontWeight: "500" }}>
+                    {param.formatted !== undefined ? param.formatted : param.value}
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#666", display: "flex", gap: "12px" }}>
+                    <span>
+                      <strong>Raw:</strong> {param.value}
+                    </span>
+                    {param.name && (
+                      <span>
+                        <strong>Label:</strong> {param.name}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+
+              return (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+                    gap: "12px",
+                  }}
+                >
+                  {/* Global Settings */}
+                  <ParameterCard label="Drive" param={prettySettings.drive} />
+                  <ParameterCard label="Keyboard Octave" param={prettySettings.keyboardOctave} />
+                  <ParameterCard label="Sync/Ring" param={prettySettings.syncRing} />
+                  <ParameterCard label="Seq Trigger" param={prettySettings.seqTrig} />
+
+                  {/* VCO 1 */}
+                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
+                    <h4
+                      style={{
+                        margin: "0 0 10px 0",
+                        color: "#555",
+                        borderBottom: "2px solid #ddd",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      VCO 1
+                    </h4>
+                  </div>
+                  <ParameterCard label="VCO1 Wave" param={prettySettings.oscilators.vco1.wave} />
+                  <ParameterCard label="VCO1 Shape" param={prettySettings.oscilators.vco1.shape} />
+                  <ParameterCard label="VCO1 Level" param={prettySettings.oscilators.vco1.level} />
+                  <ParameterCard label="VCO1 Pitch (cents)" param={prettySettings.oscilators.vco1.pitch} />
+                  <ParameterCard label="VCO1 Octave" param={prettySettings.oscilators.vco1.octave} />
+
+                  {/* VCO 2 */}
+                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
+                    <h4
+                      style={{
+                        margin: "0 0 10px 0",
+                        color: "#555",
+                        borderBottom: "2px solid #ddd",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      VCO 2
+                    </h4>
+                  </div>
+                  <ParameterCard label="VCO2 Wave" param={prettySettings.oscilators.vco2.wave} />
+                  <ParameterCard label="VCO2 Shape" param={prettySettings.oscilators.vco2.shape} />
+                  <ParameterCard label="VCO2 Level" param={prettySettings.oscilators.vco2.level} />
+                  <ParameterCard label="VCO2 Pitch (cents)" param={prettySettings.oscilators.vco2.pitch} />
+                  <ParameterCard label="VCO2 Octave" param={prettySettings.oscilators.vco2.octave} />
+
+                  {/* Filter */}
+                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
+                    <h4
+                      style={{
+                        margin: "0 0 10px 0",
+                        color: "#555",
+                        borderBottom: "2px solid #ddd",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      Filter
+                    </h4>
+                  </div>
+                  <ParameterCard label="Cutoff" param={prettySettings.filter.cutoff} />
+                  <ParameterCard label="Resonance" param={prettySettings.filter.resonance} />
+
+                  {/* Envelope */}
+                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
+                    <h4
+                      style={{
+                        margin: "0 0 10px 0",
+                        color: "#555",
+                        borderBottom: "2px solid #ddd",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      Envelope
+                    </h4>
+                  </div>
+                  <ParameterCard label="EG Type" param={prettySettings.envelope.type} />
+                  <ParameterCard label="EG Attack" param={prettySettings.envelope.attack} />
+                  <ParameterCard label="EG Decay" param={prettySettings.envelope.decay} />
+                  <ParameterCard label="EG Intensity" param={prettySettings.envelope.intensity} />
+                  <ParameterCard label="EG Target" param={prettySettings.envelope.target} />
+
+                  {/* LFO */}
+                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
+                    <h4
+                      style={{
+                        margin: "0 0 10px 0",
+                        color: "#555",
+                        borderBottom: "2px solid #ddd",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      LFO
+                    </h4>
+                  </div>
+                  <ParameterCard label="LFO Type" param={prettySettings.lfo.type} />
+                  <ParameterCard label="LFO Mode" param={prettySettings.lfo.mode} />
+                  <ParameterCard label="LFO Rate" param={prettySettings.lfo.rate} />
+                  <ParameterCard label="LFO Intensity" param={prettySettings.lfo.intensity} />
+                  <ParameterCard label="LFO Target" param={prettySettings.lfo.target} />
+                </div>
+              );
+            })()}
+          </div>
+
+          <h3>Raw Data</h3>
           <div
             style={{
               backgroundColor: "#f5f5f5",
