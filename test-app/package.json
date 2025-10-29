@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "link:lib": "cd .. && npm link && cd test-app && npm link @julzelements/monologue-midi",
+    "unlink:lib": "npm unlink @julzelements/monologue-midi && cd .. && npm unlink"
   },
   "dependencies": {
     "prettier": "^3.6.2",
