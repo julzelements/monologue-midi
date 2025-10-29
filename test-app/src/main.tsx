@@ -6,6 +6,8 @@ import { WebMidi } from "webmidi";
 const App = () => {
   const [midiData, setMidiData] = useState(null);
   const [isWebMidiEnabled, setIsWebMidiEnabled] = useState(false);
+  const [isRawDataExpanded, setIsRawDataExpanded] = useState(false);
+  const [lastMidiMessage, setLastMidiMessage] = useState<string | null>(null);
 
   const sampleData = new Uint8Array([
     240, 66, 48, 0, 1, 68, 64, 0, 80, 82, 79, 71, 79, 110, 79, 0, 102, 102, 0, 0, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 127,
@@ -91,6 +93,14 @@ const App = () => {
         console.log(e.note.identifier);
       });
 
+      myInput.addListener("controlchange", (e) => {
+        const ccNum = e.controller.number;
+        const ccValue = e.value;
+        const timestamp = new Date().toLocaleTimeString();
+        setLastMidiMessage(`CC${ccNum}: ${ccValue} (${timestamp})`);
+        console.log(`CC${ccNum} = ${ccValue}`);
+      });
+
       myInput.addListener("sysex", async (msg) => {
         try {
           const parsed = decodeMonologueParameters(msg.data);
@@ -131,6 +141,22 @@ const App = () => {
       <div style={{ marginBottom: "20px" }}>
         <strong>WebMIDI Status:</strong> {isWebMidiEnabled ? "✅ Enabled" : "❌ Disabled"}
       </div>
+
+      {lastMidiMessage && (
+        <div
+          style={{
+            marginBottom: "20px",
+            padding: "10px",
+            backgroundColor: "#e8f4f8",
+            border: "1px solid #0066cc",
+            borderRadius: "6px",
+            fontFamily: "monospace",
+            fontSize: "14px",
+          }}
+        >
+          <strong>Last MIDI Message:</strong> {lastMidiMessage}
+        </div>
+      )}
 
       {midiData && (
         <>
@@ -290,17 +316,35 @@ const App = () => {
               border: "1px solid #ddd",
             }}
           >
-            <pre
+            <button
+              onClick={() => setIsRawDataExpanded(!isRawDataExpanded)}
               style={{
-                margin: 0,
-                fontSize: "12px",
-                lineHeight: "1.4",
-                overflow: "auto",
-                maxHeight: "70vh",
+                backgroundColor: "#0066cc",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                padding: "8px 16px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: "500",
+                marginBottom: isRawDataExpanded ? "15px" : "0",
               }}
             >
-              {stringifyWithLineLimit(midiData)}
-            </pre>
+              {isRawDataExpanded ? "Hide Raw Data ▲" : "Show Raw Data ▼"}
+            </button>
+            {isRawDataExpanded && (
+              <pre
+                style={{
+                  margin: 0,
+                  fontSize: "12px",
+                  lineHeight: "1.4",
+                  overflow: "auto",
+                  maxHeight: "70vh",
+                }}
+              >
+                {stringifyWithLineLimit(midiData)}
+              </pre>
+            )}
           </div>
         </>
       )}
