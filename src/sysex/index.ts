@@ -1,3 +1,4 @@
 export { encodeMonologueParameters } from "./encode";
-export { decodeMonologueParameters, MonologueParameters } from "./decode";
+export { decodeMonologueParameters } from "./decode";
+export type { MonologueParameters } from "../types/parameters";
 export { validateMonologueParametersWithSchema, validateOrThrow, ValidationResult } from "./validator";

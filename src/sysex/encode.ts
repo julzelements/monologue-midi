@@ -1,8 +1,8 @@
 /**
- * Encode Korg Monologue parameter object to SysEx data
+ * Encode Monologue parameters to SysEx data
  */
 
-import { MonologueParameters } from "./decode";
+import type { MonologueParameters } from "../types/parameters";
 import { encode7BitData } from "./utils/seven-bit-encoding";
 import { SYSEX_CONSTANTS } from "./utils/sysex-format";
 import { write10BitValue } from "./utils/bit-manipulation";

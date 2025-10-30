@@ -1,6 +1,6 @@
 // Lookup tables for converting between numeric values and human-readable labels
 
-import { MonologueParameters } from "./decode";
+import type { MonologueParameters } from "../types/parameters";
 
 const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
 const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;

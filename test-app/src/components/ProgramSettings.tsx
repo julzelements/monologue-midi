@@ -1,7 +1,8 @@
 import React from "react";
+import { type MonologueParameters } from "@julzelements/monologue-midi";
 
 interface ProgramSettingsProps {
-  programSettings: any;
+  programSettings: MonologueParameters["programSettings"];
 }
 
 const InfoRow: React.FC<{ label: string; value: string | number; name?: string }> = ({ label, value, name }) => (

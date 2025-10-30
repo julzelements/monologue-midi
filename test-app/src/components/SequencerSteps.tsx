@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { SequencerStep } from "@julzelements/monologue-midi";
 
 interface SequencerStepsProps {
-  sequencerSteps: any[];
+  sequencerSteps: SequencerStep[];
 }
 
 export const SequencerSteps: React.FC<SequencerStepsProps> = ({ sequencerSteps }) => {
@@ -165,13 +166,13 @@ export const SequencerSteps: React.FC<SequencerStepsProps> = ({ sequencerSteps }
                         <div>
                           <span style={{ fontSize: "11px", color: "#999" }}>Gate Time: </span>
                           <span style={{ fontSize: "14px", fontWeight: "bold", color: "#0066cc" }}>
-                            {step.event.gateTime.value}%
+                            {step.event.note.gateTime.value}%
                           </span>
                         </div>
                         <div>
-                          <span style={{ fontSize: "11px", color: "#999" }}>Trigger Timing: </span>
+                          <span style={{ fontSize: "11px", color: "#999" }}>Trigger: </span>
                           <span style={{ fontSize: "14px", fontWeight: "bold", color: "#0066cc" }}>
-                            {step.event.triggerTiming.value}
+                            {step.event.note.trigger.value}
                           </span>
                         </div>
                       </div>
@@ -220,7 +221,7 @@ export const SequencerSteps: React.FC<SequencerStepsProps> = ({ sequencerSteps }
                     </div>
 
                     {/* Motion Data Section */}
-                    {step.motionActive.value === 1 && step.motionData && (
+                    {step.motionActive.value === 1 && step.event.motionSlotsData.length > 0 && (
                       <div
                         style={{
                           backgroundColor: "#fff4e6",
@@ -239,12 +240,18 @@ export const SequencerSteps: React.FC<SequencerStepsProps> = ({ sequencerSteps }
                             gap: "8px",
                           }}
                         >
-                          {step.motionData.map((motion: any, idx: number) => (
-                            <div key={idx} style={{ fontSize: "12px" }}>
-                              <span style={{ color: "#999" }}>Slot {idx + 1}: </span>
-                              <span style={{ fontWeight: "bold", color: "#ff8800" }}>{motion.value}</span>
-                            </div>
-                          ))}
+                          {step.event.motionSlotsData.map((motionSlot, slotIdx: number) =>
+                            motionSlot.map((motion, valueIdx: number) => (
+                              <div key={`${slotIdx}-${valueIdx}`} style={{ fontSize: "12px" }}>
+                                <span style={{ color: "#999" }}>
+                                  Slot {slotIdx + 1}.{valueIdx + 1}:{" "}
+                                </span>
+                                <span style={{ fontWeight: "bold", color: "#ff8800" }}>
+                                  {motion.name || motion.value}
+                                </span>
+                              </div>
+                            ))
+                          )}
                         </div>
                       </div>
                     )}

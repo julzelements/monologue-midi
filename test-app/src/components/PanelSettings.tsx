@@ -1,9 +1,9 @@
 import React from "react";
-import { prettyPanelSettings, type ParameterId } from "@julzelements/monologue-midi";
+import { prettyPanelSettings, type ParameterId, type MonologueParameters } from "@julzelements/monologue-midi";
 import { ParameterCard } from "./ParameterCard";
 
 interface PanelSettingsProps {
-  midiData: any;
+  midiData: MonologueParameters;
   ccValuesByParam: Partial<Record<ParameterId, number>>;
 }
 

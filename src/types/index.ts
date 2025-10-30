@@ -1,9 +1,18 @@
 import { prettyPanelSettings } from "../sysex/prettify";
+import type { MonologueParameters } from "./parameters";
+
+// Re-export parameter types
+export type { MonologueParameters, NamedValue } from "./parameters";
 
 /**
  * Extract the return type of prettyPanelSettings
  */
 type PrettyPanelSettings = ReturnType<typeof prettyPanelSettings>;
+
+/**
+ * Type for a single sequencer step
+ */
+export type SequencerStep = MonologueParameters["sequencerSteps"][number];
 
 /**
  * Result of a parameter getter - matches the structure from prettify

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { type MonologueParameters } from "@julzelements/monologue-midi";
 
 interface SequencerSettingsProps {
-  sequencerSettings: any;
+  sequencerSettings: MonologueParameters["sequencerSettings"];
 }
 
 export const SequencerSettings: React.FC<SequencerSettingsProps> = ({ sequencerSettings }) => {
@@ -74,7 +75,7 @@ export const SequencerSettings: React.FC<SequencerSettingsProps> = ({ sequencerS
       <div>
         <h4 style={{ margin: "0 0 12px 0", color: "#555" }}>Motion Sequence Slots</h4>
         <div style={{ display: "grid", gap: "8px" }}>
-          {sequencerSettings.motionSlotParams.map((slot: any) => {
+          {sequencerSettings.motionSlotParams.map((slot) => {
             const isExpanded = expandedSlots.has(slot.slotNumber);
             const hasMotionData = slot.hasMotionData.some((val: number) => val === 1);
 
