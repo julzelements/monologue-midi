@@ -1,13 +1,42 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { decodeMonologueParameters, prettyPanelSettings } from "@julzelements/monologue-midi";
+import { decodeMonologueParameters, prettyPanelSettings, decodeCC } from "@julzelements/monologue-midi";
 import { WebMidi } from "webmidi";
+
+// CC parameter name to panel settings path mapping
+const CC_TO_PANEL_PATH: Record<string, string> = {
+  ampEgAttack: "envelope.attack",
+  ampEgDecay: "envelope.decay",
+  lfoRate: "lfo.rate",
+  egInt: "envelope.intensity",
+  lfoInt: "lfo.intensity",
+  drive: "drive",
+  vco1Pitch: "oscilators.vco1.pitch",
+  vco2Pitch: "oscilators.vco2.pitch",
+  vco1Shape: "oscilators.vco1.shape",
+  vco2Shape: "oscilators.vco2.shape",
+  vco1Level: "oscilators.vco1.level",
+  vco2Level: "oscilators.vco2.level",
+  cutoff: "filter.cutoff",
+  resonance: "filter.resonance",
+  vco1Octave: "oscilators.vco1.octave",
+  vco2Octave: "oscilators.vco2.octave",
+  vco1Wave: "oscilators.vco1.wave",
+  vco2Wave: "oscilators.vco2.wave",
+  lfoTarget: "lfo.target",
+  lfoWave: "lfo.type",
+  lfoMode: "lfo.mode",
+  syncRing: "syncRing",
+  egType: "envelope.type",
+  egTarget: "envelope.target",
+};
 
 const App = () => {
   const [midiData, setMidiData] = useState(null);
   const [isWebMidiEnabled, setIsWebMidiEnabled] = useState(false);
   const [isRawDataExpanded, setIsRawDataExpanded] = useState(false);
   const [lastMidiMessage, setLastMidiMessage] = useState<string | null>(null);
+  const [ccValuesByParam, setCcValuesByParam] = useState<Record<string, number>>({});
 
   const sampleData = new Uint8Array([
     240, 66, 48, 0, 1, 68, 64, 0, 80, 82, 79, 71, 79, 110, 79, 0, 102, 102, 0, 0, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 127,
@@ -96,8 +125,19 @@ const App = () => {
       myInput.addListener("controlchange", (e) => {
         const ccNum = e.controller.number;
         const ccValue = e.value;
+        const ccRawValue = e.rawValue ?? 0;
         const timestamp = new Date().toLocaleTimeString();
-        setLastMidiMessage(`CC${ccNum}: ${ccValue} (${timestamp})`);
+        setLastMidiMessage(`CC${ccNum}: ${ccValue}, raw:[${ccRawValue}] (${timestamp})`);
+
+        // Decode CC to parameter name and store value (0-1023)
+        const decoded = decodeCC(0xb0, ccNum, ccRawValue);
+        if (decoded) {
+          const panelPath = CC_TO_PANEL_PATH[decoded.parameter];
+          if (panelPath) {
+            setCcValuesByParam((prev) => ({ ...prev, [panelPath]: decoded.value }));
+          }
+        }
+
         console.log(`CC${ccNum} = ${ccValue}`);
       });
 
@@ -168,34 +208,108 @@ const App = () => {
             {(() => {
               const prettySettings = prettyPanelSettings(midiData);
 
-              const ParameterCard = ({ label, param }: { label: string; param: any }) => (
-                <div
-                  style={{
-                    backgroundColor: "#f9f9f9",
-                    padding: "12px",
-                    borderRadius: "6px",
-                    border: "1px solid #e0e0e0",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "6px",
-                  }}
-                >
-                  <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{label}</div>
-                  <div style={{ fontSize: "20px", color: "#0066cc", fontWeight: "500" }}>
-                    {param.formatted !== undefined ? param.formatted : param.value}
+              const ParameterCard = ({ label, param, panelPath }: { label: string; param: any; panelPath: string }) => {
+                // Calculate normalized value (0-1) from SysEx data
+                const normalizedValue = typeof param.value === "number" ? param.value / 1023 : 0;
+
+                // Get CC value if it exists for this parameter
+                const ccValue = ccValuesByParam[panelPath];
+                const normalizedCcValue = ccValue !== undefined ? ccValue / 1023 : undefined;
+
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "#f9f9f9",
+                      padding: "12px",
+                      borderRadius: "6px",
+                      border: "1px solid #e0e0e0",
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: "12px",
+                      alignItems: "stretch",
+                    }}
+                  >
+                    {/* Visual level indicators */}
+                    <div style={{ display: "flex", gap: "4px" }}>
+                      {/* SysEx value bar (blue) */}
+                      <div
+                        style={{
+                          width: "8px",
+                          backgroundColor: "#e0e0e0",
+                          borderRadius: "4px",
+                          position: "relative",
+                          overflow: "hidden",
+                          display: "flex",
+                          flexDirection: "column-reverse",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "100%",
+                            height: `${normalizedValue * 100}%`,
+                            backgroundColor: "#0066cc",
+                            transition: "height 0.2s ease",
+                          }}
+                        />
+                      </div>
+
+                      {/* CC value bar (orange) - only show if CC value exists */}
+                      {normalizedCcValue !== undefined && (
+                        <div
+                          style={{
+                            width: "8px",
+                            backgroundColor: "#e0e0e0",
+                            borderRadius: "4px",
+                            position: "relative",
+                            overflow: "hidden",
+                            display: "flex",
+                            flexDirection: "column-reverse",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "100%",
+                              height: `${normalizedCcValue * 100}%`,
+                              backgroundColor: "#ff8800",
+                              transition: "height 0.2s ease",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Parameter info */}
+                    <div
+                      style={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "6px",
+                      }}
+                    >
+                      <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{label}</div>
+                      <div style={{ fontSize: "20px", color: "#0066cc", fontWeight: "500" }}>
+                        {param.formatted !== undefined ? param.formatted : param.value}
+                      </div>
+                      <div style={{ fontSize: "11px", color: "#666", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                        <span>
+                          <strong>Raw:</strong> {param.value}
+                        </span>
+                        {param.name && (
+                          <span>
+                            <strong>Label:</strong> {param.name}
+                          </span>
+                        )}
+                        {ccValue !== undefined && (
+                          <span style={{ color: "#ff8800" }}>
+                            <strong>CC:</strong> {ccValue}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ fontSize: "11px", color: "#666", display: "flex", gap: "12px" }}>
-                    <span>
-                      <strong>Raw:</strong> {param.value}
-                    </span>
-                    {param.name && (
-                      <span>
-                        <strong>Label:</strong> {param.name}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              );
+                );
+              };
 
               return (
                 <div
@@ -206,10 +320,14 @@ const App = () => {
                   }}
                 >
                   {/* Global Settings */}
-                  <ParameterCard label="Drive" param={prettySettings.drive} />
-                  <ParameterCard label="Keyboard Octave" param={prettySettings.keyboardOctave} />
-                  <ParameterCard label="Sync/Ring" param={prettySettings.syncRing} />
-                  <ParameterCard label="Seq Trigger" param={prettySettings.seqTrig} />
+                  <ParameterCard label="Drive" param={prettySettings.drive} panelPath="drive" />
+                  <ParameterCard
+                    label="Keyboard Octave"
+                    param={prettySettings.keyboardOctave}
+                    panelPath="keyboardOctave"
+                  />
+                  <ParameterCard label="Sync/Ring" param={prettySettings.syncRing} panelPath="syncRing" />
+                  <ParameterCard label="Seq Trigger" param={prettySettings.seqTrig} panelPath="seqTrig" />
 
                   {/* VCO 1 */}
                   <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
@@ -224,11 +342,31 @@ const App = () => {
                       VCO 1
                     </h4>
                   </div>
-                  <ParameterCard label="VCO1 Wave" param={prettySettings.oscilators.vco1.wave} />
-                  <ParameterCard label="VCO1 Shape" param={prettySettings.oscilators.vco1.shape} />
-                  <ParameterCard label="VCO1 Level" param={prettySettings.oscilators.vco1.level} />
-                  <ParameterCard label="VCO1 Pitch (cents)" param={prettySettings.oscilators.vco1.pitch} />
-                  <ParameterCard label="VCO1 Octave" param={prettySettings.oscilators.vco1.octave} />
+                  <ParameterCard
+                    label="VCO1 Wave"
+                    param={prettySettings.oscilators.vco1.wave}
+                    panelPath="oscilators.vco1.wave"
+                  />
+                  <ParameterCard
+                    label="VCO1 Shape"
+                    param={prettySettings.oscilators.vco1.shape}
+                    panelPath="oscilators.vco1.shape"
+                  />
+                  <ParameterCard
+                    label="VCO1 Level"
+                    param={prettySettings.oscilators.vco1.level}
+                    panelPath="oscilators.vco1.level"
+                  />
+                  <ParameterCard
+                    label="VCO1 Pitch (cents)"
+                    param={prettySettings.oscilators.vco1.pitch}
+                    panelPath="oscilators.vco1.pitch"
+                  />
+                  <ParameterCard
+                    label="VCO1 Octave"
+                    param={prettySettings.oscilators.vco1.octave}
+                    panelPath="oscilators.vco1.octave"
+                  />
 
                   {/* VCO 2 */}
                   <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
@@ -243,11 +381,31 @@ const App = () => {
                       VCO 2
                     </h4>
                   </div>
-                  <ParameterCard label="VCO2 Wave" param={prettySettings.oscilators.vco2.wave} />
-                  <ParameterCard label="VCO2 Shape" param={prettySettings.oscilators.vco2.shape} />
-                  <ParameterCard label="VCO2 Level" param={prettySettings.oscilators.vco2.level} />
-                  <ParameterCard label="VCO2 Pitch (cents)" param={prettySettings.oscilators.vco2.pitch} />
-                  <ParameterCard label="VCO2 Octave" param={prettySettings.oscilators.vco2.octave} />
+                  <ParameterCard
+                    label="VCO2 Wave"
+                    param={prettySettings.oscilators.vco2.wave}
+                    panelPath="oscilators.vco2.wave"
+                  />
+                  <ParameterCard
+                    label="VCO2 Shape"
+                    param={prettySettings.oscilators.vco2.shape}
+                    panelPath="oscilators.vco2.shape"
+                  />
+                  <ParameterCard
+                    label="VCO2 Level"
+                    param={prettySettings.oscilators.vco2.level}
+                    panelPath="oscilators.vco2.level"
+                  />
+                  <ParameterCard
+                    label="VCO2 Pitch (cents)"
+                    param={prettySettings.oscilators.vco2.pitch}
+                    panelPath="oscilators.vco2.pitch"
+                  />
+                  <ParameterCard
+                    label="VCO2 Octave"
+                    param={prettySettings.oscilators.vco2.octave}
+                    panelPath="oscilators.vco2.octave"
+                  />
 
                   {/* Filter */}
                   <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
@@ -262,8 +420,12 @@ const App = () => {
                       Filter
                     </h4>
                   </div>
-                  <ParameterCard label="Cutoff" param={prettySettings.filter.cutoff} />
-                  <ParameterCard label="Resonance" param={prettySettings.filter.resonance} />
+                  <ParameterCard label="Cutoff" param={prettySettings.filter.cutoff} panelPath="filter.cutoff" />
+                  <ParameterCard
+                    label="Resonance"
+                    param={prettySettings.filter.resonance}
+                    panelPath="filter.resonance"
+                  />
 
                   {/* Envelope */}
                   <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
@@ -278,11 +440,15 @@ const App = () => {
                       Envelope
                     </h4>
                   </div>
-                  <ParameterCard label="EG Type" param={prettySettings.envelope.type} />
-                  <ParameterCard label="EG Attack" param={prettySettings.envelope.attack} />
-                  <ParameterCard label="EG Decay" param={prettySettings.envelope.decay} />
-                  <ParameterCard label="EG Intensity" param={prettySettings.envelope.intensity} />
-                  <ParameterCard label="EG Target" param={prettySettings.envelope.target} />
+                  <ParameterCard label="EG Type" param={prettySettings.envelope.type} panelPath="envelope.type" />
+                  <ParameterCard label="EG Attack" param={prettySettings.envelope.attack} panelPath="envelope.attack" />
+                  <ParameterCard label="EG Decay" param={prettySettings.envelope.decay} panelPath="envelope.decay" />
+                  <ParameterCard
+                    label="EG Intensity"
+                    param={prettySettings.envelope.intensity}
+                    panelPath="envelope.intensity"
+                  />
+                  <ParameterCard label="EG Target" param={prettySettings.envelope.target} panelPath="envelope.target" />
 
                   {/* LFO */}
                   <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
@@ -297,11 +463,11 @@ const App = () => {
                       LFO
                     </h4>
                   </div>
-                  <ParameterCard label="LFO Type" param={prettySettings.lfo.type} />
-                  <ParameterCard label="LFO Mode" param={prettySettings.lfo.mode} />
-                  <ParameterCard label="LFO Rate" param={prettySettings.lfo.rate} />
-                  <ParameterCard label="LFO Intensity" param={prettySettings.lfo.intensity} />
-                  <ParameterCard label="LFO Target" param={prettySettings.lfo.target} />
+                  <ParameterCard label="LFO Type" param={prettySettings.lfo.type} panelPath="lfo.type" />
+                  <ParameterCard label="LFO Mode" param={prettySettings.lfo.mode} panelPath="lfo.mode" />
+                  <ParameterCard label="LFO Rate" param={prettySettings.lfo.rate} panelPath="lfo.rate" />
+                  <ParameterCard label="LFO Intensity" param={prettySettings.lfo.intensity} panelPath="lfo.intensity" />
+                  <ParameterCard label="LFO Target" param={prettySettings.lfo.target} panelPath="lfo.target" />
                 </div>
               );
             })()}
