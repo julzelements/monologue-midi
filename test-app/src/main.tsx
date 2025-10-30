@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { decodeMonologueParameters, prettyPanelSettings, decodeCC } from "@julzelements/monologue-midi";
+import { decodeMonologueParameters, decodeCC } from "@julzelements/monologue-midi";
 import { WebMidi } from "webmidi";
+import { PanelSettings } from "./components/PanelSettings";
+import { ProgramSettings } from "./components/ProgramSettings";
+import { SequencerSettings } from "./components/SequencerSettings";
+import { SequencerSteps } from "./components/SequencerSteps";
 
 // CC parameter name to panel settings path mapping
 const CC_TO_PANEL_PATH: Record<string, string> = {
@@ -48,7 +52,7 @@ const DISCRETE_PARAMS: Record<string, number> = {
 };
 
 const App = () => {
-  const [midiData, setMidiData] = useState(null);
+  const [midiData, setMidiData] = useState<any>(null);
   const [isWebMidiEnabled, setIsWebMidiEnabled] = useState(false);
   const [isRawDataExpanded, setIsRawDataExpanded] = useState(false);
   const [lastMidiMessage, setLastMidiMessage] = useState<string | null>(null);
@@ -166,7 +170,7 @@ const App = () => {
         }
       });
 
-      myInput.addListener("programchange", (event) => {
+      myInput.addListener("programchange", (event: any) => {
         console.log(`Program Change received on channel ${event.channel}: ${event.value}`);
         requestCurrentProgramDump(event.channel);
       });
@@ -218,301 +222,19 @@ const App = () => {
         <>
           <h2>Patch: {midiData.patchName}</h2>
 
-          {/* Prettified Panel Settings */}
-          <div style={{ marginBottom: "30px" }}>
-            <h3 style={{ marginBottom: "15px" }}>Panel Settings</h3>
-            {(() => {
-              const prettySettings = prettyPanelSettings(midiData);
+          {/* Panel Settings Component */}
+          <PanelSettings midiData={midiData} ccValuesByParam={ccValuesByParam} discreteParams={DISCRETE_PARAMS} />
 
-              const ParameterCard = ({ label, param, panelPath }: { label: string; param: any; panelPath: string }) => {
-                // Check if this is a discrete parameter
-                const maxDiscreteValue = DISCRETE_PARAMS[panelPath];
-                const isDiscrete = maxDiscreteValue !== undefined;
+          {/* Program Settings Component */}
+          <ProgramSettings programSettings={midiData.programSettings} />
 
-                // Calculate normalized value (0-1) from SysEx data
-                let normalizedValue: number;
-                if (typeof param.value === "number") {
-                  if (isDiscrete) {
-                    // For discrete params: divide by max value (e.g., 0-2 becomes 0/2, 1/2, 2/2)
-                    normalizedValue = param.value / maxDiscreteValue;
-                  } else {
-                    // For continuous params: divide by 1023
-                    normalizedValue = param.value / 1023;
-                  }
-                } else {
-                  normalizedValue = 0;
-                }
+          {/* Sequencer Settings Component */}
+          <SequencerSettings sequencerSettings={midiData.sequencerSettings} />
 
-                // Get CC value if it exists for this parameter
-                const ccValue = ccValuesByParam[panelPath];
-                let normalizedCcValue: number | undefined;
-                if (ccValue !== undefined) {
-                  if (isDiscrete) {
-                    // For discrete params: divide by max value
-                    normalizedCcValue = ccValue / maxDiscreteValue;
-                  } else {
-                    // For continuous params: divide by 1023
-                    normalizedCcValue = ccValue / 1023;
-                  }
-                }
+          {/* Sequencer Steps Component */}
+          <SequencerSteps sequencerSteps={midiData.sequencerSteps} />
 
-                return (
-                  <div
-                    style={{
-                      backgroundColor: "#f9f9f9",
-                      padding: "12px",
-                      borderRadius: "6px",
-                      border: "1px solid #e0e0e0",
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "12px",
-                      alignItems: "stretch",
-                    }}
-                  >
-                    {/* Visual level indicators */}
-                    <div style={{ display: "flex", gap: "4px" }}>
-                      {/* SysEx value bar (blue) */}
-                      <div
-                        style={{
-                          width: "8px",
-                          backgroundColor: "#e0e0e0",
-                          borderRadius: "4px",
-                          position: "relative",
-                          overflow: "hidden",
-                          display: "flex",
-                          flexDirection: "column-reverse",
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: "100%",
-                            height: `${normalizedValue * 100}%`,
-                            backgroundColor: "#0066cc",
-                            transition: "height 0.2s ease",
-                          }}
-                        />
-                      </div>
-
-                      {/* CC value bar (orange) - only show if CC value exists */}
-                      {normalizedCcValue !== undefined && (
-                        <div
-                          style={{
-                            width: "8px",
-                            backgroundColor: "#e0e0e0",
-                            borderRadius: "4px",
-                            position: "relative",
-                            overflow: "hidden",
-                            display: "flex",
-                            flexDirection: "column-reverse",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "100%",
-                              height: `${normalizedCcValue * 100}%`,
-                              backgroundColor: "#ff8800",
-                              transition: "height 0.2s ease",
-                            }}
-                          />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Parameter info */}
-                    <div
-                      style={{
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "6px",
-                      }}
-                    >
-                      <div style={{ fontWeight: "bold", fontSize: "14px", color: "#333" }}>{label}</div>
-                      <div style={{ fontSize: "20px", color: "#0066cc", fontWeight: "500" }}>
-                        {param.formatted !== undefined ? param.formatted : param.value}
-                      </div>
-                      <div style={{ fontSize: "11px", color: "#666", display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                        <span>
-                          <strong>Raw:</strong> {param.value}
-                        </span>
-                        {param.name && (
-                          <span>
-                            <strong>Label:</strong> {param.name}
-                          </span>
-                        )}
-                        {ccValue !== undefined && (
-                          <span style={{ color: "#ff8800" }}>
-                            <strong>CC:</strong> {ccValue}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                );
-              };
-
-              return (
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                    gap: "12px",
-                  }}
-                >
-                  {/* Global Settings */}
-                  <ParameterCard label="Drive" param={prettySettings.drive} panelPath="drive" />
-                  <ParameterCard
-                    label="Keyboard Octave"
-                    param={prettySettings.keyboardOctave}
-                    panelPath="keyboardOctave"
-                  />
-                  <ParameterCard label="Sync/Ring" param={prettySettings.syncRing} panelPath="syncRing" />
-                  <ParameterCard label="Seq Trigger" param={prettySettings.seqTrig} panelPath="seqTrig" />
-
-                  {/* VCO 1 */}
-                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
-                    <h4
-                      style={{
-                        margin: "0 0 10px 0",
-                        color: "#555",
-                        borderBottom: "2px solid #ddd",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      VCO 1
-                    </h4>
-                  </div>
-                  <ParameterCard
-                    label="VCO1 Wave"
-                    param={prettySettings.oscilators.vco1.wave}
-                    panelPath="oscilators.vco1.wave"
-                  />
-                  <ParameterCard
-                    label="VCO1 Shape"
-                    param={prettySettings.oscilators.vco1.shape}
-                    panelPath="oscilators.vco1.shape"
-                  />
-                  <ParameterCard
-                    label="VCO1 Level"
-                    param={prettySettings.oscilators.vco1.level}
-                    panelPath="oscilators.vco1.level"
-                  />
-                  <ParameterCard
-                    label="VCO1 Pitch (cents)"
-                    param={prettySettings.oscilators.vco1.pitch}
-                    panelPath="oscilators.vco1.pitch"
-                  />
-                  <ParameterCard
-                    label="VCO1 Octave"
-                    param={prettySettings.oscilators.vco1.octave}
-                    panelPath="oscilators.vco1.octave"
-                  />
-
-                  {/* VCO 2 */}
-                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
-                    <h4
-                      style={{
-                        margin: "0 0 10px 0",
-                        color: "#555",
-                        borderBottom: "2px solid #ddd",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      VCO 2
-                    </h4>
-                  </div>
-                  <ParameterCard
-                    label="VCO2 Wave"
-                    param={prettySettings.oscilators.vco2.wave}
-                    panelPath="oscilators.vco2.wave"
-                  />
-                  <ParameterCard
-                    label="VCO2 Shape"
-                    param={prettySettings.oscilators.vco2.shape}
-                    panelPath="oscilators.vco2.shape"
-                  />
-                  <ParameterCard
-                    label="VCO2 Level"
-                    param={prettySettings.oscilators.vco2.level}
-                    panelPath="oscilators.vco2.level"
-                  />
-                  <ParameterCard
-                    label="VCO2 Pitch (cents)"
-                    param={prettySettings.oscilators.vco2.pitch}
-                    panelPath="oscilators.vco2.pitch"
-                  />
-                  <ParameterCard
-                    label="VCO2 Octave"
-                    param={prettySettings.oscilators.vco2.octave}
-                    panelPath="oscilators.vco2.octave"
-                  />
-
-                  {/* Filter */}
-                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
-                    <h4
-                      style={{
-                        margin: "0 0 10px 0",
-                        color: "#555",
-                        borderBottom: "2px solid #ddd",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      Filter
-                    </h4>
-                  </div>
-                  <ParameterCard label="Cutoff" param={prettySettings.filter.cutoff} panelPath="filter.cutoff" />
-                  <ParameterCard
-                    label="Resonance"
-                    param={prettySettings.filter.resonance}
-                    panelPath="filter.resonance"
-                  />
-
-                  {/* Envelope */}
-                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
-                    <h4
-                      style={{
-                        margin: "0 0 10px 0",
-                        color: "#555",
-                        borderBottom: "2px solid #ddd",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      Envelope
-                    </h4>
-                  </div>
-                  <ParameterCard label="EG Type" param={prettySettings.envelope.type} panelPath="envelope.type" />
-                  <ParameterCard label="EG Attack" param={prettySettings.envelope.attack} panelPath="envelope.attack" />
-                  <ParameterCard label="EG Decay" param={prettySettings.envelope.decay} panelPath="envelope.decay" />
-                  <ParameterCard
-                    label="EG Intensity"
-                    param={prettySettings.envelope.intensity}
-                    panelPath="envelope.intensity"
-                  />
-                  <ParameterCard label="EG Target" param={prettySettings.envelope.target} panelPath="envelope.target" />
-
-                  {/* LFO */}
-                  <div style={{ gridColumn: "1 / -1", marginTop: "10px" }}>
-                    <h4
-                      style={{
-                        margin: "0 0 10px 0",
-                        color: "#555",
-                        borderBottom: "2px solid #ddd",
-                        paddingBottom: "5px",
-                      }}
-                    >
-                      LFO
-                    </h4>
-                  </div>
-                  <ParameterCard label="LFO Type" param={prettySettings.lfo.type} panelPath="lfo.type" />
-                  <ParameterCard label="LFO Mode" param={prettySettings.lfo.mode} panelPath="lfo.mode" />
-                  <ParameterCard label="LFO Rate" param={prettySettings.lfo.rate} panelPath="lfo.rate" />
-                  <ParameterCard label="LFO Intensity" param={prettySettings.lfo.intensity} panelPath="lfo.intensity" />
-                  <ParameterCard label="LFO Target" param={prettySettings.lfo.target} panelPath="lfo.target" />
-                </div>
-              );
-            })()}
-          </div>
-
+          {/* Raw Data Section */}
           <h3>Raw Data</h3>
           <div
             style={{
