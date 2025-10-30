@@ -31,6 +31,22 @@ const CC_TO_PANEL_PATH: Record<string, string> = {
   egTarget: "envelope.target",
 };
 
+// Map of discrete parameters and their max values (for proper normalization)
+const DISCRETE_PARAMS: Record<string, number> = {
+  "oscilators.vco1.octave": 3,
+  "oscilators.vco2.octave": 3,
+  "oscilators.vco1.wave": 2,
+  "oscilators.vco2.wave": 2,
+  "lfo.target": 2,
+  "lfo.type": 2,
+  "lfo.mode": 2,
+  syncRing: 2,
+  "envelope.type": 2,
+  "envelope.target": 2,
+  keyboardOctave: 4,
+  seqTrig: 1,
+};
+
 const App = () => {
   const [midiData, setMidiData] = useState(null);
   const [isWebMidiEnabled, setIsWebMidiEnabled] = useState(false);
@@ -209,12 +225,36 @@ const App = () => {
               const prettySettings = prettyPanelSettings(midiData);
 
               const ParameterCard = ({ label, param, panelPath }: { label: string; param: any; panelPath: string }) => {
+                // Check if this is a discrete parameter
+                const maxDiscreteValue = DISCRETE_PARAMS[panelPath];
+                const isDiscrete = maxDiscreteValue !== undefined;
+
                 // Calculate normalized value (0-1) from SysEx data
-                const normalizedValue = typeof param.value === "number" ? param.value / 1023 : 0;
+                let normalizedValue: number;
+                if (typeof param.value === "number") {
+                  if (isDiscrete) {
+                    // For discrete params: divide by max value (e.g., 0-2 becomes 0/2, 1/2, 2/2)
+                    normalizedValue = param.value / maxDiscreteValue;
+                  } else {
+                    // For continuous params: divide by 1023
+                    normalizedValue = param.value / 1023;
+                  }
+                } else {
+                  normalizedValue = 0;
+                }
 
                 // Get CC value if it exists for this parameter
                 const ccValue = ccValuesByParam[panelPath];
-                const normalizedCcValue = ccValue !== undefined ? ccValue / 1023 : undefined;
+                let normalizedCcValue: number | undefined;
+                if (ccValue !== undefined) {
+                  if (isDiscrete) {
+                    // For discrete params: divide by max value
+                    normalizedCcValue = ccValue / maxDiscreteValue;
+                  } else {
+                    // For continuous params: divide by 1023
+                    normalizedCcValue = ccValue / 1023;
+                  }
+                }
 
                 return (
                   <div
