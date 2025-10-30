@@ -260,7 +260,7 @@ export const PARAMETERS = {
     maxValue: 2,
   },
 
-  // SysEx-only parameters (no CC control) 
+  // SysEx-only parameters (no CC control)
   // Note: These would come from MonologueParameters.programSettings or sequencerSettings
   // For now, we only include panel parameters that can be directly accessed
   // Add more as needed when accessing other parts of the patch structure
