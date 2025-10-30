@@ -33,7 +33,7 @@
       "target": { "name": "Target", "value": 0 }
     },
     "lfo": {
-      "wave": { "name": "Wave", "value": 1 },
+      "type": { "name": "Wave", "value": 1 },
       "mode": { "name": "LFO Mode", "value": 1 },
       "rate": { "name": "Rate", "value": 512 },
       "intensity": { "name": "Intensity", "value": 512 },

@@ -24,7 +24,7 @@ describe("LFO Parameters", () => {
       const decodedLFO = decoded.panelSettings.lfo;
       const expectedLFO = parsedData.panelSettings.lfo;
 
-      expect(decodedLFO.wave.value).toBe(expectedLFO.wave.value);
+      expect(decodedLFO.type.value).toBe(expectedLFO.type.value);
       expect(decodedLFO.mode.value).toBe(expectedLFO.mode.value);
       expect(decodedLFO.rate.value).toBe(expectedLFO.rate.value);
       expect(decodedLFO.intensity.value).toBe(expectedLFO.intensity.value);
@@ -44,7 +44,7 @@ describe("LFO Parameters", () => {
       const decodedLFO = decodedParams.panelSettings.lfo;
 
       // Check LFO is preserved
-      expect(decodedLFO.wave.value).toBe(originalLFO.wave.value);
+      expect(decodedLFO.type.value).toBe(originalLFO.type.value);
       expect(decodedLFO.mode.value).toBe(originalLFO.mode.value);
       expect(decodedLFO.rate.value).toBe(originalLFO.rate.value);
       // TODO: Test intensity when encoding/decoding is implemented - offsets need investigation

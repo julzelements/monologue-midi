@@ -87,11 +87,11 @@
         },
         "lfo": {
           "type": "object",
-          "required": ["wave", "mode", "rate", "intensity", "target"],
+          "required": ["type", "mode", "rate", "intensity", "target"],
           "properties": {
-            "wave": {
+            "type": {
               "$ref": "#/definitions/namedValue",
-              "description": "LFO wave: 0=SQR, 1=TRI, 2=SAW"
+              "description": "LFO wave type: 0=SQR, 1=TRI, 2=SAW"
             },
             "mode": {
               "$ref": "#/definitions/namedValue",

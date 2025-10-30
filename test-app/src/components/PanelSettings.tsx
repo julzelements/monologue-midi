@@ -201,7 +201,7 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
           </h4>
         </div>
         <ParameterCard
-          label="LFO Type"
+          label="LFO Wave" // data is called 'type' but label is 'wave'
           paramId="lfoType"
           param={prettySettings.lfo.type}
           ccValuesByParam={ccValuesByParam}
