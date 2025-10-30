@@ -12,9 +12,12 @@ export {
   PARAMETERS,
   CC_TO_PARAMETER,
   CC_NAME_TO_PARAMETER,
+  CC_NAMES,
   isCCParameter,
   getCCParameters,
   getSysExOnlyParameters,
+  getParameterByCCName,
   type ParameterId,
   type ParameterDefinition,
+  type CCName,
 } from "./types";

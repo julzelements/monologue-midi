@@ -1,14 +1,13 @@
 import React from "react";
-import { prettyPanelSettings } from "@julzelements/monologue-midi";
+import { prettyPanelSettings, type ParameterId } from "@julzelements/monologue-midi";
 import { ParameterCard } from "./ParameterCard";
 
 interface PanelSettingsProps {
   midiData: any;
-  ccValuesByParam: Record<string, number>;
-  discreteParams: Record<string, number>;
+  ccValuesByParam: Partial<Record<ParameterId, number>>;
 }
 
-export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValuesByParam, discreteParams }) => {
+export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValuesByParam }) => {
   const prettySettings = prettyPanelSettings(midiData);
 
   return (
@@ -22,33 +21,12 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         }}
       >
         {/* Global Settings */}
-        <ParameterCard
-          label="Drive"
-          param={prettySettings.drive}
-          panelPath="drive"
-          ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
-        />
-        <ParameterCard
-          label="Keyboard Octave"
-          param={prettySettings.keyboardOctave}
-          panelPath="keyboardOctave"
-          ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
-        />
+        <ParameterCard label="Drive" paramId="drive" param={prettySettings.drive} ccValuesByParam={ccValuesByParam} />
         <ParameterCard
           label="Sync/Ring"
+          paramId="syncRing"
           param={prettySettings.syncRing}
-          panelPath="syncRing"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
-        />
-        <ParameterCard
-          label="Seq Trigger"
-          param={prettySettings.seqTrig}
-          panelPath="seqTrig"
-          ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
 
         {/* VCO 1 */}
@@ -66,38 +44,33 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         </div>
         <ParameterCard
           label="VCO1 Wave"
+          paramId="vco1Wave"
           param={prettySettings.oscilators.vco1.wave}
-          panelPath="oscilators.vco1.wave"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO1 Shape"
+          paramId="vco1Shape"
           param={prettySettings.oscilators.vco1.shape}
-          panelPath="oscilators.vco1.shape"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO1 Level"
+          paramId="vco1Level"
           param={prettySettings.oscilators.vco1.level}
-          panelPath="oscilators.vco1.level"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO1 Pitch (cents)"
+          paramId="vco1Pitch"
           param={prettySettings.oscilators.vco1.pitch}
-          panelPath="oscilators.vco1.pitch"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO1 Octave"
+          paramId="vco1Octave"
           param={prettySettings.oscilators.vco1.octave}
-          panelPath="oscilators.vco1.octave"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
 
         {/* VCO 2 */}
@@ -115,38 +88,33 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         </div>
         <ParameterCard
           label="VCO2 Wave"
+          paramId="vco2Wave"
           param={prettySettings.oscilators.vco2.wave}
-          panelPath="oscilators.vco2.wave"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO2 Shape"
+          paramId="vco2Shape"
           param={prettySettings.oscilators.vco2.shape}
-          panelPath="oscilators.vco2.shape"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO2 Level"
+          paramId="vco2Level"
           param={prettySettings.oscilators.vco2.level}
-          panelPath="oscilators.vco2.level"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO2 Pitch (cents)"
+          paramId="vco2Pitch"
           param={prettySettings.oscilators.vco2.pitch}
-          panelPath="oscilators.vco2.pitch"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="VCO2 Octave"
+          paramId="vco2Octave"
           param={prettySettings.oscilators.vco2.octave}
-          panelPath="oscilators.vco2.octave"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
 
         {/* Filter */}
@@ -164,17 +132,15 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         </div>
         <ParameterCard
           label="Cutoff"
+          paramId="filterCutoff"
           param={prettySettings.filter.cutoff}
-          panelPath="filter.cutoff"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="Resonance"
+          paramId="filterResonance"
           param={prettySettings.filter.resonance}
-          panelPath="filter.resonance"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
 
         {/* Envelope */}
@@ -192,38 +158,33 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         </div>
         <ParameterCard
           label="EG Type"
+          paramId="envelopeType"
           param={prettySettings.envelope.type}
-          panelPath="envelope.type"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="EG Attack"
+          paramId="envelopeAttack"
           param={prettySettings.envelope.attack}
-          panelPath="envelope.attack"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="EG Decay"
+          paramId="envelopeDecay"
           param={prettySettings.envelope.decay}
-          panelPath="envelope.decay"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="EG Intensity"
+          paramId="envelopeIntensity"
           param={prettySettings.envelope.intensity}
-          panelPath="envelope.intensity"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="EG Target"
+          paramId="envelopeTarget"
           param={prettySettings.envelope.target}
-          panelPath="envelope.target"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
 
         {/* LFO */}
@@ -241,38 +202,33 @@ export const PanelSettings: React.FC<PanelSettingsProps> = ({ midiData, ccValues
         </div>
         <ParameterCard
           label="LFO Type"
+          paramId="lfoType"
           param={prettySettings.lfo.type}
-          panelPath="lfo.type"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="LFO Mode"
+          paramId="lfoMode"
           param={prettySettings.lfo.mode}
-          panelPath="lfo.mode"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="LFO Rate"
+          paramId="lfoRate"
           param={prettySettings.lfo.rate}
-          panelPath="lfo.rate"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="LFO Intensity"
+          paramId="lfoIntensity"
           param={prettySettings.lfo.intensity}
-          panelPath="lfo.intensity"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
         <ParameterCard
           label="LFO Target"
+          paramId="lfoTarget"
           param={prettySettings.lfo.target}
-          panelPath="lfo.target"
           ccValuesByParam={ccValuesByParam}
-          discreteParams={discreteParams}
         />
       </div>
     </div>

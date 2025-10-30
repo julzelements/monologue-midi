@@ -315,3 +315,48 @@ export function getSysExOnlyParameters(): Record<string, SysExOnlyParameter> {
   }
   return result;
 }
+
+/**
+ * All CC parameter names as a const object for literal type inference.
+ * Provides a string literal union type for CC names.
+ */
+export const CC_NAMES = {
+  cutoff: "cutoff",
+  resonance: "resonance",
+  ampEgAttack: "ampEgAttack",
+  ampEgDecay: "ampEgDecay",
+  egInt: "egInt",
+  egTarget: "egTarget",
+  egType: "egType",
+  lfoRate: "lfoRate",
+  lfoInt: "lfoInt",
+  lfoTarget: "lfoTarget",
+  lfoWave: "lfoWave",
+  lfoMode: "lfoMode",
+  vco1Pitch: "vco1Pitch",
+  vco1Shape: "vco1Shape",
+  vco1Octave: "vco1Octave",
+  vco1Wave: "vco1Wave",
+  vco1Level: "vco1Level",
+  vco2Pitch: "vco2Pitch",
+  vco2Shape: "vco2Shape",
+  vco2Octave: "vco2Octave",
+  vco2Wave: "vco2Wave",
+  vco2Level: "vco2Level",
+  drive: "drive",
+  syncRing: "syncRing",
+} as const;
+
+/**
+ * Union type of all CC parameter names (e.g., "cutoff" | "resonance" | ...)
+ */
+export type CCName = (typeof CC_NAMES)[keyof typeof CC_NAMES];
+
+/**
+ * Helper function to get a parameter definition by its CC name.
+ * Returns undefined if the CC name doesn't map to a known parameter.
+ */
+export function getParameterByCCName(ccName: string): ParameterDefinition | undefined {
+  const paramId = CC_NAME_TO_PARAMETER[ccName];
+  return paramId ? PARAMETERS[paramId] : undefined;
+}

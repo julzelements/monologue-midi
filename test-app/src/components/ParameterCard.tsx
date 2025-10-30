@@ -1,53 +1,36 @@
 import React from "react";
+import { PARAMETERS, type ParameterId } from "@julzelements/monologue-midi";
 
 interface ParameterCardProps {
   label: string;
+  paramId: ParameterId;
   param: {
     value: number;
     formatted?: string | number;
     name?: string;
   };
-  panelPath: string;
-  ccValuesByParam: Record<string, number>;
-  discreteParams: Record<string, number>;
+  ccValuesByParam: Partial<Record<ParameterId, number>>;
 }
 
-export const ParameterCard: React.FC<ParameterCardProps> = ({
-  label,
-  param,
-  panelPath,
-  ccValuesByParam,
-  discreteParams,
-}) => {
-  // Check if this is a discrete parameter
-  const maxDiscreteValue = discreteParams[panelPath];
-  const isDiscrete = maxDiscreteValue !== undefined;
+export const ParameterCard: React.FC<ParameterCardProps> = ({ label, paramId, param, ccValuesByParam }) => {
+  // Get parameter definition from the package
+  const paramDef = PARAMETERS[paramId];
+  const isDiscrete = paramDef.isDiscrete;
+  const maxValue = paramDef.maxValue;
 
   // Calculate normalized value (0-1) from SysEx data
   let normalizedValue: number;
   if (typeof param.value === "number") {
-    if (isDiscrete) {
-      // For discrete params: divide by max value (e.g., 0-2 becomes 0/2, 1/2, 2/2)
-      normalizedValue = param.value / maxDiscreteValue;
-    } else {
-      // For continuous params: divide by 1023
-      normalizedValue = param.value / 1023;
-    }
+    normalizedValue = param.value / maxValue;
   } else {
     normalizedValue = 0;
   }
 
   // Get CC value if it exists for this parameter
-  const ccValue = ccValuesByParam[panelPath];
+  const ccValue = ccValuesByParam[paramId];
   let normalizedCcValue: number | undefined;
   if (ccValue !== undefined) {
-    if (isDiscrete) {
-      // For discrete params: divide by max value
-      normalizedCcValue = ccValue / maxDiscreteValue;
-    } else {
-      // For continuous params: divide by 1023
-      normalizedCcValue = ccValue / 1023;
-    }
+    normalizedCcValue = ccValue / maxValue;
   }
 
   return (

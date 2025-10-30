@@ -1,62 +1,23 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
-import { decodeMonologueParameters, decodeCC } from "@julzelements/monologue-midi";
+import {
+  decodeMonologueParameters,
+  decodeCC,
+  CC_NAME_TO_PARAMETER,
+  type ParameterId,
+} from "@julzelements/monologue-midi";
 import { WebMidi } from "webmidi";
 import { PanelSettings } from "./components/PanelSettings";
 import { ProgramSettings } from "./components/ProgramSettings";
 import { SequencerSettings } from "./components/SequencerSettings";
 import { SequencerSteps } from "./components/SequencerSteps";
 
-// CC parameter name to panel settings path mapping
-const CC_TO_PANEL_PATH: Record<string, string> = {
-  ampEgAttack: "envelope.attack",
-  ampEgDecay: "envelope.decay",
-  lfoRate: "lfo.rate",
-  egInt: "envelope.intensity",
-  lfoInt: "lfo.intensity",
-  drive: "drive",
-  vco1Pitch: "oscilators.vco1.pitch",
-  vco2Pitch: "oscilators.vco2.pitch",
-  vco1Shape: "oscilators.vco1.shape",
-  vco2Shape: "oscilators.vco2.shape",
-  vco1Level: "oscilators.vco1.level",
-  vco2Level: "oscilators.vco2.level",
-  cutoff: "filter.cutoff",
-  resonance: "filter.resonance",
-  vco1Octave: "oscilators.vco1.octave",
-  vco2Octave: "oscilators.vco2.octave",
-  vco1Wave: "oscilators.vco1.wave",
-  vco2Wave: "oscilators.vco2.wave",
-  lfoTarget: "lfo.target",
-  lfoWave: "lfo.type",
-  lfoMode: "lfo.mode",
-  syncRing: "syncRing",
-  egType: "envelope.type",
-  egTarget: "envelope.target",
-};
-
-// Map of discrete parameters and their max values (for proper normalization)
-const DISCRETE_PARAMS: Record<string, number> = {
-  "oscilators.vco1.octave": 3,
-  "oscilators.vco2.octave": 3,
-  "oscilators.vco1.wave": 2,
-  "oscilators.vco2.wave": 2,
-  "lfo.target": 2,
-  "lfo.type": 2,
-  "lfo.mode": 2,
-  syncRing: 2,
-  "envelope.type": 2,
-  "envelope.target": 2,
-  keyboardOctave: 4,
-  seqTrig: 1,
-};
-
 const App = () => {
   const [midiData, setMidiData] = useState<any>(null);
   const [isWebMidiEnabled, setIsWebMidiEnabled] = useState(false);
   const [isRawDataExpanded, setIsRawDataExpanded] = useState(false);
   const [lastMidiMessage, setLastMidiMessage] = useState<string | null>(null);
-  const [ccValuesByParam, setCcValuesByParam] = useState<Record<string, number>>({});
+  const [ccValuesByParam, setCcValuesByParam] = useState<Partial<Record<ParameterId, number>>>({});
 
   const sampleData = new Uint8Array([
     240, 66, 48, 0, 1, 68, 64, 0, 80, 82, 79, 71, 79, 110, 79, 0, 102, 102, 0, 0, 0, 0, 0, 84, 0, 0, 0, 0, 0, 0, 127,
@@ -152,9 +113,9 @@ const App = () => {
         // Decode CC to parameter name and store value (0-1023)
         const decoded = decodeCC(0xb0, ccNum, ccRawValue);
         if (decoded) {
-          const panelPath = CC_TO_PANEL_PATH[decoded.parameter];
-          if (panelPath) {
-            setCcValuesByParam((prev) => ({ ...prev, [panelPath]: decoded.value }));
+          const paramId = CC_NAME_TO_PARAMETER[decoded.parameter];
+          if (paramId) {
+            setCcValuesByParam((prev) => ({ ...prev, [paramId]: decoded.value }));
           }
         }
 
@@ -223,7 +184,7 @@ const App = () => {
           <h2>Patch: {midiData.patchName}</h2>
 
           {/* Panel Settings Component */}
-          <PanelSettings midiData={midiData} ccValuesByParam={ccValuesByParam} discreteParams={DISCRETE_PARAMS} />
+          <PanelSettings midiData={midiData} ccValuesByParam={ccValuesByParam} />
 
           {/* Program Settings Component */}
           <ProgramSettings programSettings={midiData.programSettings} />
