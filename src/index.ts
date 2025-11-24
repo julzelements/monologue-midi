@@ -3,6 +3,9 @@ export { encodeMonologueParameters, decodeMonologueParameters, type MonologuePar
 // Prettification utilities - convert between numeric values and human-readable labels
 export { prettyPanelSettings } from "./sysex/prettify";
 
+// Validation utilities
+export { validateMonologueParametersWithSchema, validateOrThrow, type ValidationResult } from "./sysex/validator";
+
 // MIDI CC encoding/decoding
 export { decodeCC } from "./midi/decodeCC";
 export { encodeCC } from "./midi/encodeCC";

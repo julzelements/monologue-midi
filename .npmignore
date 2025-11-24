@@ -1,0 +1,23 @@
+# Source files
+src/
+test-app/
+
+# Test files
+*.spec.ts
+*.test.ts
+**/__tests__/
+**/tests/
+
+# Config files
+tsconfig.json
+vitest.config.ts
+.gitignore
+
+# Documentation (if you want to exclude)
+docs/
+
+# Development
+node_modules/
+.vscode/
+.DS_Store
+*.log

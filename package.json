@@ -9,6 +9,14 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julzelements/monologue-midi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/julzelements/monologue-midi/issues"
+  },
+  "homepage": "https://github.com/julzelements/monologue-midi#readme",
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --watch --format esm,cjs --dts",
@@ -16,7 +24,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "capture": "tsx src/sysex/utils/capture.ts"
+    "capture": "tsx src/sysex/utils/capture.ts",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "keywords": [
     "korg",
