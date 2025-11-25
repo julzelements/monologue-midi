@@ -2,19 +2,19 @@
 
 import type { MonologueParameters } from "../types/parameters";
 
-export const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
-export const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
-export const LFO_TYPE_LABELS = ["SQR", "TRI", "SAW"] as const;
-export const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
-export const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
-export const KEYBOARD_OCTAVE_LABELS = ["-2", "-1", "0", "+1", "+2"] as const;
-export const EG_TYPE_LABELS = ["GATE", "A/G/D", "A/D"] as const;
-export const EG_TARGET_LABELS = ["CUTOFF", "PITCH 2", "PITCH"] as const;
-export const LFO_MODE_LABELS = ["1-SHOT", "SLOW", "FAST"] as const;
-export const LFO_TARGET_LABELS = ["CUTOFF", "SHAPE", "PITCH"] as const;
-export const PERCENTAGE_LABELS = ["0%", "33%", "66%", "100%"] as const;
-export const STEP_RESOLUTION_LABELS = ["1/16", "1/8", "1/4", "1/2", "1/1"] as const;
-export const BOOLEAN_LABELS = ["OFF", "ON"] as const;
+const VCO1_WAVE_LABELS = ["SQR", "TRI", "SAW"] as const;
+const VCO2_WAVE_LABELS = ["NOISE", "TRI", "SAW"] as const;
+const LFO_TYPE_LABELS = ["SQR", "TRI", "SAW"] as const;
+const SYNC_RING_LABELS = ["RING", "OFF", "SYNC"] as const;
+const OCTAVE_LABELS = ["16'", "8'", "4'", "2'"] as const;
+const KEYBOARD_OCTAVE_LABELS = ["-2", "-1", "0", "+1", "+2"] as const;
+const EG_TYPE_LABELS = ["GATE", "A/G/D", "A/D"] as const;
+const EG_TARGET_LABELS = ["CUTOFF", "PITCH 2", "PITCH"] as const;
+const LFO_MODE_LABELS = ["1-SHOT", "SLOW", "FAST"] as const;
+const LFO_TARGET_LABELS = ["CUTOFF", "SHAPE", "PITCH"] as const;
+const PERCENTAGE_LABELS = ["0%", "33%", "66%", "100%"] as const;
+const STEP_RESOLUTION_LABELS = ["1/16", "1/8", "1/4", "1/2", "1/1"] as const;
+const BOOLEAN_LABELS = ["OFF", "ON"] as const;
 
 // Slider Assign labels mapped by ID
 const SLIDER_ASSIGN_LABELS: Record<number, string> = {
@@ -66,6 +66,24 @@ const MOTION_PARAM_LABELS: Record<number, string> = {
   40: "PORTAMENT",
   56: "PITCH BEND",
   57: "GATE TIME",
+};
+
+export const LABELS = {
+  VCO1_WAVE_LABELS,
+  VCO2_WAVE_LABELS,
+  LFO_TYPE_LABELS,
+  SYNC_RING_LABELS,
+  OCTAVE_LABELS,
+  KEYBOARD_OCTAVE_LABELS,
+  EG_TYPE_LABELS,
+  EG_TARGET_LABELS,
+  LFO_MODE_LABELS,
+  LFO_TARGET_LABELS,
+  PERCENTAGE_LABELS,
+  STEP_RESOLUTION_LABELS,
+  BOOLEAN_LABELS,
+  SLIDER_ASSIGN_LABELS,
+  MOTION_PARAM_LABELS,
 };
 
 export const prettyPanelSettings = (patch: MonologueParameters) => {

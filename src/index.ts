@@ -1,7 +1,7 @@
 export { encodeMonologueParameters, decodeMonologueParameters, type MonologueParameters } from "./sysex";
 
 // Prettification utilities - convert between numeric values and human-readable labels
-export { prettyPanelSettings } from "./sysex/prettify";
+export { prettyPanelSettings, LABELS } from "./sysex/prettify";
 
 // Validation utilities
 export { validateMonologueParametersWithSchema, validateOrThrow, type ValidationResult } from "./sysex/validator";
