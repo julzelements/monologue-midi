@@ -105,7 +105,7 @@ TABLE 2 : PROGRAM PARAMETER
 |       |  4~5  |         |  LFO INT (bit0~1)                  *note P1 |
 |       |  6~7  |         |  DRIVE (bit0~1)                    *note P1 |
 +-------+-------+---------+---------------------------------------------+
-|  36   |  0~1  |  0~2    |  LFO TYPE                          *note P4 |
+|  36   |  0~1  |  0~2    |  LFO TYPE (called LFO WAVE in CC)  *note P4 |
 |       |  2~3  |  0~2    |  LFO MODE                          *note P9 |
 |       |  4~5  |  0~2    |  LFO TARGET                       *note P10 |
 |       |   6   |         |  SEQ TRIG                      0,1 = Off,On |
