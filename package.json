@@ -24,6 +24,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "test:hardware": "HARDWARE_TESTS=1 vitest run src/midi/tests/ports-hardware.spec.ts",
     "capture": "tsx src/sysex/utils/capture.ts",
     "prepublishOnly": "npm run test && npm run build"
   },
