@@ -10,9 +10,6 @@ export { validateMonologueParametersWithSchema, validateOrThrow, type Validation
 export { decodeCC } from "./midi/decodeCC";
 export { encodeCC } from "./midi/encodeCC";
 
-// MIDI port discovery
-export { getInputs, getOutputs, findMonologue, type MonologuePorts } from "./midi/ports";
-
 // Parameter definitions and utilities
 export {
   PARAMETERS,

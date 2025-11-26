@@ -12,9 +12,9 @@ npm install @julzelements/monologue-midi
 
 - ✅ **SysEx encoding/decoding** - Full program dump support
 - ✅ **MIDI CC encoding/decoding** - Control panel parameters via MIDI CC
-- ✅ **MIDI port discovery** - Find and connect to your Monologue
 - ✅ **Type-safe parameter definitions** - Complete TypeScript types for all parameters
 - ✅ **Human-readable formatting** - Convert numeric values to meaningful labels
+- ✅ **Platform agnostic** - Pure data transformation, works in Node.js and browsers
 
 ## Quick Start
 
@@ -43,47 +43,59 @@ const ccMessage = encodeCC("cutoff", 512);
 const value = decodeCC("cutoff", 64); // returns 512
 ```
 
-## MIDI Port Discovery
+## MIDI I/O Integration
 
-Find and connect to your Monologue using the built-in port discovery:
+This library focuses on data transformation. For MIDI communication, use your platform's MIDI library:
+
+### Node.js
 
 ```typescript
-import { findMonologue, getInputs, getOutputs } from "@julzelements/monologue-midi";
+import { decodeMonologueParameters, encodeMonologueParameters } from "@julzelements/monologue-midi";
 import * as easymidi from "easymidi";
 
-// Auto-detect Monologue ports
-const ports = findMonologue();
+// Find Monologue port
+const inputs = easymidi.getInputs();
+const monologuePort = inputs.find((name) => /monologue/i.test(name));
 
-if (ports.input) {
-  const input = new easymidi.Input(ports.input);
+// Listen for SysEx dumps
+const input = new easymidi.Input(monologuePort);
+input.on("sysex", (msg) => {
+  const parameters = decodeMonologueParameters(msg.bytes);
+  console.log("Received patch:", parameters.patchName);
+});
 
-  // Listen for SysEx dumps from hardware
-  input.on("sysex", (msg) => {
-    const parameters = decodeMonologueParameters(msg.bytes);
+// Send SysEx to hardware
+const output = new easymidi.Output(monologuePort);
+const sysex = encodeMonologueParameters(myPatch);
+output.send("sysex", Array.from(sysex));
+```
+
+### Browser
+
+```typescript
+import { decodeMonologueParameters, encodeMonologueParameters } from "@julzelements/monologue-midi";
+
+// Request MIDI access
+const midiAccess = await navigator.requestMIDIAccess({ sysex: true });
+
+// Find Monologue input
+const inputs = Array.from(midiAccess.inputs.values());
+const monologueInput = inputs.find((input) => /monologue/i.test(input.name));
+
+// Listen for SysEx
+monologueInput.onmidimessage = (event) => {
+  if (event.data[0] === 0xf0) {
+    // SysEx message
+    const parameters = decodeMonologueParameters(event.data);
     console.log("Received patch:", parameters.patchName);
-  });
+  }
+};
 
-  // Listen for CC changes
-  input.on("cc", (msg) => {
-    console.log(`CC#${msg.controller}: ${msg.value}`);
-  });
-}
-
-if (ports.output) {
-  const output = new easymidi.Output(ports.output);
-
-  // Send SysEx to hardware
-  const sysex = encodeMonologueParameters(myPatch);
-  output.send("sysex", Array.from(sysex));
-
-  // Send CC message
-  const ccMsg = encodeCC("cutoff", 512);
-  output.send("cc", ccMsg);
-}
-
-// Or list all available ports
-const allInputs = getInputs();
-const allOutputs = getOutputs();
+// Send SysEx to hardware
+const outputs = Array.from(midiAccess.outputs.values());
+const monologueOutput = outputs.find((output) => /monologue/i.test(output.name));
+const sysex = encodeMonologueParameters(myPatch);
+monologueOutput.send(sysex);
 ```
 
 ## Parameter Access
