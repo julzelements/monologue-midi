@@ -7,6 +7,7 @@ Priority features for extending the monologue-midi library while maintaining pla
 **Goal:** Provide utilities to discover and connect to Korg Monologue hardware
 
 ### Tasks
+
 - [ ] Create `src/midi/port-manager.ts`
 - [ ] Implement `listMIDIPorts()` - enumerate available inputs/outputs
 - [ ] Implement `findMonologuePorts()` - auto-detect by device name pattern
@@ -17,6 +18,7 @@ Priority features for extending the monologue-midi library while maintaining pla
 - [ ] Document usage examples
 
 ### API Design
+
 ```typescript
 // List all available ports
 const ports = await listMIDIPorts();
@@ -35,6 +37,7 @@ const connection = await openPort(monologue.output);
 **Goal:** Utility functions for working with parameters in any UI framework
 
 ### Tasks
+
 - [ ] Create `src/parameters/helpers.ts`
 - [ ] Implement `normalizeValue(paramId, floatValue)` - convert 0-1 to parameter range
 - [ ] Implement `denormalizeValue(paramId, rawValue)` - convert parameter value to 0-1
@@ -46,15 +49,18 @@ const connection = await openPort(monologue.output);
 - [ ] Add usage examples to README
 
 ### API Design
+
 ```typescript
 // Normalize slider value (0-1) to parameter range
-const cutoffValue = normalizeValue('filterCutoff', 0.75); // 767
+const cutoffValue = normalizeValue("filterCutoff", 0.75); // 767
 
 // Get all filter parameters
-const filterParams = getParametersByCategory('filter');
+const filterParams = getParametersByCategory("filter");
 
 // Validate before setting
-if (isValidValue('vco1Octave', 5)) { /* ... */ }
+if (isValidValue("vco1Octave", 5)) {
+  /* ... */
+}
 ```
 
 ---
@@ -64,6 +70,7 @@ if (isValidValue('vco1Octave', 5)) { /* ... */ }
 **Goal:** Analyze and compare patches for editors and patch management tools
 
 ### Tasks
+
 - [ ] Create `src/sysex/diff.ts`
 - [ ] Implement `diffPatches(patchA, patchB)` - return differences
 - [ ] Implement `getPatchSummary(patch)` - key characteristics
@@ -75,6 +82,7 @@ if (isValidValue('vco1Octave', 5)) { /* ... */ }
 - [ ] Document use cases
 
 ### API Design
+
 ```typescript
 // Compare two patches
 const diff = diffPatches(patch1, patch2);
@@ -94,6 +102,7 @@ const morphed = interpolatePatches(patch1, patch2, 0.5); // 50% blend
 **Goal:** Generate creative patches with optional constraints
 
 ### Tasks
+
 - [ ] Create `src/sysex/random.ts`
 - [ ] Implement `generateRandomPatch(constraints?)` - full random patch
 - [ ] Implement `randomizeSection(patch, section)` - randomize specific section
@@ -105,19 +114,20 @@ const morphed = interpolatePatches(patch1, patch2, 0.5); // 50% blend
 - [ ] Add examples and documentation
 
 ### API Design
+
 ```typescript
 // Fully random patch
 const random = generateRandomPatch();
 
 // Random with constraints
 const bass = generateRandomPatch({
-  vco1Octave: 0,          // Fix octave
+  vco1Octave: 0, // Fix octave
   filterCutoff: [0, 512], // Limit range
-  category: 'bass'        // Use bass-friendly weights
+  category: "bass", // Use bass-friendly weights
 });
 
 // Randomize just the filter
-const modified = randomizeSection(myPatch, 'filter');
+const modified = randomizeSection(myPatch, "filter");
 
 // Slight variation
 const variant = mutate(myPatch, 0.1); // 10% mutation
@@ -130,6 +140,7 @@ const variant = mutate(myPatch, 0.1); // 10% mutation
 **Goal:** Handle multiple patches for patch management and archival
 
 ### Tasks
+
 - [ ] Create `src/sysex/bulk.ts`
 - [ ] Implement `exportPatchesAsJSON(patches, filepath?)` - save multiple patches
 - [ ] Implement `importPatchesFromJSON(filepath)` - load patch library
@@ -142,12 +153,13 @@ const variant = mutate(myPatch, 0.1); // 10% mutation
 - [ ] Document format specifications
 
 ### API Design
+
 ```typescript
 // Export patch collection
-await exportPatchesAsJSON(myPatches, 'my-library.json');
+await exportPatchesAsJSON(myPatches, "my-library.json");
 
 // Import library
-const library = await importPatchesFromJSON('my-library.json');
+const library = await importPatchesFromJSON("my-library.json");
 
 // Share as URL
 const url = exportPatchAsURL(patch);
@@ -164,6 +176,7 @@ const description = exportPatchAsText(patch);
 **Goal:** Listen for and react to MIDI messages from the Monologue
 
 ### Tasks
+
 - [ ] Create `src/midi/monitor.ts`
 - [ ] Implement event-based MIDI listener (callback pattern)
 - [ ] Handle incoming SysEx dumps
@@ -177,22 +190,23 @@ const description = exportPatchAsText(patch);
 - [ ] Document integration patterns
 
 ### API Design
+
 ```typescript
 // Callback pattern
 const monitor = createMIDIMonitor(inputPort);
 
-monitor.on('sysex', (dump) => {
+monitor.on("sysex", (dump) => {
   const params = decodeMonologueParameters(dump);
-  console.log('Received patch:', params);
+  console.log("Received patch:", params);
 });
 
-monitor.on('cc', (ccNumber, value) => {
+monitor.on("cc", (ccNumber, value) => {
   console.log(`CC${ccNumber}: ${value}`);
 });
 
 // Observable pattern (for reactive programming)
 const observable = createMIDIObservable(inputPort);
-observable.filter(msg => msg.type === 'cc').subscribe(handleCC);
+observable.filter((msg) => msg.type === "cc").subscribe(handleCC);
 ```
 
 ---
