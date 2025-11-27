@@ -102,7 +102,7 @@ export const PARAMETERS = {
   },
   envelopeIntensity: {
     key: "envelope.intensity",
-    ccNumber: 19,
+    ccNumber: 25,
     ccName: "egInt",
     getter: (s) => s.envelope.intensity,
     isDiscrete: false,
@@ -110,7 +110,7 @@ export const PARAMETERS = {
   },
   envelopeTarget: {
     key: "envelope.target",
-    ccNumber: 55,
+    ccNumber: 62,
     ccName: "egTarget",
     getter: (s) => s.envelope.target,
     isDiscrete: true,
@@ -118,7 +118,7 @@ export const PARAMETERS = {
   },
   envelopeType: {
     key: "envelope.type",
-    ccNumber: 54,
+    ccNumber: 61,
     ccName: "egType",
     getter: (s) => s.envelope.type,
     isDiscrete: true,
@@ -128,7 +128,7 @@ export const PARAMETERS = {
   // LFO (CC controllable)
   lfoRate: {
     key: "lfo.rate",
-    ccNumber: 18,
+    ccNumber: 24,
     ccName: "lfoRate",
     getter: (s) => s.lfo.rate,
     isDiscrete: false,
@@ -136,7 +136,7 @@ export const PARAMETERS = {
   },
   lfoIntensity: {
     key: "lfo.intensity",
-    ccNumber: 20,
+    ccNumber: 26,
     ccName: "lfoInt",
     getter: (s) => s.lfo.intensity,
     isDiscrete: false,
@@ -144,7 +144,7 @@ export const PARAMETERS = {
   },
   lfoTarget: {
     key: "lfo.target",
-    ccNumber: 51,
+    ccNumber: 56,
     ccName: "lfoTarget",
     getter: (s) => s.lfo.target,
     isDiscrete: true,
@@ -152,7 +152,7 @@ export const PARAMETERS = {
   },
   lfoType: {
     key: "lfo.type",
-    ccNumber: 52,
+    ccNumber: 58,
     ccName: "lfoWave",
     getter: (s) => s.lfo.type,
     isDiscrete: true,
@@ -160,7 +160,7 @@ export const PARAMETERS = {
   },
   lfoMode: {
     key: "lfo.mode",
-    ccNumber: 53,
+    ccNumber: 59,
     ccName: "lfoMode",
     getter: (s) => s.lfo.mode,
     isDiscrete: true,
@@ -170,7 +170,7 @@ export const PARAMETERS = {
   // VCO1 (CC controllable)
   vco1Pitch: {
     key: "oscilators.vco1.pitch",
-    ccNumber: 45,
+    ccNumber: 34,
     ccName: "vco1Pitch",
     getter: (s) => s.oscilators.vco1.pitch,
     isDiscrete: false,
@@ -178,7 +178,7 @@ export const PARAMETERS = {
   },
   vco1Shape: {
     key: "oscilators.vco1.shape",
-    ccNumber: 47,
+    ccNumber: 36,
     ccName: "vco1Shape",
     getter: (s) => s.oscilators.vco1.shape,
     isDiscrete: false,
@@ -202,7 +202,7 @@ export const PARAMETERS = {
   },
   vco1Level: {
     key: "oscilators.vco1.level",
-    ccNumber: 49,
+    ccNumber: 39,
     ccName: "vco1Level",
     getter: (s) => s.oscilators.vco1.level,
     isDiscrete: false,
@@ -212,7 +212,7 @@ export const PARAMETERS = {
   // VCO2 (CC controllable)
   vco2Pitch: {
     key: "oscilators.vco2.pitch",
-    ccNumber: 39,
+    ccNumber: 35,
     ccName: "vco2Pitch",
     getter: (s) => s.oscilators.vco2.pitch,
     isDiscrete: false,
@@ -220,7 +220,7 @@ export const PARAMETERS = {
   },
   vco2Shape: {
     key: "oscilators.vco2.shape",
-    ccNumber: 41,
+    ccNumber: 37,
     ccName: "vco2Shape",
     getter: (s) => s.oscilators.vco2.shape,
     isDiscrete: false,
@@ -228,7 +228,7 @@ export const PARAMETERS = {
   },
   vco2Octave: {
     key: "oscilators.vco2.octave",
-    ccNumber: 42,
+    ccNumber: 49,
     ccName: "vco2Octave",
     getter: (s) => s.oscilators.vco2.octave,
     isDiscrete: true,
@@ -236,7 +236,7 @@ export const PARAMETERS = {
   },
   vco2Wave: {
     key: "oscilators.vco2.wave",
-    ccNumber: 40,
+    ccNumber: 51,
     ccName: "vco2Wave",
     getter: (s) => s.oscilators.vco2.wave,
     isDiscrete: true,
@@ -244,7 +244,7 @@ export const PARAMETERS = {
   },
   vco2Level: {
     key: "oscilators.vco2.level",
-    ccNumber: 38,
+    ccNumber: 40,
     ccName: "vco2Level",
     getter: (s) => s.oscilators.vco2.level,
     isDiscrete: false,
@@ -254,7 +254,7 @@ export const PARAMETERS = {
   // Other CC parameters
   drive: {
     key: "drive",
-    ccNumber: 21,
+    ccNumber: 28,
     ccName: "drive",
     getter: (s) => s.drive,
     isDiscrete: false,
@@ -262,7 +262,7 @@ export const PARAMETERS = {
   },
   syncRing: {
     key: "syncRing",
-    ccNumber: 56,
+    ccNumber: 60,
     ccName: "syncRing",
     getter: (s) => s.syncRing,
     isDiscrete: true,
