@@ -33,6 +33,5 @@ export {
   getParameterRange,
   isValidValue,
   clampValue,
-  getParameterDisplayName,
   type ParameterRange,
 } from "./parameters/helpers";

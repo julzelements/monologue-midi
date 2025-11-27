@@ -1,12 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  normalizeValue,
-  denormalizeValue,
-  getParameterRange,
-  isValidValue,
-  clampValue,
-  getParameterDisplayName,
-} from "../helpers";
+import { normalizeValue, denormalizeValue, getParameterRange, isValidValue, clampValue } from "../helpers";
 
 describe("Parameter Helpers", () => {
   describe("normalizeValue", () => {
@@ -134,40 +127,6 @@ describe("Parameter Helpers", () => {
     it("should round continuous parameters", () => {
       expect(clampValue("filterCutoff", 512.6)).toBe(513);
       expect(clampValue("filterCutoff", 512.4)).toBe(512);
-    });
-  });
-
-  describe("getParameterDisplayName", () => {
-    it("should convert filter parameters", () => {
-      expect(getParameterDisplayName("filterCutoff")).toBe("Filter Cutoff");
-      expect(getParameterDisplayName("filterResonance")).toBe("Filter Resonance");
-    });
-
-    it("should convert envelope parameters", () => {
-      expect(getParameterDisplayName("envelopeAttack")).toBe("Envelope Attack");
-      expect(getParameterDisplayName("envelopeDecay")).toBe("Envelope Decay");
-      expect(getParameterDisplayName("envelopeIntensity")).toBe("Envelope Intensity");
-    });
-
-    it("should handle VCO parameters with uppercase", () => {
-      expect(getParameterDisplayName("vco1Pitch")).toBe("Oscilators VCO1 Pitch");
-      expect(getParameterDisplayName("vco1Shape")).toBe("Oscilators VCO1 Shape");
-      expect(getParameterDisplayName("vco2Level")).toBe("Oscilators VCO2 Level");
-    });
-
-    it("should handle LFO parameters", () => {
-      expect(getParameterDisplayName("lfoRate")).toBe("LFO Rate");
-      expect(getParameterDisplayName("lfoIntensity")).toBe("LFO Intensity");
-    });
-
-    it("should handle single-word parameters", () => {
-      expect(getParameterDisplayName("drive")).toBe("Drive");
-      expect(getParameterDisplayName("syncRing")).toBe("Sync Ring");
-    });
-
-    it("should handle nested paths", () => {
-      expect(getParameterDisplayName("vco1Octave")).toContain("VCO1");
-      expect(getParameterDisplayName("envelopeTarget")).toBe("Envelope Target");
     });
   });
 

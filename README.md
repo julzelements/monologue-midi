@@ -123,14 +123,13 @@ import {
   getParameterRange,
   isValidValue,
   clampValue,
-  getParameterDisplayName,
 } from "@julzelements/monologue-midi";
 
-// Convert UI slider value (0-1) to parameter value
+// Convert UI control value (0-1) to parameter value
 const cutoffValue = normalizeValue("filterCutoff", 0.75); // 767
 
 // Convert parameter value back to 0-1 for UI
-const sliderValue = denormalizeValue("filterCutoff", 512); // ~0.5
+const controlValue = denormalizeValue("filterCutoff", 512); // ~0.5
 
 // Get parameter range information
 const range = getParameterRange("filterCutoff");
