@@ -1,6 +1,6 @@
 {
   "name": "@julzelements/monologue-midi",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "SysEx and MIDI CC encoder/decoder for the Korg Monologue",
   "type": "module",
   "main": "./dist/index.js",
