@@ -5,6 +5,7 @@ import {
   decodeCC,
   CC_NAME_TO_PARAMETER,
   type ParameterId,
+  monologueConnectionStrings,
 } from "@julzelements/monologue-midi";
 import { WebMidi } from "webmidi";
 import { PanelSettings } from "./components/PanelSettings";
@@ -95,8 +96,8 @@ const App = () => {
   function onEnabled() {
     setIsWebMidiEnabled(true);
 
-    const myInput = WebMidi.getInputByName(`monologue KBD/KNOB`);
-    const myOutput = WebMidi.getOutputByName(`monologue SOUND`);
+    const myInput = WebMidi.getInputByName(monologueConnectionStrings.input);
+    const myOutput = WebMidi.getOutputByName(monologueConnectionStrings.output);
 
     if (myInput) {
       myInput.addListener("noteon", (e) => {
