@@ -2,37 +2,7 @@
 
 Priority features for extending the monologue-midi library while maintaining platform-agnostic design.
 
-## 1. MIDI Port Management
-
-**Goal:** Provide utilities to discover and connect to Korg Monologue hardware
-
-### Tasks
-
-- [ ] Create `src/midi/port-manager.ts`
-- [ ] Implement `listMIDIPorts()` - enumerate available inputs/outputs
-- [ ] Implement `findMonologuePorts()` - auto-detect by device name pattern
-- [ ] Implement `openPort()` / `closePort()` - connection management
-- [ ] Add connection state tracking
-- [ ] Handle port disconnection/reconnection events
-- [ ] Write tests for port discovery
-- [ ] Document usage examples
-
-### API Design
-
-```typescript
-// List all available ports
-const ports = await listMIDIPorts();
-
-// Auto-detect Monologue
-const monologue = await findMonologuePorts();
-
-// Open connection
-const connection = await openPort(monologue.output);
-```
-
----
-
-## 2. Parameter Helpers
+## 1. Parameter Helpers
 
 **Goal:** Utility functions for working with parameters in any UI framework
 
@@ -42,9 +12,9 @@ const connection = await openPort(monologue.output);
 - [ ] Implement `normalizeValue(paramId, floatValue)` - convert 0-1 to parameter range
 - [ ] Implement `denormalizeValue(paramId, rawValue)` - convert parameter value to 0-1
 - [ ] Implement `getParameterRange(paramId)` - return min/max metadata
-- [ ] Implement `getParametersByCategory()` - group by oscillator/filter/envelope/etc
-- [ ] Implement `getModulationTargets()` - list valid LFO/EG targets
 - [ ] Implement `isValidValue(paramId, value)` - validation helper
+- [ ] Implement `clampValue(paramId, value)` - constrain to valid range
+- [ ] Implement `getParameterDisplayName(paramId)` - convert "filterCutoff" → "Filter Cutoff"
 - [ ] Write comprehensive tests
 - [ ] Add usage examples to README
 
@@ -54,18 +24,25 @@ const connection = await openPort(monologue.output);
 // Normalize slider value (0-1) to parameter range
 const cutoffValue = normalizeValue("filterCutoff", 0.75); // 767
 
-// Get all filter parameters
-const filterParams = getParametersByCategory("filter");
+// Denormalize raw value to 0-1 range
+const normalized = denormalizeValue("filterCutoff", 512); // 0.5
 
-// Validate before setting
+// Get parameter range
+const range = getParameterRange("filterCutoff"); // { min: 0, max: 1023, isDiscrete: false }
+
+// Validate and clamp values
 if (isValidValue("vco1Octave", 5)) {
   /* ... */
 }
+const safe = clampValue("vco1Octave", 5); // 3 (max value)
+
+// Get display name for UI
+const name = getParameterDisplayName("filterCutoff"); // "Filter Cutoff"
 ```
 
 ---
 
-## 3. Patch Diff/Compare
+## 2. Patch Diff/Compare
 
 **Goal:** Analyze and compare patches for editors and patch management tools
 
@@ -97,7 +74,7 @@ const morphed = interpolatePatches(patch1, patch2, 0.5); // 50% blend
 
 ---
 
-## 4. Random Patch Generator
+## 3. Random Patch Generator
 
 **Goal:** Generate creative patches with optional constraints
 
@@ -135,7 +112,7 @@ const variant = mutate(myPatch, 0.1); // 10% mutation
 
 ---
 
-## 5. Bulk Import/Export
+## 4. Bulk Import/Export
 
 **Goal:** Handle multiple patches for patch management and archival
 
@@ -171,54 +148,12 @@ const description = exportPatchAsText(patch);
 
 ---
 
-## 6. Real-time MIDI Monitoring
-
-**Goal:** Listen for and react to MIDI messages from the Monologue
-
-### Tasks
-
-- [ ] Create `src/midi/monitor.ts`
-- [ ] Implement event-based MIDI listener (callback pattern)
-- [ ] Handle incoming SysEx dumps
-- [ ] Handle CC changes
-- [ ] Handle program changes
-- [ ] Implement `createMIDIObservable()` - for RxJS-style integration
-- [ ] Add message filtering (by type, channel, etc.)
-- [ ] Implement message buffering for batch processing
-- [ ] Add timestamp metadata
-- [ ] Write tests with mock MIDI streams
-- [ ] Document integration patterns
-
-### API Design
-
-```typescript
-// Callback pattern
-const monitor = createMIDIMonitor(inputPort);
-
-monitor.on("sysex", (dump) => {
-  const params = decodeMonologueParameters(dump);
-  console.log("Received patch:", params);
-});
-
-monitor.on("cc", (ccNumber, value) => {
-  console.log(`CC${ccNumber}: ${value}`);
-});
-
-// Observable pattern (for reactive programming)
-const observable = createMIDIObservable(inputPort);
-observable.filter((msg) => msg.type === "cc").subscribe(handleCC);
-```
-
----
-
 ## Implementation Order
 
 1. **Parameter Helpers** - Foundation for other features, no external dependencies
-2. **MIDI Port Management** - Required for monitoring and real-time features
-3. **Patch Diff/Compare** - Pure data transformations, useful immediately
-4. **Random Patch Generator** - Fun feature, depends on parameter helpers
-5. **Real-time MIDI Monitoring** - Depends on port management
-6. **Bulk Import/Export** - Builds on existing encode/decode functionality
+2. **Patch Diff/Compare** - Pure data transformations, useful immediately
+3. **Random Patch Generator** - Fun feature, depends on parameter helpers
+4. **Bulk Import/Export** - Builds on existing encode/decode functionality
 
 ---
 
