@@ -12,6 +12,7 @@ npm install @julzelements/monologue-midi
 
 - ✅ **SysEx encoding/decoding** - Full program dump support
 - ✅ **MIDI CC encoding/decoding** - Control panel parameters via MIDI CC
+- ✅ **Parameter helpers** - Utilities for UI integration (normalize, validate, display names)
 - ✅ **Type-safe parameter definitions** - Complete TypeScript types for all parameters
 - ✅ **Human-readable formatting** - Convert numeric values to meaningful labels
 - ✅ **Platform agnostic** - Pure data transformation, works in Node.js and browsers
@@ -110,6 +111,49 @@ if (isCCParameter(PARAMETERS.filterCutoff)) {
   console.log(`CC#${PARAMETERS.filterCutoff.ccNumber}`); // CC#43
 }
 ```
+
+## Parameter Helpers
+
+Utility functions for working with parameters in any UI framework:
+
+```typescript
+import {
+  normalizeValue,
+  denormalizeValue,
+  getParameterRange,
+  isValidValue,
+  clampValue,
+  getParameterDisplayName,
+} from "@julzelements/monologue-midi";
+
+// Convert UI slider value (0-1) to parameter value
+const cutoffValue = normalizeValue("filterCutoff", 0.75); // 767
+
+// Convert parameter value back to 0-1 for UI
+const sliderValue = denormalizeValue("filterCutoff", 512); // ~0.5
+
+// Get parameter range information
+const range = getParameterRange("filterCutoff");
+// { min: 0, max: 1023, isDiscrete: false }
+
+// Validate a value is in range
+if (isValidValue("vco1Octave", 2)) {
+  // Value is valid
+}
+
+// Clamp out-of-range values
+const safe = clampValue("filterCutoff", 2000); // 1023
+
+// Get display name for UI labels
+const label = getParameterDisplayName("filterCutoff"); // "Filter Cutoff"
+```
+
+These helpers are particularly useful for:
+
+- Building parameter controls (sliders, knobs, dropdowns)
+- Validating user input
+- Displaying parameter names and values
+- Converting between UI ranges and MIDI values
 
 ## Data Structure
 

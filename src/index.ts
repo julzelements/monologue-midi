@@ -25,3 +25,14 @@ export {
   type CCName,
   type SequencerStep,
 } from "./types";
+
+// Parameter helper functions
+export {
+  normalizeValue,
+  denormalizeValue,
+  getParameterRange,
+  isValidValue,
+  clampValue,
+  getParameterDisplayName,
+  type ParameterRange,
+} from "./parameters/helpers";
