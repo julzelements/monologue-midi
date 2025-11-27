@@ -35,3 +35,6 @@ export {
   clampValue,
   type ParameterRange,
 } from "./parameters/helpers";
+
+// Monologue connection strings
+export { monologueConnectionStrings } from "./types/korgConstants";
